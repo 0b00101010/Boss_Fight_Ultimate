@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: b426b77a870d649d69c3579617d069c9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - rainDrop: {fileID: 3663656402349658565, guid: 32a9bc491b7de4b36b3a9ce5dae5d1e1,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
