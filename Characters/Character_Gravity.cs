@@ -38,8 +38,8 @@ public class Character_Gravity : Character
 
     public override void UnSpecialAbility()
     {
-        ability.Exit();
         base.UnSpecialAbility();
+        ability.Exit();
         // 능력 비활성화 스프라이트 변경
     }
 
