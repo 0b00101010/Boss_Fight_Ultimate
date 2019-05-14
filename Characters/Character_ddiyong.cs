@@ -8,32 +8,41 @@ public class Character_ddiyong : Character
     private float char_Speed;
     private int char_Hp;
     private int char_Energy;
-    private float PlusSpeed;
     private int char_AbilityPrice;
     private int char_JumpForce;
+    private Run ability;
     // Start is called before the first frame update
     private void Start()
     {
+        ability.Init();
         char_Speed = 7.0f;
         char_Hp = 1000;
         char_Energy = 100;
-        PlusSpeed =(char_Speed / 40) * 100;
         char_AbilityPrice = 20;
         char_JumpForce = 5;
-        Init(char_Speed,char_Hp,char_Energy, char_AbilityPrice, char_JumpForce);  
+        IDInit(1, 2, 2);
+        StatInit(char_Speed,char_Hp,char_Energy, char_AbilityPrice, char_JumpForce);
+        RankInit(0,2,3);
     }
 
     public override void SpecialAbility()
     {
+        if (!IsUseAbility)
+        {
+            ability.Enter();
+        }
+        else
+        {
+            ability.Excute();
+        }
+
         base.SpecialAbility();
-        base.Speed += PlusSpeed;
     }
 
     public override void UnSpecialAbility()
     {
         base.UnSpecialAbility();
-        base.Speed -= PlusSpeed;
-
+        ability.Exit();
     }
 
     private void FixedUpdate()

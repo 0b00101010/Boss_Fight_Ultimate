@@ -94,6 +94,7 @@ public class StageManager : MonoBehaviour
     private void CreateCharacter()
     {
         _char = Instantiate(GameManager.instance.nowGameCharacter,new Vector2(0f,0f),Quaternion.identity).GetComponent<Character>();
+        _char.tag = "Character";
         gameChar = _char.GetComponent<ICharacter>();
     }
 

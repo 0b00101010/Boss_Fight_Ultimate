@@ -18,7 +18,7 @@ public class StageSelectManager : MonoBehaviour
         curStage = stages[curStageNumber];
         curStage.gameObject.transform.localScale += new Vector3(.4f, .4f, .4f);
     }
-
+    
     private IEnumerator BlackOut()
     {
         SpriteRenderer blackspriteRenderer = blackBackground.GetComponent<SpriteRenderer>();

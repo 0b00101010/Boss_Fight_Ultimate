@@ -5,7 +5,7 @@ using UnityEngine;
 public class Achievements : MonoBehaviour
 {
     private bool isUnLock = false;
-    private string name;
+    private new string name;
 
     public bool IsUnLock { get => isUnLock; set => isUnLock = value; }
     public string Name { get => name; set => name = value; }
