@@ -10,13 +10,13 @@ public class Character_ddiyong : Character
     private int char_Energy;
     private int char_AbilityPrice;
     private int char_JumpForce;
-    private Run ability;
+    private Run ability = new Run();
     // Start is called before the first frame update
     private void Start()
     {
         ability.Init();
         char_Speed = 7.0f;
-        char_Hp = 1000;
+        char_Hp = 10;
         char_Energy = 100;
         char_AbilityPrice = 20;
         char_JumpForce = 5;

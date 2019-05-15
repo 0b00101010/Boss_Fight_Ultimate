@@ -9,7 +9,7 @@ public class ResultSceneManager : MonoBehaviour
     private TextAsset BestScoreFile;
 
     [SerializeField]
-    private Image backGround;
+    private SpriteRenderer backGround;
 
     public Sprite[] ranks;
     public Sprite[] survivedResult;
@@ -31,9 +31,9 @@ public class ResultSceneManager : MonoBehaviour
         string  str = BestScoreFile.text;
         string[] BestScoreText = str.Split(';');
 
+        Debug.Log(BestScoreText[1]);
 
-
-        if (score > int.Parse(BestScoreText[1]))
+        if (score > float.Parse(BestScoreText[1]))
             CreateNewScoreFile();
     }
     private void Start()
