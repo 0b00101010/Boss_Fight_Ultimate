@@ -5,32 +5,55 @@ using UnityEngine;
 public class CharacterSelectManager : MonoBehaviour
 {
     [SerializeField]
-    private List<CharaterSlot> charactersSlot = new List<CharaterSlot>();
+    private List<CharacterSlot> charactersSlot = new List<CharacterSlot>();
     [SerializeField]
     private List<GameObject> characters = new List<GameObject>();
-    private CharaterSlot selectSlot;
+    private CharacterSlot selectSlot;
     [SerializeField]
     private Sprite[] slotSprites;
 
     private IObserver observer;
 
-    //0 기본 1 선택 2 잠김
+    // 0 잠김 1 기본 2 선택 
+    // 3 기본 4 선택 레어 
+    // 5 기본 6 선택 유니크
     private void Start()
     {
-        foreach (CharaterSlot slot in charactersSlot)
+        foreach (CharacterSlot slot in charactersSlot)
         {
             if (slot.UnLock)
-                slot.GetComponent<SpriteRenderer>().sprite = slotSprites[0];
-            else
-                slot.GetComponent<SpriteRenderer>().sprite = slotSprites[2];
-
-            if (slot.GetCharacter().Equals(GameManager.instance.nowGameCharacter))
             {
-                selectSlot = slot;
-                selectSlot.GetComponent<SpriteRenderer>().sprite = slotSprites[1];
+                SpriteRenderer slotSpriteRenderer = slot.GetComponent<SpriteRenderer>();
+                Character slotCharacter = slot.GetCharacter().GetComponent<Character>();
+                switch (slotCharacter.Rank) {
+                    case 0:
+                        slotSpriteRenderer.sprite = slotSprites[1];
+                        slot.SpriteNumber = 1;
+                        break;
+                    case 1:
+                        slotSpriteRenderer.sprite = slotSprites[3];
+                        slot.SpriteNumber = 3;
+                        break;
+                    case 2:
+                        slotSpriteRenderer.sprite = slotSprites[5];
+                        slot.SpriteNumber = 5;
+                        break;
+                }
+            }
+            else
+            {
+                slot.GetComponent<SpriteRenderer>().sprite = slotSprites[0];
             }
         }
-       //charactersSlot[characters.IndexOf(GameManager.instance.nowGameCharacter)].GetComponent<SpriteRenderer>().sprite = slotSprites[1];
+        //charactersSlot[characters.IndexOf(GameManager.instance.nowGameCharacter)].GetComponent<SpriteRenderer>().sprite = slotSprites[1];
+        foreach (CharacterSlot slot in charactersSlot)
+        {
+            if (slot.GetCharacter().Equals(GameManager.instance.nowGameCharacter))
+            {
+                slot.GetComponent<SpriteRenderer>().sprite = slotSprites[slot.SpriteNumber += 1];
+                selectSlot = slot;
+            }
+        }
     }
 
     private void Update() { 
@@ -43,10 +66,14 @@ public class CharacterSelectManager : MonoBehaviour
             Vector2 pos = Camera.main.ScreenToWorldPoint(GameManager.instance.touchManager.GetPosition());
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0.0f);
 
-            if(hit.collider.gameObject.CompareTag("Slot"))
+            if(hit.collider.gameObject.CompareTag("Slot") && hit.collider.gameObject.GetComponent<CharacterSlot>().UnLock)
             {
                 Debug.Log(hit.collider.name);
-                selectSlot = hit.collider.gameObject.GetComponent<CharaterSlot>();
+                selectSlot.GetComponent<SpriteRenderer>().sprite = slotSprites[selectSlot.SpriteNumber -= 1];
+                selectSlot = hit.collider.gameObject.GetComponent<CharacterSlot>();
+                selectSlot.GetComponent<SpriteRenderer>().sprite = slotSprites[selectSlot.SpriteNumber += 1];
+
+                SelectCharacter();
             }
 
         }
@@ -55,13 +82,13 @@ public class CharacterSelectManager : MonoBehaviour
     private void MoveCharacterSlots() {
         if (GameManager.instance.touchManager.SwipeDirection.x < 0 && charactersSlot[charactersSlot.Count].transform.position.x > 6.0f)
         {
-            foreach (CharaterSlot characterSlot in charactersSlot)
+            foreach (CharacterSlot characterSlot in charactersSlot)
             {
                 characterSlot.gameObject.transform.Translate(new Vector2(-2.0f, 0.0f));
             }
         }
         else if (GameManager.instance.touchManager.SwipeDirection.x > 0 && charactersSlot[0].transform.position.x < -6.0f){
-            foreach (CharaterSlot characterSlot in charactersSlot) {
+            foreach (CharacterSlot characterSlot in charactersSlot) {
                 characterSlot.gameObject.transform.Translate(new Vector2(2.0f, 0.0f));
             }
         }
