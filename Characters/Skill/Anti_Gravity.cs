@@ -13,14 +13,19 @@ public class Anti_Gravity : ISkill
         rBody = targetCharacter.gameObject.GetComponent<Rigidbody2D>();
     }
 
+    public bool Repeat()
+    {
+        return true;
+    }
+
     public void Enter()
     {
         rBody.gravityScale = 0.0f;
         targetCharacter.JumpForce *= -1;
     }
 
-    public void Excute() { 
-        
+    public void Excute() {
+
     }
 
     public void Exit()

@@ -13,6 +13,11 @@ public class Blink : MonoBehaviour, ISkill
         targetCharacter = GameObject.FindWithTag("Character");
     }
 
+    public bool Repeat()
+    {
+        return false;
+    }
+
     public void Enter()
     {
         if (targetCharacter.GetComponent<SpriteRenderer>().flipX)
@@ -35,8 +40,8 @@ public class Blink : MonoBehaviour, ISkill
     }
 
 
-    public void Excute() { 
-    
+    public void Excute() {
+  
     }
 
     public void Exit() { 

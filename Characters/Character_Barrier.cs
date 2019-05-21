@@ -13,25 +13,24 @@ public class Character_Barrier : Character
     [SerializeField]
     private GameObject barrier;
 
-    private CreateBarrier ability;
+    private CreateBarrier abilitySkill;
     // Start is called before the first frame update
     private void Start()
     {
-        ability = new CreateBarrier(barrier);
-        ability.Init();
+        abilitySkill = new CreateBarrier(barrier);
+        abilitySkill.Init();
         char_Speed = 6.3f;
         char_Hp = 1400;
         char_Energy = 100;
         char_AbilityPrice = 20;
         char_JumpForce = 5;
         IDInit(3,3,3);
-        StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, char_JumpForce);
+        StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, char_JumpForce,abilitySkill);
         RankInit(0, 4, 1);
     }
 
     public override void SpecialAbility()
     {
-        ability.Enter();
         base.SpecialAbility();
         UnSpecialAbility();
     }

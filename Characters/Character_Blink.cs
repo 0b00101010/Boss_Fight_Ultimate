@@ -10,12 +10,12 @@ public class Character_Blink : Character
     private int char_AbilityPrice;
     private int char_JumpForce;
 
-    private Blink ability = new Blink();
+    private Blink abilitySkill = new Blink();
 
 
     private void Start()
     {
-        ability.Init();
+        abilitySkill.Init();
         char_Hp = 700;
         char_Speed = 7.7f;
         char_Energy = 100;
@@ -24,12 +24,12 @@ public class Character_Blink : Character
 
         IDInit(5,5,5);
         RankInit(0,2,4);
-        StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, char_JumpForce);
+        StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, char_JumpForce, abilitySkill);
     }
 
     public override void SpecialAbility()
     {
-        ability.Enter();
+        abilitySkill.Enter();
         base.SpecialAbility();
     }
 

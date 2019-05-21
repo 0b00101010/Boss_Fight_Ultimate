@@ -18,6 +18,11 @@ public class CreateBarrier : MonoBehaviour, ISkill
         targetCharacter = GameObject.FindWithTag("Character").GetComponent<Character>();
     }
 
+    public bool Repeat()
+    {
+        return false;
+    }
+
     public void Enter(){
         curEnergy = targetCharacter.Energy;
         GameObject instance = Instantiate(barrier,targetCharacter.transform.position,Quaternion.identity);
@@ -26,7 +31,7 @@ public class CreateBarrier : MonoBehaviour, ISkill
     }
 
     public void Excute(){
-
+       
     }
 
     public void Exit(){

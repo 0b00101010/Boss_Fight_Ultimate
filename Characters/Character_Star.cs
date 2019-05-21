@@ -11,32 +11,25 @@ public class Character_Star : Character
     private int char_AbilityPrice;
     private int char_JumpForce;
 
-    private Star ability = new Star();
+    private Star abilitySkill = new Star();
 
     private void Start()
     {
-        ability.Init();
+        abilitySkill.Init();
         char_Speed = 7.0f;
         char_Hp = 1000;
         char_Energy = 100;
         char_AbilityPrice = 100;
         char_JumpForce = 5;
 
-        StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, JumpForce);
+        StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, JumpForce, abilitySkill);
         IDInit(4, 4, 4);
         RankInit(0, 4, 1);
     }
 
     public override void SpecialAbility()
     {
-        ability.Enter();
-        StartCoroutine(Timer());
         base.SpecialAbility();
-    }
-
-    private IEnumerator Timer() {
-        yield return new WaitForSeconds(2.0f);
-        ability.Exit();
     }
 
 }

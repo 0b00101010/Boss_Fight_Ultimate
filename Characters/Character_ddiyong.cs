@@ -10,39 +10,29 @@ public class Character_ddiyong : Character
     private int char_Energy;
     private int char_AbilityPrice;
     private int char_JumpForce;
-    private Run ability = new Run();
+    private Run abilitySkill = new Run();
     // Start is called before the first frame update
     private void Start()
     {
-        ability.Init();
+        abilitySkill.Init();
         char_Speed = 7.0f;
         char_Hp = 10;
         char_Energy = 100;
         char_AbilityPrice = 20;
         char_JumpForce = 5;
         IDInit(1, 2, 2);
-        StatInit(char_Speed,char_Hp,char_Energy, char_AbilityPrice, char_JumpForce);
+        StatInit(char_Speed,char_Hp,char_Energy, char_AbilityPrice, char_JumpForce, abilitySkill);
         RankInit(0,2,3);
     }
 
     public override void SpecialAbility()
     {
-        if (!IsUseAbility)
-        {
-            ability.Enter();
-        }
-        else
-        {
-            ability.Excute();
-        }
-
         base.SpecialAbility();
     }
 
     public override void UnSpecialAbility()
     {
         base.UnSpecialAbility();
-        ability.Exit();
     }
 
     private void FixedUpdate()

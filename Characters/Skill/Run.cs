@@ -11,15 +11,19 @@ public class Run : ISkill
         targetCharacter = GameObject.FindWithTag("Character").GetComponent<Character>();
     }
 
+    public bool Repeat()
+    {
+        return true;
+    }
+
     public void Enter()
     {
         plusSpeed = (targetCharacter.Speed / 40) * 100;
         targetCharacter.Speed += plusSpeed;
     }
     
-    public void Excute()
-    {
-
+    public void Excute(){
+      
     }
 
     public void Exit() {

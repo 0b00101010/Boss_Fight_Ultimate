@@ -36,6 +36,7 @@ public class Character : MonoBehaviour, ICharacter
     private bool isUseAbility;
     private int EneryHealDeleay = 5;
 
+    private ISkill abilitySkill;
 
     protected Rigidbody2D rBody;
 
@@ -83,7 +84,7 @@ public class Character : MonoBehaviour, ICharacter
         Level_Dodge = level_dodge;
     }
 
-    protected void StatInit(float char_Speed, int char_Hp, int char_energy,int char_abilityPrice, int jumpForce)
+    protected void StatInit(float char_Speed, int char_Hp, int char_energy,int char_abilityPrice, int jumpForce, ISkill abilitySkill)
     {
         Speed = char_Speed;
         Hp = char_Hp;
@@ -92,6 +93,7 @@ public class Character : MonoBehaviour, ICharacter
         JumpForce = jumpForce;
         MaxSpeed = char_Speed;
         AbilityPrice = char_abilityPrice;
+        this.abilitySkill = abilitySkill;
     }
 
     public void SetLeft()
@@ -156,12 +158,23 @@ public class Character : MonoBehaviour, ICharacter
     }
 
     public virtual void SpecialAbility(){
-        IsUseAbility = true;
-        StartCoroutine(UseAbility());
+        if (Energy > abilityPrice)
+        {
+            Energy -= abilityPrice;
+            abilitySkill.Enter();
+            IsUseAbility = true;
+            if(abilitySkill.Repeat())
+                StartCoroutine(UseAbility());
+        }
     }
 
     private IEnumerator UseAbility()
     {
+
+        abilitySkill.Excute();
+
+        yield return new WaitForSeconds(1.0f);
+
         if (Energy - AbilityPrice >= 0)
             Energy -= AbilityPrice;
         else if (Energy - AbilityPrice < 0)
@@ -169,7 +182,6 @@ public class Character : MonoBehaviour, ICharacter
             Energy = 0;
             IsUseAbility = false;
         }
-        yield return new WaitForSeconds(1.0f);
 
         if (IsUseAbility)
             StartCoroutine(UseAbility());
@@ -177,6 +189,7 @@ public class Character : MonoBehaviour, ICharacter
 
     public virtual void UnSpecialAbility() {
         IsUseAbility = false;
+        abilitySkill.Exit();
     }
 
     //private IEnumerator healEnergy() { 

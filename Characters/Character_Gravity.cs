@@ -10,13 +10,13 @@ public class Character_Gravity : Character
     private int char_AbilityPrice;
     private int char_JumpForce;
     private SpriteRenderer spriteRenderer;
-    private Anti_Gravity ability = new Anti_Gravity();
+    private Anti_Gravity abilitySkill = new Anti_Gravity();
 
     public Sprite[] sprites; // 능력에 따라 스프라이트 변경
     // Start is called before the first frame update
     private void Start()
     {
-        ability.Init();
+        abilitySkill.Init();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         char_Speed = 6.3f;
         char_Hp = 1000;
@@ -25,22 +25,14 @@ public class Character_Gravity : Character
         char_JumpForce = 5;
         rBody = gameObject.GetComponent<Rigidbody2D>();
         IDInit(2,2,2);
-        StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, char_JumpForce);
+        StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, char_JumpForce,abilitySkill);
         RankInit(0,2,3);
     }
 
     public override void SpecialAbility()
     {
-        ability.Enter();
         base.SpecialAbility();
         // 능력사용 스프라이트 변경
-    }
-
-    public override void UnSpecialAbility()
-    {
-        base.UnSpecialAbility();
-        ability.Exit();
-        // 능력 비활성화 스프라이트 변경
     }
 
     private void FixedUpdate()

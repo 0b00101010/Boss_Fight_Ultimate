@@ -11,8 +11,14 @@ public class Star : MonoBehaviour, ISkill{
         targetObject = GameObject.FindWithTag("Character");
     }
 
+    public bool Repeat()
+    {
+        return false;
+    }
+
     public void Enter() {
         targetObject.tag = "Star";
+        StartCoroutine(Timer());
     }
 
     public void Excute() { 
@@ -21,7 +27,12 @@ public class Star : MonoBehaviour, ISkill{
 
     public void Exit()
     {
-        targetObject.tag = "Character";
+
     }
 
+    private IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(2.0f);
+        targetObject.tag = "Character";
+    }
 }
