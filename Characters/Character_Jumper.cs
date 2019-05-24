@@ -25,4 +25,14 @@ public class Character_Jumper : Character
         IDInit(6, 26, 6);
 
     }
+
+    public override void SpecialAbility()
+    {
+        base.SpecialAbility();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
 }
