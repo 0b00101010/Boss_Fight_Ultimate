@@ -12,7 +12,6 @@ public class Character_Gravity : Character
     private SpriteRenderer spriteRenderer;
     private Anti_Gravity abilitySkill = new Anti_Gravity();
 
-    public Sprite[] sprites; // 능력에 따라 스프라이트 변경
     // Start is called before the first frame update
     private void Start()
     {

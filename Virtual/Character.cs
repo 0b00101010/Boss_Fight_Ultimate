@@ -38,6 +38,13 @@ public class Character : MonoBehaviour, ICharacter
 
     private ISkill abilitySkill;
 
+    private SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    private Sprite[] charSprites;
+
+    // 0 기본, 1 능력 사용중
+
     protected Rigidbody2D rBody;
 
     [SerializeField]
@@ -64,6 +71,7 @@ public class Character : MonoBehaviour, ICharacter
 
     private void Awake()
     {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rBody = gameObject.GetComponent<Rigidbody2D>();
         hitBackGround = GameObject.FindWithTag("HitBackGround");
         StartCoroutine(HealthEnergy());
@@ -161,6 +169,7 @@ public class Character : MonoBehaviour, ICharacter
         if (Energy > abilityPrice)
         {
             Energy -= abilityPrice;
+            spriteRenderer.sprite = charSprites[1];
             abilitySkill.Enter();
             IsUseAbility = true;
             if(abilitySkill.Repeat())
@@ -189,6 +198,7 @@ public class Character : MonoBehaviour, ICharacter
 
     public virtual void UnSpecialAbility() {
         IsUseAbility = false;
+        spriteRenderer.sprite = charSprites[0];
         abilitySkill.Exit();
     }
 
@@ -234,13 +244,13 @@ public class Character : MonoBehaviour, ICharacter
 
     private IEnumerator FadeInOut() {
 
-        SpriteRenderer spriteRenderer = hitBackGround.GetComponent<SpriteRenderer>();
-        spriteRenderer.color = new Color(255,0,0,0.5f);
-        StartCoroutine(GameManager.instance.FadeOut(spriteRenderer,0.5f,5));
-        yield return StartCoroutine(GameManager.instance.FadeOut(gameObject.GetComponent<SpriteRenderer>(),0.15f,1));
-        yield return StartCoroutine(GameManager.instance.FadeIn(gameObject.GetComponent<SpriteRenderer>(),0.15f,1));
-        yield return StartCoroutine(GameManager.instance.FadeOut(gameObject.GetComponent<SpriteRenderer>(), 0.15f, 1));
-        yield return StartCoroutine(GameManager.instance.FadeIn(gameObject.GetComponent<SpriteRenderer>(), 0.15f, 1));
+        SpriteRenderer backgroundRenderer = hitBackGround.GetComponent<SpriteRenderer>();
+        backgroundRenderer.color = new Color(255,0,0,0.5f);
+        StartCoroutine(GameManager.instance.FadeOut(backgroundRenderer, 0.5f,5));
+        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer, 0.15f,1));
+        yield return StartCoroutine(GameManager.instance.FadeIn(spriteRenderer,0.15f,1));
+        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer, 0.15f, 1));
+        yield return StartCoroutine(GameManager.instance.FadeIn(spriteRenderer, 0.15f, 1));
     }
 
 
