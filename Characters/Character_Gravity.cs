@@ -9,14 +9,12 @@ public class Character_Gravity : Character
     private int char_Energy;
     private int char_AbilityPrice;
     private int char_JumpForce;
-    private SpriteRenderer spriteRenderer;
     private Anti_Gravity abilitySkill = new Anti_Gravity();
 
     // Start is called before the first frame update
     private void Start()
     {
         abilitySkill.Init();
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         char_Speed = 6.3f;
         char_Hp = 1000;
         char_Energy = 100;

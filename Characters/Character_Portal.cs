@@ -10,7 +10,7 @@ public class Character_Portal : Character
     private int char_Energy;
     private int char_AbilityPrice;
     private int char_JumpForce;
-
+    private PortalCtrl abilitySkill = new PortalCtrl();
     private void Start()
     {
         char_Hp = 800;
