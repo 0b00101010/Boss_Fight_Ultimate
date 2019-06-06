@@ -32,4 +32,9 @@ public class Character_Star : Character
         base.SpecialAbility();
     }
 
+    private void FixedUpdate() {
+        Move();
+    }
+
+
 }

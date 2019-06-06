@@ -6,6 +6,7 @@ public class Run : ISkill
 {
     private Character targetCharacter;
     private float plusSpeed;
+    private float basicSpeed;
 
     public void Init() {
         targetCharacter = GameObject.FindWithTag("Character").GetComponent<Character>();
@@ -18,6 +19,7 @@ public class Run : ISkill
 
     public void Enter()
     {
+        basicSpeed = targetCharacter.Speed;
         plusSpeed = (targetCharacter.Speed / 40) * 100;
         targetCharacter.Speed += plusSpeed;
     }
@@ -27,7 +29,7 @@ public class Run : ISkill
     }
 
     public void Exit() {
-        targetCharacter.Speed -= plusSpeed;
+        targetCharacter.Speed = basicSpeed;
     }
 
 }
