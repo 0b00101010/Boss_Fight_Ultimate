@@ -9,7 +9,7 @@ public class ResultSceneManager : MonoBehaviour
     private TextAsset BestScoreFile;
 
     [SerializeField]
-    private SpriteRenderer backGround;
+    private Image backGround;
 
     public Sprite[] ranks;
     public Sprite[] survivedResult;
@@ -18,14 +18,14 @@ public class ResultSceneManager : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.instance.soundManager.MusicQueue();
         score = GameManager.instance.LastGameScore;
-
+        backGround.sprite = GameManager.instance.ResultImages[GameManager.instance.NextStageNumber - 4];
         if (!(System.IO.File.Exists(Application.dataPath + "/Resources/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 4] + "_" + GameManager.instance.Difficulty + ".txt")))
         {
             //System.IO.File.Create(Application.dataPath + "/Resources/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 4 ] + "_" +GameManager.instance.Difficulty + ".txt");
             CreateNewScoreFile();
         }
-        GameManager.instance.GetComponent<AudioSource>().Play();
         BestScoreFile = Resources.Load("MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber-4] + "_" + GameManager.instance.Difficulty) as TextAsset;
         Debug.Log("/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 4] + "_" + GameManager.instance.Difficulty);
         string  str = BestScoreFile.text;
@@ -36,11 +36,7 @@ public class ResultSceneManager : MonoBehaviour
         if (score > float.Parse(BestScoreText[1]))
             CreateNewScoreFile();
     }
-    private void Start()
-    {
-        backGround.sprite = GameManager.instance.ResultImages[GameManager.instance.NextStageNumber - 4];
 
-    }
     private void CreateNewScoreFile() {
         System.IO.File.WriteAllText(Application.dataPath + 
         "/Resources/Mapdata/"+GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 4] + "_" + GameManager.instance.Difficulty + ".txt","BestScore;"+score);
@@ -51,7 +47,10 @@ public class ResultSceneManager : MonoBehaviour
         GameManager.instance.Notify((int)GameManager.ObserveTag.GAME_END);
         GameManager.instance.soundManager.MusicStop();
         GameManager.instance.GetComponent<AudioSource>().spatialBlend = 0.0f;
+        GameManager.instance.soundManager.MusicChange(GameManager.instance.GameMusics[0]);
+        GameManager.instance.soundManager.MusicQueue();
         SceneManager.LoadScene(1);
+
     }
 
     public void Retry() {

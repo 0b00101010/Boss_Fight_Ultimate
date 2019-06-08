@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         achievementManager.LoadAchievement();
+        GameManager.instance.soundManager.MusicChange(GameManager.instance.GameMusics[0]);
+        GameManager.instance.soundManager.MusicQueue();
     }
 
     private void Update()
