@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class CharacterSelectManager : MonoBehaviour
 {
     [SerializeField]
@@ -11,46 +12,49 @@ public class CharacterSelectManager : MonoBehaviour
     private CharacterSlot selectSlot;
     [SerializeField]
     private Sprite[] slotSprites;
-
+    [SerializeField]
+    private SpriteRenderer blackBackGround;
     private IObserver observer;
-
+    
     // 0 잠김 1 기본 2 선택 
     // 3 기본 4 선택 레어 
     // 5 기본 6 선택 유니크
     private void Start()
     {
+        StartCoroutine(GameManager.instance.FadeOut(blackBackGround,0.5f));
+
         foreach (CharacterSlot slot in charactersSlot)
         {
             if (slot.UnLock)
             {
-                SpriteRenderer slotSpriteRenderer = slot.GetComponent<SpriteRenderer>();
+                Image slotImage = slot.GetComponent<Image>();
                 Character slotCharacter = slot.GetCharacter().GetComponent<Character>();
                 switch (slotCharacter.Rank) {
                     case 0:
-                        slotSpriteRenderer.sprite = slotSprites[1];
+                        slotImage.sprite = slotSprites[1];
                         slot.SpriteNumber = 1;
                         break;
                     case 1:
-                        slotSpriteRenderer.sprite = slotSprites[3];
+                        slotImage.sprite = slotSprites[3];
                         slot.SpriteNumber = 3;
                         break;
                     case 2:
-                        slotSpriteRenderer.sprite = slotSprites[5];
+                        slotImage.sprite = slotSprites[5];
                         slot.SpriteNumber = 5;
                         break;
                 }
             }
             else
             {
-                slot.GetComponent<SpriteRenderer>().sprite = slotSprites[0];
+                slot.GetComponent<Image>().sprite = slotSprites[0];
             }
         }
-        //charactersSlot[characters.IndexOf(GameManager.instance.nowGameCharacter)].GetComponent<SpriteRenderer>().sprite = slotSprites[1];
+        //charactersSlot[characters.IndexOf(GameManager.instance.nowGameCharacter)].GetComponent<Image>().sprite = slotSprites[1];
         foreach (CharacterSlot slot in charactersSlot)
         {
             if (slot.GetCharacter().Equals(GameManager.instance.nowGameCharacter))
             {
-                slot.GetComponent<SpriteRenderer>().sprite = slotSprites[slot.SpriteNumber += 1];
+                slot.GetComponent<Image>().sprite = slotSprites[slot.SpriteNumber += 1];
                 selectSlot = slot;
             }
         }
@@ -69,9 +73,9 @@ public class CharacterSelectManager : MonoBehaviour
             if(hit.collider.gameObject.CompareTag("Slot") && hit.collider.gameObject.GetComponent<CharacterSlot>().UnLock)
             {
                 Debug.Log(hit.collider.name);
-                selectSlot.GetComponent<SpriteRenderer>().sprite = slotSprites[selectSlot.SpriteNumber -= 1];
+                selectSlot.GetComponent<Image>().sprite = slotSprites[selectSlot.SpriteNumber -= 1];
                 selectSlot = hit.collider.gameObject.GetComponent<CharacterSlot>();
-                selectSlot.GetComponent<SpriteRenderer>().sprite = slotSprites[selectSlot.SpriteNumber += 1];
+                selectSlot.GetComponent<Image>().sprite = slotSprites[selectSlot.SpriteNumber += 1];
 
                 SelectCharacter();
             }
@@ -80,18 +84,29 @@ public class CharacterSelectManager : MonoBehaviour
     }
 
     private void MoveCharacterSlots() {
-        if (GameManager.instance.touchManager.SwipeDirection.x < 0 && charactersSlot[charactersSlot.Count].transform.position.x > 6.0f)
+        if (GameManager.instance.touchManager.SwipeDirection.x < 0 && charactersSlot[charactersSlot.Count].GetComponent<RectTransform>().position.x > 120.0f)
         {
             foreach (CharacterSlot characterSlot in charactersSlot)
             {
-                characterSlot.gameObject.transform.Translate(new Vector2(-2.0f, 0.0f));
+                characterSlot.gameObject.GetComponent<RectTransform>().Translate(new Vector2(-80.0f,0.0f));
             }
         }
-        else if (GameManager.instance.touchManager.SwipeDirection.x > 0 && charactersSlot[0].transform.position.x < -6.0f){
+        else if (GameManager.instance.touchManager.SwipeDirection.x > 0 && charactersSlot[0].transform.position.x < 680.0f){
             foreach (CharacterSlot characterSlot in charactersSlot) {
-                characterSlot.gameObject.transform.Translate(new Vector2(2.0f, 0.0f));
+                characterSlot.gameObject.GetComponent<RectTransform>().Translate(new Vector2(+80.0f, 0.0f));
             }
         }
+    }
+
+    public void MainSceneLoad()
+    {
+        StartCoroutine(ReturnMainScene());
+    }
+    
+    private IEnumerator ReturnMainScene()
+    {
+        yield return StartCoroutine(GameManager.instance.FadeIn(blackBackGround,0.5f));
+        SceneManager.LoadScene(2);
     }
 
     private void SelectCharacter() {
