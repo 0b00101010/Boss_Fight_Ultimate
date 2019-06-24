@@ -14,6 +14,17 @@ public class CharacterSelectManager : MonoBehaviour
     private Sprite[] slotSprites;
     [SerializeField]
     private SpriteRenderer blackBackGround;
+
+    [SerializeField]
+    private Text characterInfo;
+
+    [SerializeField]
+    private Text characterSkillInfo;
+
+    [SerializeField]
+    private Image characterImage;
+
+
     private IObserver observer;
     
     // 0 잠김 1 기본 2 선택 
