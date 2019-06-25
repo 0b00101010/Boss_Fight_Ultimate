@@ -14,24 +14,21 @@ public class CharacterSelectManager : MonoBehaviour
     private Sprite[] slotSprites;
     [SerializeField]
     private SpriteRenderer blackBackGround;
-
-    [SerializeField]
-    private Text characterInfo;
-
-    [SerializeField]
-    private Text characterSkillInfo;
-
-    [SerializeField]
-    private Image characterImage;
-
-
+    private CharacterUICtrl uiCtrl;
     private IObserver observer;
-    
+
+    public static CharacterSelectManager instance;
     // 0 잠김 1 기본 2 선택 
     // 3 기본 4 선택 레어 
     // 5 기본 6 선택 유니크
     private void Start()
     {
+        if (instance == null)
+            instance = this;
+
+        selectSlot = charactersSlot[0];
+        uiCtrl = new CharacterUICtrl();
+        uiCtrl.Init();
         StartCoroutine(GameManager.instance.FadeOut(blackBackGround,0.5f));
 
         foreach (CharacterSlot slot in charactersSlot)
@@ -124,5 +121,8 @@ public class CharacterSelectManager : MonoBehaviour
         GameManager.instance.nowGameCharacter = selectSlot.GetCharacter();
     }
 
-
+    public CharacterSlot GetSelectSlot()
+    {
+        return selectSlot;
+    }
 }

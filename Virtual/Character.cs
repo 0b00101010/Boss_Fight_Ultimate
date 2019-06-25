@@ -42,7 +42,6 @@ public class Character : MonoBehaviour, ICharacter
 
     [SerializeField]
     private Sprite[] charSprites;
-
     // 0 기본, 1 능력 사용중
 
     protected Rigidbody2D rBody;
@@ -253,6 +252,13 @@ public class Character : MonoBehaviour, ICharacter
         yield return StartCoroutine(GameManager.instance.FadeIn(spriteRenderer, 0.15f, 1));
     }
 
+
+    public Sprite GetSprite()
+    {
+        return spriteRenderer.sprite;
+    }
+
+ 
 
 
 }

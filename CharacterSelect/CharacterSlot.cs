@@ -8,6 +8,7 @@ public class CharacterSlot : MonoBehaviour
     private bool unLock;
 
     private int spriteNumber;
+
     [SerializeField]
     private string info;
 
