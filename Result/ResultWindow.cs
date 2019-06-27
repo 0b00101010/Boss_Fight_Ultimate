@@ -7,17 +7,17 @@ public class ResultWindow : MonoBehaviour
 
     #region UIS
     [SerializeField]
-    private SpriteRenderer resultSquare;
+    private Image resultSquare;
     [SerializeField]
-    private SpriteRenderer survivedResult;
+    private Image survivedResult;
     [SerializeField]
-    private SpriteRenderer emphasis;
+    private Image emphasis;
     [SerializeField]
-    private SpriteRenderer rank;
+    private Image rank;
     [SerializeField]
-    private SpriteRenderer remainedHp;
+    private Image remainedHp;
     [SerializeField]
-    private SpriteRenderer hit;
+    private Image hit;
     [SerializeField]
     private Image returnToMain;
     [SerializeField]
@@ -36,9 +36,9 @@ public class ResultWindow : MonoBehaviour
     }
     private IEnumerator SquareGlow()
     {
-        resultSquare.transform.localScale = new Vector2(resultSquare.transform.localScale.x + 5, resultSquare.transform.localScale.y);
+        resultSquare.rectTransform.localScale = new Vector2(resultSquare.rectTransform.localScale.x + 5, resultSquare.rectTransform.localScale.y);
         yield return new WaitForSeconds(0.005f);
-        if (resultSquare.transform.localScale.x < 95)
+        if (resultSquare.rectTransform.localScale.x < 95)
             StartCoroutine(SquareGlow());
         else
             StopCoroutine(SquareGlow());
@@ -52,10 +52,10 @@ public class ResultWindow : MonoBehaviour
         else
             survivedResult.sprite = sceneManager.survivedResult[1];
 
-        StartCoroutine(GameManager.instance.FadeIn(emphasis, 0.3f));
-        StartCoroutine(GameManager.instance.FadeIn(hit, 0.3f));
-        StartCoroutine(GameManager.instance.FadeIn(survivedResult, 0.3f));
-        StartCoroutine(GameManager.instance.FadeIn(remainedHp, 0.3f));
+        StartCoroutine(FadeIn(emphasis, 0.3f));
+        StartCoroutine(FadeIn(hit, 0.3f));
+        StartCoroutine(FadeIn(survivedResult, 0.3f));
+        StartCoroutine(FadeIn(remainedHp, 0.3f));
 
         remainedValue.UpdateShame((int)GameManager.instance.LastGameHp);
         hitValue.UpdateShame(GameManager.instance.LastGameHitCount);
@@ -64,7 +64,7 @@ public class ResultWindow : MonoBehaviour
         for(int i =0; i < 10; i++)
         {
             rank.color = new Color(rank.color.r, rank.color.g, rank.color.b, rank.color.a + 0.05f);
-            rank.transform.localScale = new Vector2(rank.transform.localScale.x - 20, rank.transform.localScale.y - 20);
+            rank.rectTransform.localScale = new Vector2(rank.rectTransform.localScale.x - 20, rank.rectTransform.localScale.y - 20);
             yield return new WaitForSeconds(0.005f);
         }
 
@@ -92,4 +92,21 @@ public class ResultWindow : MonoBehaviour
             return 5;
     }
 
+    public IEnumerator FadeIn(Image image, float spendTime, int repeatCount = 10)
+    {
+        for (int i = 0; i < repeatCount; i++)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + (1.0f / repeatCount));
+            yield return new WaitForSeconds(spendTime / repeatCount);
+        }
+    }
+
+    public IEnumerator FadeOut(Image image, float spendTime, int repeatCount = 10)
+    {
+        for (int i = 0; i < repeatCount; i++)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a - (1.0f / repeatCount));
+            yield return new WaitForSeconds(spendTime / repeatCount);
+        }
+    }
 }

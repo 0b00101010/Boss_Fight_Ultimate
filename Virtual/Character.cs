@@ -19,6 +19,7 @@ public class Character : MonoBehaviour, ICharacter
     private float maxSpeed;
     private int abilityPrice;
     private float maxHp;
+    private int maxEnergy;
     #endregion Stat
 
     #region Rank
@@ -91,7 +92,7 @@ public class Character : MonoBehaviour, ICharacter
         Level_Dodge = level_dodge;
     }
 
-    protected void StatInit(float char_Speed, int char_Hp, int char_energy,int char_abilityPrice, int jumpForce, ISkill abilitySkill)
+    protected void StatInit(float char_Speed, int char_Hp, int char_energy,int char_abilityPrice, int jumpForce, ISkill abilitySkill, int maxEnergy = 100)
     {
         Speed = char_Speed;
         Hp = char_Hp;
@@ -101,6 +102,7 @@ public class Character : MonoBehaviour, ICharacter
         MaxSpeed = char_Speed;
         AbilityPrice = char_abilityPrice;
         this.abilitySkill = abilitySkill;
+        this.maxEnergy = maxEnergy;
     }
 
     public void SetLeft()
@@ -154,9 +156,9 @@ public class Character : MonoBehaviour, ICharacter
     }
 
     private IEnumerator HealthEnergy() {
-        if(Energy < 100) {
-            if (Energy + 10 > 100)
-                Energy = 100;
+        if(Energy < maxEnergy) {
+            if (Energy + 5 > maxEnergy)
+                Energy = maxEnergy;
             else
                 Energy += 5;
         }

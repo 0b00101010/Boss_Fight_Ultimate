@@ -124,7 +124,6 @@ public class StageSelectManager : MonoBehaviour
     public void MoveToInGame(int sceneNumber)
     {
         StartCoroutine(BlackWait(sceneNumber));
-        Debug.Log("Clicked button");
     }
 
     private IEnumerator BlackWait(int sceneNumber)
@@ -132,5 +131,15 @@ public class StageSelectManager : MonoBehaviour
         yield return StartCoroutine(BlackIn());
         GameManager.instance.NextStageNumber = sceneNumber;
         SceneManager.LoadScene("02_LoadScene");
+    }
+
+    public void MoveToCharacterSelect()
+    {
+        StartCoroutine(BlackWaitToCharacterScene());
+    }
+    private IEnumerator BlackWaitToCharacterScene()
+    {
+        yield return StartCoroutine(BlackIn());
+        SceneManager.LoadScene("04_CharacterSelect");
     }
 }

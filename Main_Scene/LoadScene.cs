@@ -13,7 +13,7 @@ public class LoadScene : MonoBehaviour
 
     private void Start()
     {
-        loadImage.sprite = GameManager.instance.LoadImages[GameManager.instance.NextStageNumber - 4];
+        loadImage.sprite = GameManager.instance.LoadImages[GameManager.instance.NextStageNumber - 5];
         StartCoroutine(LoadNextScene());
     }
 

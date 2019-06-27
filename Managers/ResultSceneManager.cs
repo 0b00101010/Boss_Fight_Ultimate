@@ -20,14 +20,14 @@ public class ResultSceneManager : MonoBehaviour
     {
         GameManager.instance.soundManager.MusicQueue();
         score = GameManager.instance.LastGameScore;
-        backGround.sprite = GameManager.instance.ResultImages[GameManager.instance.NextStageNumber - 4];
-        if (!(System.IO.File.Exists(Application.dataPath + "/Resources/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 4] + "_" + GameManager.instance.Difficulty + ".txt")))
+        backGround.sprite = GameManager.instance.ResultImages[GameManager.instance.NextStageNumber - 5];
+        if (!(System.IO.File.Exists(Application.dataPath + "/Resources/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5] + "_" + GameManager.instance.Difficulty + ".txt")))
         {
-            //System.IO.File.Create(Application.dataPath + "/Resources/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 4 ] + "_" +GameManager.instance.Difficulty + ".txt");
+            //System.IO.File.Create(Application.dataPath + "/Resources/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5 ] + "_" +GameManager.instance.Difficulty + ".txt");
             CreateNewScoreFile();
         }
-        BestScoreFile = Resources.Load("MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber-4] + "_" + GameManager.instance.Difficulty) as TextAsset;
-        Debug.Log("/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 4] + "_" + GameManager.instance.Difficulty);
+        BestScoreFile = Resources.Load("MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5] + "_" + GameManager.instance.Difficulty) as TextAsset;
+        Debug.Log("/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5] + "_" + GameManager.instance.Difficulty);
         string  str = BestScoreFile.text;
         string[] BestScoreText = str.Split(';');
 
@@ -39,7 +39,7 @@ public class ResultSceneManager : MonoBehaviour
 
     private void CreateNewScoreFile() {
         System.IO.File.WriteAllText(Application.dataPath + 
-        "/Resources/Mapdata/"+GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 4] + "_" + GameManager.instance.Difficulty + ".txt","BestScore;"+score);
+        "/Resources/Mapdata/"+GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5] + "_" + GameManager.instance.Difficulty + ".txt","BestScore;"+score);
     }
 
     public void ReturnMainScene()

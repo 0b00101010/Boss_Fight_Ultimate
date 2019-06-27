@@ -16,7 +16,7 @@ public class Character_ddiyong : Character
     {
         abilitySkill.Init();
         char_Speed = 7.0f;
-        char_Hp = 1000;
+        char_Hp = 10;
         char_Energy = 100;
         char_AbilityPrice = 20;
         char_JumpForce = 5;

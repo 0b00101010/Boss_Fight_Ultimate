@@ -16,6 +16,8 @@ public class CharacterSelectManager : MonoBehaviour
     private CharacterUICtrl uiCtrl;
     private IObserver observer;
 
+    
+
     public static CharacterSelectManager instance;
 
     public CharacterSlot SelectSlot
@@ -32,6 +34,20 @@ public class CharacterSelectManager : MonoBehaviour
 
     private void Awake()
     {
+        TextAsset slotsUnlocked = Resources.Load("Character/Characters") as TextAsset;
+        string text = slotsUnlocked.text;
+        string[] strs = text.Split('\n');
+
+        for(int i = 0; i < charactersSlot.Count; i++)
+        {
+            string[] isUnlock = strs[i].Split(';');
+            if (isUnlock[1].Equals("1"))
+                charactersSlot[i].UnLock = true;
+            else
+                charactersSlot[i].UnLock = false;
+        }
+            
+
         uiCtrl = gameObject.GetComponent<CharacterUICtrl>();
 
     }
@@ -137,7 +153,7 @@ public class CharacterSelectManager : MonoBehaviour
     private IEnumerator ReturnMainScene()
     {
         yield return StartCoroutine(GameManager.instance.FadeIn(blackBackGround,0.5f));
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("01_Stage_Select");
     }
 
     private void SelectCharacter() {
@@ -153,4 +169,5 @@ public class CharacterSelectManager : MonoBehaviour
     {
 		return charactersSlot.IndexOf(selectSlot);
     }
+
 }
