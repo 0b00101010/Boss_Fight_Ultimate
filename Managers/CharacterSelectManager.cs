@@ -7,8 +7,7 @@ public class CharacterSelectManager : MonoBehaviour
 {
     [SerializeField]
     private List<CharacterSlot> charactersSlot = new List<CharacterSlot>();
-    [SerializeField]
-    private List<GameObject> characters = new List<GameObject>();
+
     private CharacterSlot selectSlot;
     [SerializeField]
     private Sprite[] slotSprites;
@@ -18,6 +17,25 @@ public class CharacterSelectManager : MonoBehaviour
     private IObserver observer;
 
     public static CharacterSelectManager instance;
+
+    public CharacterSlot SelectSlot
+    {
+        get => selectSlot;
+
+        set
+        {
+            selectSlot = value;
+            StartCoroutine(uiCtrl.InformationUpdate());
+        }
+
+    }
+
+    private void Awake()
+    {
+        uiCtrl = gameObject.GetComponent<CharacterUICtrl>();
+
+    }
+
     // 0 잠김 1 기본 2 선택 
     // 3 기본 4 선택 레어 
     // 5 기본 6 선택 유니크
@@ -26,9 +44,7 @@ public class CharacterSelectManager : MonoBehaviour
         if (instance == null)
             instance = this;
 
-        selectSlot = charactersSlot[0];
-        uiCtrl = new CharacterUICtrl();
-        uiCtrl.Init();
+
         StartCoroutine(GameManager.instance.FadeOut(blackBackGround,0.5f));
 
         foreach (CharacterSlot slot in charactersSlot)
@@ -63,7 +79,7 @@ public class CharacterSelectManager : MonoBehaviour
             if (slot.GetCharacter().Equals(GameManager.instance.nowGameCharacter))
             {
                 slot.GetComponent<Image>().sprite = slotSprites[slot.SpriteNumber += 1];
-                selectSlot = slot;
+                SelectSlot = slot;
             }
         }
     }
@@ -81,14 +97,21 @@ public class CharacterSelectManager : MonoBehaviour
             if(hit.collider.gameObject.CompareTag("Slot") && hit.collider.gameObject.GetComponent<CharacterSlot>().UnLock)
             {
                 Debug.Log(hit.collider.name);
-                selectSlot.GetComponent<Image>().sprite = slotSprites[selectSlot.SpriteNumber -= 1];
-                selectSlot = hit.collider.gameObject.GetComponent<CharacterSlot>();
-                selectSlot.GetComponent<Image>().sprite = slotSprites[selectSlot.SpriteNumber += 1];
+                SelectSlot.GetComponent<Image>().sprite = slotSprites[SelectSlot.SpriteNumber -= 1];
+                SelectSlot = hit.collider.gameObject.GetComponent<CharacterSlot>();
+                SelectSlot.GetComponent<Image>().sprite = slotSprites[SelectSlot.SpriteNumber += 1];
 
                 SelectCharacter();
             }
 
         }
+
+        if (Input.GetKeyDown(KeyCode.A))
+            SelectSlot = charactersSlot[0];
+
+        if (Input.GetKeyDown(KeyCode.B))
+            SelectSlot = charactersSlot[1];
+
     }
 
     private void MoveCharacterSlots() {
@@ -118,11 +141,16 @@ public class CharacterSelectManager : MonoBehaviour
     }
 
     private void SelectCharacter() {
-        GameManager.instance.nowGameCharacter = selectSlot.GetCharacter();
+        GameManager.instance.nowGameCharacter = SelectSlot.GetCharacter();
     }
 
     public CharacterSlot GetSelectSlot()
     {
-        return selectSlot;
+        return SelectSlot;
+    }
+
+    public int GetSelectSlotNumber()
+    {
+		return charactersSlot.IndexOf(selectSlot);
     }
 }

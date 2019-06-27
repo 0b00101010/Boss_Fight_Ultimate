@@ -19,23 +19,76 @@ public class CharacterUICtrl : MonoBehaviour
     [SerializeField]
     private Text characterRank;
 
+    [SerializeField]
+    private Image[] tankLevels;
+
+    [SerializeField]
+    private Image[] dodgeLevels;
+
+    [SerializeField]
+    private Sprite levelImage;
+
     #endregion UI
 
     private CharacterSlot selectSlot;
 
-    public void Init()
-    {
-        selectSlot = CharacterSelectManager.instance.GetSelectSlot();
-        InfomationUpdate();
+ 
+
+    private List<string> nameList = new List<string>();
+    private List<string> descriptList = new List<string>();
+    private List<string> skilList = new List<string>();
+    private List<string> abilityList = new List<string>();
+    public void Awake()
+    {   TextAsset names = Resources.Load("Character/CharactersName") as TextAsset;
+        TextAsset descript = Resources.Load("Character/CharactersDescripts") as TextAsset;
+        TextAsset skil = Resources.Load("Character/CharactersSkil") as TextAsset;
+        TextAsset ability = Resources.Load("Character/CharactersAbility") as TextAsset;
+
+        string st = names.text;
+        string[] strs = st.Split('\n');
+
+        foreach (string str in strs)
+            nameList.Add(str);
+
+        st = descript.text;
+        strs = st.Split('\n');
+        foreach (string str in strs)
+            descriptList.Add(str);
+
+        st = skil.text;
+        strs = st.Split('\n');
+
+        foreach (string str in strs)
+            skilList.Add(str);
+
+        st = ability.text;
+        strs = st.Split('\n');
+
+        foreach (string str in strs)
+            abilityList.Add(str);
     }
 
-    public void InfomationUpdate()
+    public IEnumerator InformationUpdate()
     {
-        characterImage.sprite = selectSlot.GetCharacter().GetComponent<Character>().GetSprite();
-        //characterNameText
-        //characterSkillText
-        //characterAbilityText
-        //characterDescripts
+        selectSlot = CharacterSelectManager.instance.GetSelectSlot();
+        GameObject target = Instantiate(selectSlot.GetCharacter(), new Vector3(-100f, -100f), Quaternion.identity);
+        characterImage.sprite = target.GetComponent<SpriteRenderer>().sprite;
+
+        int index = CharacterSelectManager.instance.GetSelectSlotNumber();
+        characterNameText.text = nameList[index];
+        characterDescripts.text = descriptList[index];
+        characterSkillText.text = skilList[index];
+        characterAbilityText.text = abilityList[index];
+
+        yield return new WaitForSeconds(0.01f);
+        Debug.Log(target.GetComponent<Character>().Level_Tank);
+
+        for (int i = 0; i < target.GetComponent<Character>().Level_Tank; i++)
+            tankLevels[i].sprite = levelImage;
+
+        for (int i = 0; i < target.GetComponent<Character>().Level_Dodge; i++)
+            dodgeLevels[i].sprite = levelImage;
+
         switch (selectSlot.GetCharacter().GetComponent<Character>().Rank)
         {
             case 0:
@@ -48,5 +101,8 @@ public class CharacterUICtrl : MonoBehaviour
                 characterRank.text = "Unique";
                 break;
         }
+        Destroy(target);
+        
     }
+
 }

@@ -255,7 +255,8 @@ public class Character : MonoBehaviour, ICharacter
 
     public Sprite GetSprite()
     {
-        return spriteRenderer.sprite;
+        Sprite sprite = spriteRenderer.sprite;
+        return sprite;
     }
 
  
