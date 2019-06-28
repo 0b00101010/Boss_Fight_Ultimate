@@ -16,8 +16,6 @@ public class CharacterSelectManager : MonoBehaviour
     private CharacterUICtrl uiCtrl;
     private IObserver observer;
 
-    
-
     public static CharacterSelectManager instance;
 
     public CharacterSlot SelectSlot
@@ -112,7 +110,7 @@ public class CharacterSelectManager : MonoBehaviour
 
             if(hit.collider.gameObject.CompareTag("Slot") && hit.collider.gameObject.GetComponent<CharacterSlot>().UnLock)
             {
-                Debug.Log(hit.collider.name);
+                // Debug.Log(hit.collider.name);
                 SelectSlot.GetComponent<Image>().sprite = slotSprites[SelectSlot.SpriteNumber -= 1];
                 SelectSlot = hit.collider.gameObject.GetComponent<CharacterSlot>();
                 SelectSlot.GetComponent<Image>().sprite = slotSprites[SelectSlot.SpriteNumber += 1];
@@ -121,24 +119,18 @@ public class CharacterSelectManager : MonoBehaviour
             }
 
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-            SelectSlot = charactersSlot[0];
-
-        if (Input.GetKeyDown(KeyCode.B))
-            SelectSlot = charactersSlot[1];
-
+        
     }
 
     private void MoveCharacterSlots() {
-        if (GameManager.instance.touchManager.SwipeDirection.x < 0 && charactersSlot[charactersSlot.Count].GetComponent<RectTransform>().position.x > 120.0f)
+        if (GameManager.instance.touchManager.SwipeDirection.x < 0 && charactersSlot[charactersSlot.Count].GetComponent<RectTransform>().position.x < 120.0f)
         {
             foreach (CharacterSlot characterSlot in charactersSlot)
             {
                 characterSlot.gameObject.GetComponent<RectTransform>().Translate(new Vector2(-80.0f,0.0f));
             }
         }
-        else if (GameManager.instance.touchManager.SwipeDirection.x > 0 && charactersSlot[0].transform.position.x < 680.0f){
+        else if (GameManager.instance.touchManager.SwipeDirection.x > 0 && charactersSlot[0].transform.position.x > 680.0f){
             foreach (CharacterSlot characterSlot in charactersSlot) {
                 characterSlot.gameObject.GetComponent<RectTransform>().Translate(new Vector2(+80.0f, 0.0f));
             }

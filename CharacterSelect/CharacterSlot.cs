@@ -9,13 +9,9 @@ public class CharacterSlot : MonoBehaviour
 
     private int spriteNumber;
 
-    [SerializeField]
-    private string info;
-
     public bool UnLock { get => unLock; set => unLock = value; }
     public int SpriteNumber { get => spriteNumber; set => spriteNumber = value; }
-    public string Info { get => info; set => info = value; }
-
+   
     [SerializeField]
     private GameObject character;
 

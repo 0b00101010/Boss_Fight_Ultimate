@@ -50,6 +50,9 @@ public class Character : MonoBehaviour, ICharacter
     [SerializeField]
     private GameObject hitBackGround;
 
+    [SerializeField]
+    private Sprite deathEffect;
+
     #region Property
     public float Speed { get => speed; set => speed = value; }
     public float Hp { get => hp; set => hp = value; }
@@ -203,11 +206,6 @@ public class Character : MonoBehaviour, ICharacter
         abilitySkill.Exit();
     }
 
-    //private IEnumerator healEnergy() { 
-    //    //딜레이가 끝나면 에너지 회복
-    //}
-
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
@@ -261,7 +259,27 @@ public class Character : MonoBehaviour, ICharacter
         return sprite;
     }
 
- 
+    public IEnumerator ShowEffect(Sprite effectSprite)
+    {
+        GameObject target = Instantiate(new GameObject(), gameObject.transform.position, Quaternion.identity);
+        target.AddComponent<SpriteRenderer>().sprite = effectSprite;
+        target.GetComponent<SpriteRenderer>().sortingOrder = 5;
+        target.transform.SetParent(gameObject.transform);
+        target.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        GameManager.instance.FadeOut(target.GetComponent<SpriteRenderer>(), 0.5f);
 
+        var waitingTime = new WaitForSeconds(0.05f);
 
+        for (int i = 0; i < 10; i++)
+        {
+            yield return waitingTime;
+            target.transform.localScale += new Vector3(0.1f,0.1f,0.1f);
+        }
+        Destroy(target);
+    }
+
+    public void Death()
+    {
+        StartCoroutine(ShowEffect(deathEffect));
+    }
 }

@@ -16,7 +16,7 @@ public class Jumper : MonoBehaviour, ISkill
 
 
     public void Enter() {
-        Vector2 force = new Vector2(0, 14);
+        Vector2 force = new Vector2(0, 10);
         Rigidbody2D rBody = targetObject.GetComponent<Rigidbody2D>();
         rBody.velocity = force;
     }

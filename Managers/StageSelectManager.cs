@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class StageSelectManager : MonoBehaviour
 {
     [SerializeField]
@@ -10,15 +11,27 @@ public class StageSelectManager : MonoBehaviour
     private List<StageButton> stages;
     private StageButton curStage;
     private int curStageNumber;
+    [SerializeField]
+    private Image characterSelectSceneButton;
     // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
+        StartCoroutine(ImageUpdate());
         StartCoroutine(BlackOut());
         curStageNumber = 0;
         curStage = stages[curStageNumber];
         curStage.gameObject.transform.localScale += new Vector3(.4f, .4f, .4f);
     }
-    
+
+    private IEnumerator ImageUpdate()
+    {
+        GameObject target = Instantiate(GameManager.instance.nowGameCharacter,new Vector2(-100f, -100f),Quaternion.identity);
+        characterSelectSceneButton.sprite = target.GetComponent<SpriteRenderer>().sprite;
+        yield return new WaitForSeconds(0.05f);
+        Destroy(target);
+    }
+
     private IEnumerator BlackOut()
     {
         SpriteRenderer blackspriteRenderer = blackBackground.GetComponent<SpriteRenderer>();

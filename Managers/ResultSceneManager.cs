@@ -27,11 +27,11 @@ public class ResultSceneManager : MonoBehaviour
             CreateNewScoreFile();
         }
         BestScoreFile = Resources.Load("MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5] + "_" + GameManager.instance.Difficulty) as TextAsset;
-        Debug.Log("/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5] + "_" + GameManager.instance.Difficulty);
+        // Debug.Log("/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5] + "_" + GameManager.instance.Difficulty);
         string  str = BestScoreFile.text;
         string[] BestScoreText = str.Split(';');
 
-        Debug.Log(BestScoreText[1]);
+        // Debug.Log(BestScoreText[1]);
 
         if (score > float.Parse(BestScoreText[1]))
             CreateNewScoreFile();

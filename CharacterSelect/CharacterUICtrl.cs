@@ -26,7 +26,7 @@ public class CharacterUICtrl : MonoBehaviour
     private Image[] dodgeLevels;
 
     [SerializeField]
-    private Sprite levelImage;
+    private Sprite[] levelImage;
 
     #endregion UI
 
@@ -83,11 +83,19 @@ public class CharacterUICtrl : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         Debug.Log(target.GetComponent<Character>().Level_Tank);
 
+
+        for (int i = 0; i < tankLevels.Length; i++)
+            tankLevels[i].sprite = levelImage[0];
+
+        for (int i = 0; i < dodgeLevels.Length; i++)
+            dodgeLevels[i].sprite = levelImage[0];
+
+
         for (int i = 0; i < target.GetComponent<Character>().Level_Tank; i++)
-            tankLevels[i].sprite = levelImage;
+            tankLevels[i].sprite = levelImage[1];
 
         for (int i = 0; i < target.GetComponent<Character>().Level_Dodge; i++)
-            dodgeLevels[i].sprite = levelImage;
+            dodgeLevels[i].sprite = levelImage[1];
 
         switch (selectSlot.GetCharacter().GetComponent<Character>().Rank)
         {

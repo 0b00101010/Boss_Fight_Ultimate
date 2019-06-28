@@ -22,7 +22,7 @@ public class Character_Star : Character
         char_AbilityPrice = 100;
         char_JumpForce = 5;
 
-        StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, JumpForce, abilitySkill);
+        StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, char_JumpForce, abilitySkill);
         IDInit(4, 4, 4);
         RankInit(0, 4, 1);
     }

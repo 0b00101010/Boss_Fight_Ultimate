@@ -143,6 +143,7 @@ public class StageManager : MonoBehaviour
         {
             GameManager.instance.Notify((int)GameManager.ObserveTag.CHARACTER_DEATH);
             //StopCoroutine(BeatUp());
+            _char.Death();
             StartCoroutine(GameEnd());
         }
         else
