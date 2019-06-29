@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Star : MonoBehaviour, ISkill{
 
-    private GameObject targetObject;
+    private Character targetCharacter;
 
     public void Init()
     {
-        targetObject = GameObject.FindWithTag("Character");
+        targetCharacter = GameObject.FindWithTag("Character").GetComponent<Character>();
     }
 
     public bool Repeat()
@@ -17,8 +17,8 @@ public class Star : MonoBehaviour, ISkill{
     }
 
     public void Enter() {
-        targetObject.tag = "Star";
-        StartCoroutine(Timer());
+        targetCharacter.transform.tag = "Star";
+        
     }
 
     public void Excute() { 
@@ -27,12 +27,19 @@ public class Star : MonoBehaviour, ISkill{
 
     public void Exit()
     {
+        targetCharacter.tag = "Character";
 
     }
 
     private IEnumerator Timer()
     {
-        yield return new WaitForSeconds(2.0f);
-        targetObject.tag = "Character";
+        var waitingTime = new WaitForSeconds(0.2f);
+        SpriteRenderer spriteRenderer = targetCharacter.GetComponent<SpriteRenderer>();
+        for(int i = 0; i < 10; i++)
+        {
+            spriteRenderer.sprite = targetCharacter.skilEffect[1];
+            yield return waitingTime;
+            spriteRenderer.sprite = targetCharacter.skilEffect[0];
+        }
     }
 }

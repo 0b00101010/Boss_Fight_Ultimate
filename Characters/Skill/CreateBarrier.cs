@@ -28,6 +28,7 @@ public class CreateBarrier : MonoBehaviour, ISkill
         GameObject instance = Instantiate(barrier,targetCharacter.transform.position,Quaternion.identity);
         instance.GetComponent<Barrier>().SetBarrierValue(curEnergy);
         instance.transform.SetParent(targetCharacter.transform);
+        targetCharacter.ShowEffect(targetCharacter.skilEffect[0]);
     }
 
     public void Excute(){

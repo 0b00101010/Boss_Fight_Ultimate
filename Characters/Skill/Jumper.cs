@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Jumper : MonoBehaviour, ISkill
 {
-    private GameObject targetObject;
+    private Character targetCharacter;
 
     public void Init() {
-        targetObject = GameObject.FindWithTag("Character");
+        targetCharacter = gameObject.GetComponent<Character>() ;
     }
 
     public bool Repeat() {
@@ -17,8 +17,9 @@ public class Jumper : MonoBehaviour, ISkill
 
     public void Enter() {
         Vector2 force = new Vector2(0, 10);
-        Rigidbody2D rBody = targetObject.GetComponent<Rigidbody2D>();
+        Rigidbody2D rBody = targetCharacter.GetComponent<Rigidbody2D>();
         rBody.velocity = force;
+        StartCoroutine(Effect());
     }
 
     public void Excute() {
@@ -29,4 +30,13 @@ public class Jumper : MonoBehaviour, ISkill
     
     }
 
+    private IEnumerator Effect()
+    {
+        var waitingTime = new WaitForSeconds(0.1f);
+        for(int i = 0; i < 5; i++)
+        {
+            targetCharacter.ShowEffect(targetCharacter.skilEffect[1]);
+            yield return waitingTime;
+        }
+    }
 }

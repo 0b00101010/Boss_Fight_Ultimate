@@ -5,12 +5,12 @@ using UnityEngine;
 public class Blink : MonoBehaviour, ISkill
 {
 
-    private GameObject targetCharacter;
+    private Character targetCharacter;
     private int blinkDistance;
     public void Init()
     {
         blinkDistance = 2;
-        targetCharacter = GameObject.FindWithTag("Character");
+        targetCharacter = GameObject.FindWithTag("Character").GetComponent<Character>();
     }
 
     public bool Repeat()
@@ -37,6 +37,7 @@ public class Blink : MonoBehaviour, ISkill
                 targetCharacter.transform.position = new Vector2(8.3f, targetCharacter.transform.position.y);
         }
 
+        targetCharacter.ShowEffect(targetCharacter.skilEffect[0]);
     }
 
 

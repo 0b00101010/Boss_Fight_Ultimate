@@ -12,6 +12,11 @@ public class Barrier : MonoBehaviour
         
     }
 
+    private void FixedUpdate()
+    {
+        transform.Rotate(Vector3.forward * Time.deltaTime);
+    }
+
     public void SetBarrierValue(int value)
     {
         barrierValue = value;

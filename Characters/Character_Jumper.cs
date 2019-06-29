@@ -9,7 +9,8 @@ public class Character_Jumper : Character
     private int char_Energy;
     private int char_AbilityPrice;
     private int char_JumpForce;
-    private Jumper abilitySkill = new Jumper();
+    [SerializeField]
+    private Jumper abilitySkill ;
     private void Start()
     {
         abilitySkill.Init();
@@ -24,11 +25,6 @@ public class Character_Jumper : Character
         //ID 값 변경
         IDInit(6, 26, 6);
 
-    }
-
-    public override void SpecialAbility()
-    {
-        base.SpecialAbility();
     }
 
     private void FixedUpdate()

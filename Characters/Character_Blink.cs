@@ -27,17 +27,6 @@ public class Character_Blink : Character
         StatInit(char_Speed, char_Hp, char_Energy, char_AbilityPrice, char_JumpForce, abilitySkill);
     }
 
-    public override void SpecialAbility()
-    {
-        abilitySkill.Enter();
-        base.SpecialAbility();
-    }
-
-    public override void UnSpecialAbility()
-    {
-        base.UnSpecialAbility();
-    }
-
     private void FixedUpdate()
     {
         Move();

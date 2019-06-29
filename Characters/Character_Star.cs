@@ -27,14 +27,7 @@ public class Character_Star : Character
         RankInit(0, 4, 1);
     }
 
-    public override void SpecialAbility()
-    {
-        base.SpecialAbility();
-    }
-
     private void FixedUpdate() {
         Move();
     }
-
-
 }

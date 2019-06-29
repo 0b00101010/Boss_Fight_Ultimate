@@ -45,6 +45,11 @@ public class Character : MonoBehaviour, ICharacter
     private Sprite[] charSprites;
     // 0 기본, 1 능력 사용중
 
+    [SerializeField]
+    public Sprite[] skilEffect ;
+    // 시작 사용중 끝
+    // 이전 스프라이트가 존재하지 않을 경우 같은 스프라이트 사용  
+
     protected Rigidbody2D rBody;
 
     [SerializeField]
@@ -170,7 +175,7 @@ public class Character : MonoBehaviour, ICharacter
     }
 
     public virtual void SpecialAbility(){
-        if (Energy > abilityPrice)
+        if (Energy >= abilityPrice)
         {
             Energy -= abilityPrice;
             spriteRenderer.sprite = charSprites[1];
@@ -261,6 +266,7 @@ public class Character : MonoBehaviour, ICharacter
 
     public IEnumerator ShowEffect(Sprite effectSprite)
     {
+        Debug.Log("ShowEffect");
         GameObject target = Instantiate(new GameObject(), gameObject.transform.position, Quaternion.identity);
         target.AddComponent<SpriteRenderer>().sprite = effectSprite;
         target.GetComponent<SpriteRenderer>().sortingOrder = 5;
