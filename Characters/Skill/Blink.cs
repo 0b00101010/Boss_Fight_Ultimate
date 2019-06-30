@@ -37,7 +37,7 @@ public class Blink : MonoBehaviour, ISkill
                 targetCharacter.transform.position = new Vector2(8.3f, targetCharacter.transform.position.y);
         }
 
-        targetCharacter.ShowEffect(targetCharacter.skilEffect[0]);
+        StartCoroutine(targetCharacter.ShowEffect(targetCharacter.skilEffect[0]));
     }
 
 
