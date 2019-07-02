@@ -10,7 +10,9 @@ public class Character_ddiyong : Character
     private int char_Energy;
     private int char_AbilityPrice;
     private int char_JumpForce;
-    private Run abilitySkill = new Run();
+
+    [SerializeField]
+    private Run abilitySkill;
     // Start is called before the first frame update
     private void Start()
     {

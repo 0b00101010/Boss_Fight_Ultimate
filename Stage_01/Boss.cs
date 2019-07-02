@@ -11,7 +11,7 @@ public class Boss : StageBoss
 
     private void Awake()
     {
-        Damage = 100.0f;
+        Damage = 20.0f;
     }
 
     public void Charged() {

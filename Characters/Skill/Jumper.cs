@@ -7,7 +7,7 @@ public class Jumper : MonoBehaviour, ISkill
     private Character targetCharacter;
 
     public void Init() {
-        targetCharacter = GameObject.FindWithTag("Character").GetComponent<Character>() ;
+        targetCharacter = gameObject.GetComponent<Character>() ;
     }
 
     public bool Repeat() {
@@ -35,7 +35,7 @@ public class Jumper : MonoBehaviour, ISkill
         var waitingTime = new WaitForSeconds(0.1f);
         for(int i = 0; i < 5; i++)
         {
-            StartCoroutine(targetCharacter.ShowEffect(targetCharacter.skilEffect[1]));
+            StartCoroutine(targetCharacter.ShowEffect(targetCharacter.skilEffect[0],false));
             yield return waitingTime;
         }
     }

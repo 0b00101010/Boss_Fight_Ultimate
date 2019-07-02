@@ -11,7 +11,8 @@ public class Character_Star : Character
     private int char_AbilityPrice;
     private int char_JumpForce;
 
-    private Star abilitySkill = new Star();
+    [SerializeField]
+    private Star abilitySkill;
 
     private void Start()
     {

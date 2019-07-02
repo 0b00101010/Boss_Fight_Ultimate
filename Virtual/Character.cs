@@ -47,9 +47,7 @@ public class Character : MonoBehaviour, ICharacter
 
     [SerializeField]
     public Sprite[] skilEffect ;
-    // 시작 사용중 끝
-    // 이전 스프라이트가 존재하지 않을 경우 같은 스프라이트 사용  
-
+    
     protected Rigidbody2D rBody;
 
     [SerializeField]
@@ -230,7 +228,7 @@ public class Character : MonoBehaviour, ICharacter
             doubleJump = false;
         }
 
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && gameObject.transform.CompareTag("Character"))
         {
             Debug.Log("Hit enemy");
             Hit(other.gameObject);
@@ -242,12 +240,13 @@ public class Character : MonoBehaviour, ICharacter
     {
         float damage = GameObject.FindWithTag("StageManager").GetComponent<EnemyDamage>().GetDamage(other.gameObject.GetComponent<Enemy>());
         hp -= damage;
+        other.transform.tag = "Untagged";
         GameManager.instance.LastGameHitCount++;
         StartCoroutine(FadeInOut());
     }
 
     private IEnumerator FadeInOut() {
-
+        gameObject.transform.tag = "Untagged";
         SpriteRenderer backgroundRenderer = hitBackGround.GetComponent<SpriteRenderer>();
         backgroundRenderer.color = new Color(255,0,0,0.5f);
         StartCoroutine(GameManager.instance.FadeOut(backgroundRenderer, 0.5f,5));
@@ -255,6 +254,7 @@ public class Character : MonoBehaviour, ICharacter
         yield return StartCoroutine(GameManager.instance.FadeIn(spriteRenderer,0.15f,1));
         yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer, 0.15f, 1));
         yield return StartCoroutine(GameManager.instance.FadeIn(spriteRenderer, 0.15f, 1));
+        gameObject.transform.tag = "Character";
     }
 
 
@@ -264,22 +264,29 @@ public class Character : MonoBehaviour, ICharacter
         return sprite;
     }
 
-    public IEnumerator ShowEffect(Sprite effectSprite)
+    //public void SkilEffect(bool effectFixed = true)
+    //{
+    //    StartCoroutine(ShowEffect(skilEffect[0],effectFixed));
+    //}
+
+    public IEnumerator ShowEffect(Sprite effectSprite, bool effectFixed = true)
     {
         Debug.Log("ShowEffect");
         GameObject target = Instantiate(new GameObject(), gameObject.transform.position, Quaternion.identity);
         target.AddComponent<SpriteRenderer>().sprite = effectSprite;
-        target.GetComponent<SpriteRenderer>().sortingOrder = 5;
-        target.transform.SetParent(gameObject.transform);
-        target.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        GameManager.instance.FadeOut(target.GetComponent<SpriteRenderer>(), 0.5f);
+        SpriteRenderer tagetSpriteRenderer = target.GetComponent<SpriteRenderer>();
+        tagetSpriteRenderer.sortingOrder = 1;
+        if(effectFixed)
+            target.transform.SetParent(gameObject.transform);
+        target.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-        var waitingTime = new WaitForSeconds(0.05f);
+        var waitingTime = new WaitForSeconds(0.03f);
 
         for (int i = 0; i < 10; i++)
         {
             yield return waitingTime;
-            target.transform.localScale += new Vector3(0.1f,0.1f,0.1f);
+            target.transform.localScale += new Vector3(0.05f,0.05f,0.05f);
+            tagetSpriteRenderer.color = new Color(tagetSpriteRenderer.color.r, tagetSpriteRenderer.color.g, tagetSpriteRenderer.color.b, tagetSpriteRenderer.color.a - 0.1f);
         }
         Destroy(target);
     }

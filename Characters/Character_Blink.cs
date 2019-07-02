@@ -10,7 +10,8 @@ public class Character_Blink : Character
     private int char_AbilityPrice;
     private int char_JumpForce;
 
-    private Blink abilitySkill = new Blink();
+    [SerializeField]
+    private Blink abilitySkill;
 
 
     private void Start()

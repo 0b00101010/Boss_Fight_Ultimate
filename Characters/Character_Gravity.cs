@@ -9,7 +9,9 @@ public class Character_Gravity : Character
     private int char_Energy;
     private int char_AbilityPrice;
     private int char_JumpForce;
-    private Anti_Gravity abilitySkill = new Anti_Gravity();
+
+    [SerializeField]
+    private Anti_Gravity abilitySkill;
 
     // Start is called before the first frame update
     private void Start()

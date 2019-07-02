@@ -8,7 +8,7 @@ public class Anti_Gravity :MonoBehaviour, ISkill
     private Rigidbody2D rBody;
     public void Init()
     {
-        targetCharacter = GameObject.FindWithTag("Character").GetComponent<Character>();
+        targetCharacter = gameObject.GetComponent<Character>();
         rBody = targetCharacter.gameObject.GetComponent<Rigidbody2D>();
     }
 

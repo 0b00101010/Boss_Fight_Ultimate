@@ -8,7 +8,7 @@ public class Star : MonoBehaviour, ISkill{
 
     public void Init()
     {
-        targetCharacter = GameObject.FindWithTag("Character").GetComponent<Character>();
+        targetCharacter = gameObject.GetComponent<Character>();
     }
 
     public bool Repeat()

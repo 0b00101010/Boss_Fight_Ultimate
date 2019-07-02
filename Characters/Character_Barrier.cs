@@ -13,6 +13,7 @@ public class Character_Barrier : Character
     [SerializeField]
     private GameObject barrier;
 
+    [SerializeField]
     private CreateBarrier abilitySkill;
     // Start is called before the first frame update
     private void Start()

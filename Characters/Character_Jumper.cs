@@ -9,7 +9,8 @@ public class Character_Jumper : Character
     private int char_Energy;
     private int char_AbilityPrice;
     private int char_JumpForce;
-    private Jumper abilitySkill = new Jumper() ;
+    [SerializeField]
+    private Jumper abilitySkill;
     private void Start()
     {
         abilitySkill.Init();

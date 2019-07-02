@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Run : ISkill
+public class Run : MonoBehaviour, ISkill
 {
     private Character targetCharacter;
     private float plusSpeed;
     private float basicSpeed;
 
     public void Init() {
-        targetCharacter = GameObject.FindWithTag("Character").GetComponent<Character>();
+        targetCharacter = gameObject.GetComponent<Character>();
     }
 
     public bool Repeat()

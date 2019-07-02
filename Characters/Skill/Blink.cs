@@ -10,7 +10,7 @@ public class Blink : MonoBehaviour, ISkill
     public void Init()
     {
         blinkDistance = 2;
-        targetCharacter = GameObject.FindWithTag("Character").GetComponent<Character>();
+        targetCharacter = gameObject.GetComponent<Character>();
     }
 
     public bool Repeat()
@@ -20,6 +20,10 @@ public class Blink : MonoBehaviour, ISkill
 
     public void Enter()
     {
+
+        StartCoroutine(targetCharacter.ShowEffect(targetCharacter.skilEffect[0],false));
+
+
         if (targetCharacter.GetComponent<SpriteRenderer>().flipX)
         {
             if (targetCharacter.transform.position.x - blinkDistance > -8.3f)
@@ -37,7 +41,6 @@ public class Blink : MonoBehaviour, ISkill
                 targetCharacter.transform.position = new Vector2(8.3f, targetCharacter.transform.position.y);
         }
 
-        StartCoroutine(targetCharacter.ShowEffect(targetCharacter.skilEffect[0]));
     }
 
 
