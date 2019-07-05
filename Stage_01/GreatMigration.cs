@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GreatMigration : MonoBehaviour
+public class GreatMigration : Enemy
 {
     [SerializeField]
     private GameObject Node1;
@@ -18,10 +18,12 @@ public class GreatMigration : MonoBehaviour
     private bool isMove;
 
     private Vector3 markPos;
+
     private void Start()
     {
         thisBoss = gameObject.GetComponent<Boss>();
         SelectNode();
+        Coefficient = 0.3f;
     }
 
     private IEnumerator MoveTo()
@@ -60,8 +62,6 @@ public class GreatMigration : MonoBehaviour
 
     private IEnumerator Excute()
     {
-
-        //호출당 한번으로 바꾸기
         thisBoss.Darkened();
         yield return new WaitForSeconds(0.75f);
         Node1.transform.position = new Vector2(Random.Range(-8.0f, 8.0f), Node1.transform.position.y);

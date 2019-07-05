@@ -52,10 +52,10 @@ public class ResultWindow : MonoBehaviour
         else
             survivedResult.sprite = sceneManager.survivedResult[1];
 
-        StartCoroutine(FadeIn(emphasis, 0.3f));
-        StartCoroutine(FadeIn(hit, 0.3f));
-        StartCoroutine(FadeIn(survivedResult, 0.3f));
-        StartCoroutine(FadeIn(remainedHp, 0.3f));
+        StartCoroutine(GameManager.instance.IFadeIn(emphasis, 0.3f));
+        StartCoroutine(GameManager.instance.IFadeIn(hit, 0.3f));
+        StartCoroutine(GameManager.instance.IFadeIn(survivedResult, 0.3f));
+        StartCoroutine(GameManager.instance.IFadeIn(remainedHp, 0.3f));
 
         remainedValue.UpdateShame((int)GameManager.instance.LastGameHp);
         hitValue.UpdateShame(GameManager.instance.LastGameHitCount);
@@ -92,21 +92,5 @@ public class ResultWindow : MonoBehaviour
             return 5;
     }
 
-    public IEnumerator FadeIn(Image image, float spendTime, int repeatCount = 10)
-    {
-        for (int i = 0; i < repeatCount; i++)
-        {
-            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + (1.0f / repeatCount));
-            yield return new WaitForSeconds(spendTime / repeatCount);
-        }
-    }
-
-    public IEnumerator FadeOut(Image image, float spendTime, int repeatCount = 10)
-    {
-        for (int i = 0; i < repeatCount; i++)
-        {
-            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a - (1.0f / repeatCount));
-            yield return new WaitForSeconds(spendTime / repeatCount);
-        }
-    }
+    
 }

@@ -20,16 +20,12 @@ public class LadyBug_Water : MonoBehaviour
     private IEnumerator Excute()
     {
         yield return new WaitForSeconds(3.5f);
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a - 0.1f);
-        //    yield return new WaitForSeconds(0.05f);
-        //}
         yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer,0.5f));
 
         spriteRenderer.enabled = false;
         gameObject.transform.tag = "Untagged";
-
+        DestroyImmediate(gameObject.GetComponent<Collider2D>());
+        Destroy(this,3.0f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -37,7 +33,7 @@ public class LadyBug_Water : MonoBehaviour
         if (other.gameObject.CompareTag("Character"))
         {
             other.gameObject.GetComponent<Character>().Speed
-            = other.gameObject.GetComponent<Character>().MaxSpeed / 100 * 50;
+            = other.gameObject.GetComponent<Character>().MaxSpeed / 100 * 20;
             StartCoroutine(Count(other.gameObject.GetComponent<Character>()));
         }
 

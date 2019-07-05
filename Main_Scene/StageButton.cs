@@ -18,6 +18,8 @@ public class StageButton : MonoBehaviour
 
     private void Awake()
     {
+        if (!Resources.Load("MapData/" + stageName))
+            return;
         scoreFile = Resources.Load("MapData/" + stageName) as TextAsset;
         fileText = scoreFile.text;
         fileTexts = fileText.Split(';');

@@ -22,7 +22,7 @@ public class Sprout : Enemy
             gameObject.transform.Translate(new Vector2(0.0f,0.5f));
             yield return new WaitForSeconds(0.1f);
         }
-        gameObject.transform.tag = "Untagged";
+        gameObject.transform.tag = "Ground";
         yield return new WaitForSeconds(1.85f);
         yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer,0.25f));
     }

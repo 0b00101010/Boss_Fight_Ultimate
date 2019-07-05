@@ -20,10 +20,10 @@ public class Run : MonoBehaviour, ISkill
     public void Enter()
     {
         basicSpeed = targetCharacter.Speed;
-        plusSpeed = (targetCharacter.Speed / 40) * 100;
+        plusSpeed = (targetCharacter.Speed / 100) * 140;
         targetCharacter.Speed += plusSpeed;
     }
-    
+   
     public void Excute(){
       
     }

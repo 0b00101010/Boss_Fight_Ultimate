@@ -228,7 +228,7 @@ public class Character : MonoBehaviour, ICharacter
             doubleJump = false;
         }
 
-        if (other.gameObject.CompareTag("Enemy") && gameObject.transform.CompareTag("Character"))
+        if ((other.gameObject.CompareTag("Enemy")|| other.gameObject.CompareTag("Boss")) && gameObject.transform.CompareTag("Character"))
         {
             Debug.Log("Hit enemy");
             Hit(other.gameObject);

@@ -92,6 +92,25 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(spendTime / repeatCount);
         }
     }
+
+    public IEnumerator IFadeIn(Image image, float spendTime, int repeatCount = 10)
+    {
+        for (int i = 0; i < repeatCount; i++)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + (1.0f / repeatCount));
+            yield return new WaitForSeconds(spendTime / repeatCount);
+        }
+    }
+
+    public IEnumerator IFadeOut(Image image, float spendTime, int repeatCount = 10)
+    {
+        for (int i = 0; i < repeatCount; i++)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a - (1.0f / repeatCount));
+            yield return new WaitForSeconds(spendTime / repeatCount);
+        }
+    }
+
     public void AddObserver(IObserver observer)
     {
         Observers.Add(observer);

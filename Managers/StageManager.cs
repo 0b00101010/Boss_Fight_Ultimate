@@ -153,6 +153,27 @@ public class StageManager : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR_OSX
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+            gameChar.SetLeft();
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
+            gameChar.SetLeft();
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+            gameChar.SetRight();
+        if (Input.GetKeyUp(KeyCode.RightArrow))
+            gameChar.SetRight();
+        if (Input.GetKeyDown(KeyCode.Z))
+            gameChar.Jump();
+        if (Input.GetKeyDown(KeyCode.X))
+            gameChar.SpecialAbility();
+        if (Input.GetKeyUp(KeyCode.X))
+            gameChar.UnSpecialAbility();
+
+
+    }
+#endif
 
     public void MoveLeft()
     {

@@ -28,23 +28,9 @@ public class Character_Gravity : Character
         RankInit(0,2,3);
     }
 
-    public override void SpecialAbility()
-    {
-        base.SpecialAbility();
-        // 능력사용 스프라이트 변경
-    }
-
     private void FixedUpdate()
     {
         Move();
-        if (IsUseAbility)
-        {
-            if (gameObject.transform.position.y < 4.5f)
-                gameObject.transform.Translate(new Vector3(0, 0.5f, 0));
-        }
-
-        if (Energy - AbilityPrice <= 0)
-            UnSpecialAbility();
     }
 
 }
