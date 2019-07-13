@@ -15,6 +15,9 @@ public class StageSelectManager : MonoBehaviour
     private Image characterSelectSceneButton;
     // Start is called before the first frame update
 
+    [SerializeField]
+    private Slider musicVolumeSlider;
+
     private void Start()
     {
         StartCoroutine(ImageUpdate());
@@ -22,6 +25,7 @@ public class StageSelectManager : MonoBehaviour
         curStageNumber = 0;
         curStage = stages[curStageNumber];
         curStage.gameObject.transform.localScale += new Vector3(.4f, .4f, .4f);
+        musicVolumeSlider.value = GameManager.instance.soundManager.Volume;
     }
 
     private IEnumerator ImageUpdate()
@@ -49,6 +53,10 @@ public class StageSelectManager : MonoBehaviour
 
     }
 
+    public void VolumeChange()
+    {
+        GameManager.instance.soundManager.Volume = musicVolumeSlider.value;    
+    }
 
     private IEnumerator BlackIn()
     {
