@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         touchManager = gameObject.GetComponent<TouchManager>();
         AddObserver(new AchievementObserver());
         touchManager.SetOnSwipeDectected(myOnSwipeDectected);
+        
         DontDestroyOnLoad(gameObject);
     }
 

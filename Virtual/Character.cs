@@ -211,7 +211,7 @@ public class Character : MonoBehaviour, ICharacter
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && gameObject.transform.CompareTag("Character"))
         {
             Debug.Log("Hit enemy");
             Hit(other.gameObject);
@@ -228,7 +228,7 @@ public class Character : MonoBehaviour, ICharacter
             doubleJump = false;
         }
 
-        if ((other.gameObject.CompareTag("Enemy")|| other.gameObject.CompareTag("Boss")) && gameObject.transform.CompareTag("Character"))
+        if (other.gameObject.CompareTag("Enemy") && gameObject.transform.CompareTag("Character"))
         {
             Debug.Log("Hit enemy");
             Hit(other.gameObject);

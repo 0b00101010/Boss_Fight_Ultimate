@@ -101,7 +101,7 @@ public class StageManager : MonoBehaviour
 
     private void PhaseUp()
     {
-        StartCoroutine(GameManager.instance.FadeIn(stagePhaseBackgrounds[phaseUpCount].GetComponent<SpriteRenderer>(), 0.5f));
+       
         phases[phaseUpCount].Excute();
         phaseUpCount++;
     }

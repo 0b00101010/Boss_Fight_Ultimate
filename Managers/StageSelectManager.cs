@@ -14,6 +14,14 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField]
     private Image characterSelectSceneButton;
     // Start is called before the first frame update
+    [SerializeField]
+    private Canvas settingCanvas;
+
+    [SerializeField]
+    private Canvas stagesCanvas;
+
+    [SerializeField]
+    private Canvas optionScreenCavans;
 
     [SerializeField]
     private Slider musicVolumeSlider;
@@ -152,6 +160,87 @@ public class StageSelectManager : MonoBehaviour
         yield return StartCoroutine(BlackIn());
         GameManager.instance.NextStageNumber = sceneNumber;
         SceneManager.LoadScene("02_LoadScene");
+    }
+
+    public void SettingView()
+    {
+        settingCanvas.gameObject.SetActive(false);
+        stagesCanvas.gameObject.SetActive(false);
+        optionScreenCavans.gameObject.SetActive(true);
+    }
+
+    public void SettingCancle()
+    {
+        settingCanvas.gameObject.SetActive(true);
+        stagesCanvas.gameObject.SetActive(true);
+        optionScreenCavans.gameObject.SetActive(false);
+            
+    }
+
+    public void OnOffOtherStage()
+    {
+        StartCoroutine(OnOff());
+    }
+
+    private IEnumerator OnOff()
+    {
+        for (int i = 0; i < stages.Count; i++)
+        {
+            if (i.Equals(curStageNumber))
+                continue;
+
+            if (stages[i].gameObject.active.Equals(true))
+            {
+
+
+                if (stages[i].gameObject.GetComponent<RectTransform>().position.x < stages[curStageNumber].transform.position.x)
+                {
+                    for (int j = 0; j < 20; j++)
+                    {
+                        stages[i].gameObject.transform.Translate(new Vector3(-0.3f, 0, 0));
+                        yield return new WaitForSeconds(0.02f);
+                    }
+
+                }
+
+
+                else if (stages[i].gameObject.GetComponent<RectTransform>().position.x > stages[curStageNumber].transform.position.x)
+                {
+                    for (int j = 0; j < 20; j++)
+                    {
+                        stages[i].gameObject.transform.Translate(new Vector3(+0.3f, 0, 0));
+                        yield return new WaitForSeconds(0.02f);
+                    }
+                }
+                stages[i].gameObject.SetActive(!stages[i].gameObject.active);
+            }
+            else if (stages[i].gameObject.active.Equals(false))
+            {
+                stages[i].gameObject.SetActive(!stages[i].gameObject.active);
+                if (stages[i].gameObject.GetComponent<RectTransform>().position.x > stages[curStageNumber].transform.position.x)
+                {
+                    for (int j = 0; j < 20; j++)
+                    {
+                        stages[i].gameObject.transform.Translate(new Vector3(-0.3f, 0, 0));
+                        yield return new WaitForSeconds(0.02f);
+                    }
+
+                }
+
+
+                else if (stages[i].gameObject.GetComponent<RectTransform>().position.x < stages[curStageNumber].transform.position.x)
+                {
+                    for (int j = 0; j < 20; j++)
+                    {
+                        stages[i].gameObject.transform.Translate(new Vector3(+0.3f, 0, 0));
+                        yield return new WaitForSeconds(0.02f);
+                    }
+                }
+            }
+            
+        }
+
+
     }
 
     public void MoveToCharacterSelect()

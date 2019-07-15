@@ -15,7 +15,6 @@ public class SoundManager : MonoBehaviour
             volume = value;
             audioSource.volume = volume;
             PlayerPrefs.SetFloat("Volume", volume);
-
         }
     }
 
@@ -27,6 +26,7 @@ public class SoundManager : MonoBehaviour
             volume = PlayerPrefs.GetFloat("Volume");
         else
             volume = 0.5f;
+   
     }
 
     public void MusicChange(AudioClip clip)

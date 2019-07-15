@@ -25,6 +25,7 @@ public class ResultSceneManager : MonoBehaviour
         {
             //System.IO.File.Create(Application.dataPath + "/Resources/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5 ] + "_" +GameManager.instance.Difficulty + ".txt");
             CreateNewScoreFile();
+
         }
         BestScoreFile = Resources.Load("MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5] + "_" + GameManager.instance.Difficulty) as TextAsset;
         // Debug.Log("/MapData/" + GameManager.instance.StageNames[GameManager.instance.NextStageNumber - 5] + "_" + GameManager.instance.Difficulty);

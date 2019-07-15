@@ -7,8 +7,12 @@ public class LadyBug_Phase_2 : Phase
     [SerializeField]
     private GameObject rainDrop;
 
+    [SerializeField]
+    private GameObject phaseBackground;
+
     public override void Excute()
     {
+        StartCoroutine(GameManager.instance.FadeIn(phaseBackground.GetComponent<SpriteRenderer>(),0.5f));
         StartCoroutine(RainDrop());
     }
 
