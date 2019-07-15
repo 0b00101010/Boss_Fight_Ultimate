@@ -27,7 +27,7 @@ public class EyeBall : Enemy
 
     private IEnumerator OffTriger()
     {
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.005f);
         gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
     }
 

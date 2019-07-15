@@ -220,6 +220,26 @@ public class Character : MonoBehaviour, ICharacter
 
     }
 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy") && gameObject.transform.CompareTag("Character"))
+        {
+            Debug.Log("Hit enemy");
+            Hit(other.gameObject);
+
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy") && gameObject.transform.CompareTag("Character"))
+        {
+            Debug.Log("Hit enemy");
+            Hit(other.gameObject);
+
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground"))

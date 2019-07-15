@@ -16,9 +16,21 @@ public class ChaosFantasy : StagePattern
 
     public override void Excute(int patternNumber)
     {
-        if (patternNumber == 0)
-            Instantiate(patterns[patternNumber], new Vector2(Random.Range(-8.5f, 8.5f), -2.5f), Quaternion.identity);
-        else
-            Instantiate(patterns[patternNumber], new Vector2(Random.Range(-8.0f, 8.0f), 0.0f), Quaternion.identity);
+
+        switch (patternNumber)
+        {
+            case 0:
+                Instantiate(patterns[patternNumber], new Vector2(Random.Range(-8.5f, 8.5f), -2.5f), Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(patterns[patternNumber], new Vector2(Random.Range(-8.0f, 8.0f), 0.0f), Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(patterns[patternNumber], new Vector2(0, Random.Range(-2f, 3f)), Quaternion.identity);
+                break;
+            case 3:
+                stageBoss.GetComponentInChildren<EyeCrossAttack>().CrossAttack();
+				break;
+         }
     }
 }

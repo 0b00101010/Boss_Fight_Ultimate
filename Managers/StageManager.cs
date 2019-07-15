@@ -13,7 +13,7 @@ public class StageManager : MonoBehaviour
     private float beatUpSpeed = 0;
 
     [SerializeField]
-    private int phaseUpBeat = 0;
+    private List<int> phaseUpBeat = new List<int>();
     private AudioSource audioSource;
 
     public int Beat { get => beat; set => beat = value; }
@@ -21,10 +21,7 @@ public class StageManager : MonoBehaviour
 
     [SerializeField]
     private GameObject blackBackground = null;
-
-    [SerializeField]
-    private GameObject[] stagePhaseBackgrounds;
-
+     
     [SerializeField]
     private Phase[] phases;
 
@@ -84,9 +81,10 @@ public class StageManager : MonoBehaviour
             GameManager.instance.Notify((int)GameManager.ObserveTag.GAME_CLEAR);
         }
 
-        if (beat == phaseUpBeat)
+        if (phases.Length > phaseUpCount)
         {
-            PhaseUp();
+            if(beat.Equals(phaseUpBeat[phaseUpCount]))
+                PhaseUp();
         }
 
     }

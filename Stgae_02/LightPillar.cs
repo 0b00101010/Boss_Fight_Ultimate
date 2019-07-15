@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightPillar : Enemy
+public class LightPillar : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     [SerializeField]
@@ -10,7 +10,7 @@ public class LightPillar : Enemy
 
     private void Start()
     {
-        Coefficient = 0.5f;
+      
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         StartCoroutine(Excute());
 
@@ -22,6 +22,6 @@ public class LightPillar : Enemy
         GameObject target = Instantiate(lightPillar, gameObject.transform.position, Quaternion.identity);
         yield return StartCoroutine(GameManager.instance.FadeOut(target.GetComponent<SpriteRenderer>(),0.1f));
         Destroy(target);
-        Destroy(this);
+        Destroy(gameObject);
     }
 }
