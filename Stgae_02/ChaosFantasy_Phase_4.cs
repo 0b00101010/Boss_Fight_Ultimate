@@ -16,12 +16,16 @@ public class ChaosFantasy_Phase_4 : Phase
     [SerializeField]
     private Sprite newBackGround;
 
+    [SerializeField]
+    private SpriteRenderer eyeSpriteRenderer;
+
     public override void Excute()
     {
         buildings[0].GetComponent<SpriteRenderer>().enabled = false;
         buildings[1].GetComponent<SpriteRenderer>().enabled = false;
         backGround.sprite = newBackGround;
-        stageBoss.GetComponent<EyeCrossAttack>().EndCrossAttack();
+        stageBoss.GetComponentInChildren<EyeCrossAttack>().EndCrossAttack();
         stageBoss.Vibrate();
+        StartCoroutine(GameManager.instance.FadeIn(eyeSpriteRenderer,0.3f));
     }
 }
