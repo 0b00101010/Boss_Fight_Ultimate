@@ -45,7 +45,6 @@ public class EyeBall : Enemy
         StartCoroutine(GameManager.instance.FadeOut(gameObject.GetComponent<SpriteRenderer>(),0.1f));
         StartCoroutine(GameManager.instance.FadeOut(explode.GetComponent<SpriteRenderer>(), 0.1f));
         Destroy(explode,0.5f);
-        gameObject.tag = "Untagged";
         Destroy(gameObject,0.5f);
     }
 }

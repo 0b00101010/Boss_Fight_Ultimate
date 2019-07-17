@@ -31,6 +31,9 @@ public class ChaosFantasy : StagePattern
             case 3:
                 stageBoss.GetComponentInChildren<EyeCrossAttack>().CrossAttack();
 				break;
+            case 4:
+                Instantiate(patterns[patternNumber - 1], new Vector2(0, 36),Quaternion.identity);
+                break;
          }
     }
 }
