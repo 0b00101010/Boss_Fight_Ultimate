@@ -34,6 +34,7 @@ public class ChaosFantasy_Phase_3 : Phase
 
     private IEnumerator PhaseUp()
     {
+        stageBoss.StopBlink();
         StartCoroutine(GameManager.instance.FadeOut(Eye, 0.35f));
         yield return StartCoroutine(GameManager.instance.FadeIn(blackBackground, 0.35f));
         for(int i = 0; i < buildings.Length; i++)
