@@ -31,14 +31,14 @@ public class Yeah : MonoBehaviour
     private IEnumerator Pattern_Wild_Growth() {
 
         Instantiate(Wild_Growth,new Vector2(Random.Range(-8.0f,8.0f),0.0f),Quaternion.identity);
-        yield return new WaitForSeconds(Random.Range(1,4));
+        yield return YieldInstructionCache.WaitingSecond(Random.Range(1,4));
         StartCoroutine(Pattern_Wild_Growth());
     }
 
     private IEnumerator Pattern_Bullet_Spread()
     {
         Instantiate(Bullet_Spread, new Vector2(Random.Range(-8.0f, 8.0f), 0.0f), Quaternion.identity);
-        yield return new WaitForSeconds(Random.Range(1, 4));
+        yield return YieldInstructionCache.WaitingSecond(Random.Range(1, 4));
         StartCoroutine(Pattern_Bullet_Spread());
     }
 
@@ -46,13 +46,13 @@ public class Yeah : MonoBehaviour
     private IEnumerator Pattern_Big_Bullet()
     {
         Instantiate(Big_Bullet, new Vector2(Random.Range(-8.0f, 8.0f), -2.5f), Quaternion.identity);
-        yield return new WaitForSeconds(Random.Range(3, 7));
+        yield return YieldInstructionCache.WaitingSecond(Random.Range(3, 7));
         StartCoroutine(Pattern_Big_Bullet());
     }
 
     private IEnumerator Pattern_GreatMigration() {
         greatMigration.Migration();
-        yield return new WaitForSeconds(Random.Range(3, 5));
+        yield return YieldInstructionCache.WaitingSecond(Random.Range(3, 5));
         StartCoroutine(Pattern_GreatMigration());
     }
 

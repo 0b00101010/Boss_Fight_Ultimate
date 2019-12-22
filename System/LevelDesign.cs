@@ -47,7 +47,7 @@ public class LevelDesign : MonoBehaviour
 
     private IEnumerator BeatUP()
     {
-        yield return new WaitForSeconds(beatSec);
+        yield return YieldInstructionCache.WaitingSecond(beatSec);
         Beat++;
         StartCoroutine(BeatUP());
     }

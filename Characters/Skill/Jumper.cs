@@ -32,7 +32,7 @@ public class Jumper : MonoBehaviour, ISkill
 
     private IEnumerator Effect()
     {
-        var waitingTime = new WaitForSeconds(0.1f);
+        var waitingTime = YieldInstructionCache.WaitingSecond(0.1f);
         for(int i = 0; i < 5; i++)
         {
             StartCoroutine(targetCharacter.ShowEffect(targetCharacter.skilEffect[0],false));

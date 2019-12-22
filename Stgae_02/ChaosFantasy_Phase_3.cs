@@ -42,7 +42,7 @@ public class ChaosFantasy_Phase_3 : Phase
             buildings[i].GetComponent<SpriteRenderer>().sprite = newBuilding;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return YieldInstructionCache.WaitingSecond(0.5f);
 
         background.sprite = newBackGround;
         yield return StartCoroutine(GameManager.instance.FadeOut(blackBackground, 0.35f));

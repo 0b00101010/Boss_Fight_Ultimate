@@ -25,7 +25,7 @@ public class Big_Ball : Enemy
     }
 
     private IEnumerator OffTriger() {
-        yield return new WaitForSeconds(0.1f);
+        yield return YieldInstructionCache.WaitingSecond(0.1f);
         gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
     }
 

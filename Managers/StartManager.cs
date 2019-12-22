@@ -52,7 +52,7 @@ public class StartManager : MonoBehaviour
             transparency += 0.2f;
             titleTransparency -= 0.1f;
         }
-        yield return new WaitForSeconds(0.15f);
+        yield return YieldInstructionCache.WaitingSecond(0.15f);
 
         if (transparency < 0.2f) transparencySwitch = 0;
         else if (transparency.Equals(1.0f)) transparencySwitch = 1;

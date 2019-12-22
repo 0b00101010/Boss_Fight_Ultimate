@@ -168,7 +168,7 @@ public class Character : MonoBehaviour, ICharacter
             else
                 Energy += 5;
         }
-        yield return new WaitForSeconds(1.0f);
+        yield return YieldInstructionCache.WaitingSecond(1.0f);
         StartCoroutine(HealthEnergy());
     }
 
@@ -189,7 +189,7 @@ public class Character : MonoBehaviour, ICharacter
 
         abilitySkill.Excute();
 
-        yield return new WaitForSeconds(1.0f);
+        yield return YieldInstructionCache.WaitingSecond(1.0f);
 
         if (Energy - AbilityPrice >= 0)
             Energy -= AbilityPrice;
@@ -300,7 +300,7 @@ public class Character : MonoBehaviour, ICharacter
             target.transform.SetParent(gameObject.transform);
         target.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-        var waitingTime = new WaitForSeconds(0.03f);
+        var waitingTime = YieldInstructionCache.WaitingSecond(0.03f);
 
         for (int i = 0; i < 10; i++)
         {

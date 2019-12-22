@@ -33,7 +33,7 @@ public class Star : MonoBehaviour, ISkill{
 
     private IEnumerator Timer()
     {
-        var waitingTime = new WaitForSeconds(0.2f);
+        var waitingTime = YieldInstructionCache.WaitingSecond(0.2f);
         SpriteRenderer spriteRenderer = targetCharacter.GetComponent<SpriteRenderer>();
         for(int i = 0; i < 10; i++)
         {

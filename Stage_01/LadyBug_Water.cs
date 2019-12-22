@@ -19,7 +19,7 @@ public class LadyBug_Water : MonoBehaviour
 
     private IEnumerator Excute()
     {
-        yield return new WaitForSeconds(3.5f);
+        yield return YieldInstructionCache.WaitingSecond(3.5f);
         yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer,0.5f));
 
         spriteRenderer.enabled = false;
@@ -41,7 +41,7 @@ public class LadyBug_Water : MonoBehaviour
 
     private IEnumerator Count(Character character)
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return YieldInstructionCache.WaitingSecond(3.0f);
         character.Speed = character.MaxSpeed;
     }
 }

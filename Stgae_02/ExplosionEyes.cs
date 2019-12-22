@@ -18,7 +18,7 @@ public class ExplosionEyes : Enemy
 
     private IEnumerator Excute()
     {
-        yield return new WaitForEndOfFrame();
+        yield return YieldInstructionCache.WaitFrame;
         GameObject eyeBall = Instantiate(ball, bossTransform.position, Quaternion.identity);
         eyeBall.GetComponent<EyeBall>().SetPos(bossTransform.position, gameObject.transform.position);
         Destroy(gameObject, 1.0f);

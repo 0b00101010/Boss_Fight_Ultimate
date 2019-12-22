@@ -23,7 +23,7 @@ public class Rain : MonoBehaviour
 
     private IEnumerator Count(Character character)
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return YieldInstructionCache.WaitingSecond(3.0f);
         character.Speed = character.MaxSpeed;
     }
 }

@@ -26,7 +26,7 @@ public class Boss : StageBoss
         for(int i = 0; i < 10; i++)
         {
             chargeSprite.color = new Color(chargeSprite.color.r,chargeSprite.color.g,chargeSprite.color.b,chargeSprite.color.a + 0.1f);
-            yield return new WaitForSeconds(0.025f);
+            yield return YieldInstructionCache.WaitingSecond(0.025f);
         }
     }
 
@@ -35,7 +35,7 @@ public class Boss : StageBoss
         for (int i = 0; i < 10; i++)
         {
             darkenSprite.color = new Color(darkenSprite.color.r, darkenSprite.color.g, darkenSprite.color.b, darkenSprite.color.a + 0.1f);
-            yield return new WaitForSeconds(0.075f);
+            yield return YieldInstructionCache.WaitingSecond(0.075f);
         }
     }
 
@@ -55,7 +55,7 @@ public class Boss : StageBoss
         for (int i = 0; i < 10; i++)
         {
             chargeSprite.color = new Color(chargeSprite.color.r, chargeSprite.color.g, chargeSprite.color.b, chargeSprite.color.a - 0.1f);
-            yield return new WaitForSeconds(0.025f);
+            yield return YieldInstructionCache.WaitingSecond(0.025f);
         }
         StopCoroutine(UnCharge());
     }
@@ -64,7 +64,7 @@ public class Boss : StageBoss
         for (int i = 0; i < 10; i++)
         {
             darkenSprite.color = new Color(darkenSprite.color.r, darkenSprite.color.g, darkenSprite.color.b, darkenSprite.color.a - 0.1f);
-            yield return new WaitForSeconds(0.025f);
+            yield return YieldInstructionCache.WaitingSecond(0.025f);
         }
         StopCoroutine(UnDarken());
     }

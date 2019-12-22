@@ -50,7 +50,7 @@ public class GreatMigration : Enemy
             }
             
         }
-        yield return new WaitForSeconds(0.05f);
+        yield return YieldInstructionCache.WaitingSecond(0.05f);
 
         StartCoroutine(MoveTo());
     }
@@ -63,7 +63,7 @@ public class GreatMigration : Enemy
     private IEnumerator Excute()
     {
         thisBoss.Darkened();
-        yield return new WaitForSeconds(0.75f);
+        yield return YieldInstructionCache.WaitingSecond(0.75f);
         Node1.transform.position = new Vector2(Random.Range(-8.0f, 8.0f), Node1.transform.position.y);
         Node2.transform.position = new Vector2(Random.Range(-8.0f, 8.0f), Node2.transform.position.y);
         if (isMove)

@@ -48,14 +48,14 @@ public class EyeCrossAttack : Enemy
         {
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a - 0.15f);
             backGround.color = new Color(backGround.color.r, backGround.color.g, backGround.color.b, backGround.color.a - 0.05f);
-            yield return new WaitForSeconds(0.02f);
+            yield return YieldInstructionCache.WaitingSecond(0.02f);
         }
 
         for (int i = 0; i < 5; i++)
         {
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a + 0.15f);
             backGround.color = new Color(backGround.color.r, backGround.color.g, backGround.color.b, backGround.color.a + 0.05f);
-            yield return new WaitForSeconds(0.02f);
+            yield return YieldInstructionCache.WaitingSecond(0.02f);
         }
         EyeCross.tag = "Untagged";
         backGround.sprite = backgroundSpriters[1];

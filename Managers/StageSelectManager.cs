@@ -40,7 +40,7 @@ public class StageSelectManager : MonoBehaviour
     {
         GameObject target = Instantiate(GameManager.instance.nowGameCharacter,new Vector2(-100f, -100f),Quaternion.identity);
         characterSelectSceneButton.sprite = target.GetComponent<SpriteRenderer>().sprite;
-        yield return new WaitForSeconds(0.05f);
+        yield return YieldInstructionCache.WaitingSecond(0.05f);
         Destroy(target);
     }
 
@@ -51,7 +51,7 @@ public class StageSelectManager : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
             blackspriteRenderer.color = new Color(blackspriteRenderer.color.r, blackspriteRenderer.color.g, blackspriteRenderer.color.b, blackspriteRenderer.color.a - 0.1f);
-            yield return new WaitForSeconds(0.02f);
+            yield return YieldInstructionCache.WaitingSecond(0.02f);
             if (i == 5)
             {
                 blackspriteRenderer.color = new Color(blackspriteRenderer.color.r, blackspriteRenderer.color.g, blackspriteRenderer.color.b, 0.0f);
@@ -74,7 +74,7 @@ public class StageSelectManager : MonoBehaviour
         {
 
             blackspriteRenderer.color = new Color(blackspriteRenderer.color.r, blackspriteRenderer.color.g, blackspriteRenderer.color.b, blackspriteRenderer.color.a + 0.1f);
-            yield return new WaitForSeconds(0.03f);
+            yield return YieldInstructionCache.WaitFrame;
            
 
         }
@@ -144,7 +144,7 @@ public class StageSelectManager : MonoBehaviour
                 // Debug.Log("Plus!");
             }
 
-            yield return new WaitForSeconds(0.003f);
+            yield return YieldInstructionCache.WaitFrame;
         }
 
         
@@ -198,7 +198,7 @@ public class StageSelectManager : MonoBehaviour
                     for (int j = 0; j < 20; j++)
                     {
                         stages[i].gameObject.transform.Translate(new Vector3(-0.3f, 0, 0));
-                        yield return new WaitForSeconds(0.02f);
+                        yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
 
                 }
@@ -209,7 +209,7 @@ public class StageSelectManager : MonoBehaviour
                     for (int j = 0; j < 20; j++)
                     {
                         stages[i].gameObject.transform.Translate(new Vector3(+0.3f, 0, 0));
-                        yield return new WaitForSeconds(0.02f);
+                        yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
                 }
                 stages[i].gameObject.SetActive(!stages[i].gameObject.active);
@@ -222,7 +222,7 @@ public class StageSelectManager : MonoBehaviour
                     for (int j = 0; j < 20; j++)
                     {
                         stages[i].gameObject.transform.Translate(new Vector3(-0.3f, 0, 0));
-                        yield return new WaitForSeconds(0.02f);
+                        yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
 
                 }
@@ -233,7 +233,7 @@ public class StageSelectManager : MonoBehaviour
                     for (int j = 0; j < 20; j++)
                     {
                         stages[i].gameObject.transform.Translate(new Vector3(+0.3f, 0, 0));
-                        yield return new WaitForSeconds(0.02f);
+                        yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
                 }
             }

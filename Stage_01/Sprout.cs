@@ -20,10 +20,10 @@ public class Sprout : Enemy
         for(int i = 0; i < 5; i++)
         {
             gameObject.transform.Translate(new Vector2(0.0f,0.5f));
-            yield return new WaitForSeconds(0.1f);
+            yield return YieldInstructionCache.WaitingSecond(0.1f);
         }
         gameObject.transform.tag = "Ground";
-        yield return new WaitForSeconds(1.85f);
+        yield return YieldInstructionCache.WaitingSecond(1.85f);
         yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer,0.25f));
     }
 }

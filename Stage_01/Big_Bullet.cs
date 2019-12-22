@@ -21,7 +21,7 @@ public class Big_Bullet : Enemy
 
     private IEnumerator Excute()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return YieldInstructionCache.WaitingSecond(0.25f);
         yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer,0.5f));
         spriteRenderer.enabled = false;
         GameObject bullet = Instantiate(bigBullet,bossTransform.position,Quaternion.identity);

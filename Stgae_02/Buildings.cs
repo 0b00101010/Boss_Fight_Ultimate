@@ -29,7 +29,7 @@ public class Buildings : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(0.02f);
+        yield return YieldInstructionCache.WaitingSecond(0.02f);
         StartCoroutine(MoveBuilding());
     }
 }
