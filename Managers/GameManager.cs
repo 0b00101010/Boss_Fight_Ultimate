@@ -9,8 +9,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    private List<IObserver> Observers = new List<IObserver>();
-    
     #region ENUM
     public enum AchievementsTag { LADYBUG_SCORE_3000, LIFE_IS_BEAUTIFULE };
     public enum ObserveTag { GAME_CLEAR, GAME_END , CHARACTER_DEATH};
@@ -33,8 +31,6 @@ public class GameManager : MonoBehaviour
 
     public TouchManager touchManager;
     public SoundManager soundManager;
-    public AchievementManager achievementManager;
-
     public Sprite[] LoadImages;
     public Sprite[] ResultImages;
     public GameObject nowGameCharacter;
@@ -48,18 +44,14 @@ public class GameManager : MonoBehaviour
         if (instance == null)
             instance = this;
 
-        achievementManager = gameObject.GetComponent<AchievementManager>();
         soundManager = gameObject.GetComponent<SoundManager>();
         touchManager = gameObject.GetComponent<TouchManager>();
-        AddObserver(new AchievementObserver());
-        touchManager.SetOnSwipeDectected(myOnSwipeDectected);
-        
+
         DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
-        achievementManager.LoadAchievement();
         GameManager.instance.soundManager.MusicChange(GameManager.instance.GameMusics[0]);
         GameManager.instance.soundManager.MusicQueue();
     }
@@ -71,11 +63,6 @@ public class GameManager : MonoBehaviour
 
     public float GetScore() {
         return LastGameScore;
-    }
-
-    private void myOnSwipeDectected(Vector2 SwipeDirection)
-    {
-        Debug.DrawLine((Vector2)transform.position,(Vector2)transform.position + SwipeDirection,Color.red,4.0f);
     }
 
     public IEnumerator FadeIn(SpriteRenderer spriteRenderer, float spendTime, int repeatCount = 10) {
@@ -109,24 +96,6 @@ public class GameManager : MonoBehaviour
         {
             image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a - (1.0f / repeatCount));
             yield return YieldInstructionCache.WaitingSecond(spendTime / repeatCount);
-        }
-    }
-
-    public void AddObserver(IObserver observer)
-    {
-        Observers.Add(observer);
-    }
-
-    public void RemoveObserver(IObserver observer)
-    {
-        Observers.Remove(observer);
-    }
-
-    public void Notify(int eventTag)
-    {
-        foreach (IObserver observer in Observers)
-        {
-            observer.Renewal(eventTag);
         }
     }
 }

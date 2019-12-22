@@ -44,7 +44,6 @@ public class StageButton : MonoBehaviour
         {
             bool isShow = button.activeSelf;
             Image image = button.GetComponent<Image>();
-            Debug.Log(isShow);
             if (!isShow)
             {
                 button.gameObject.SetActive(true);

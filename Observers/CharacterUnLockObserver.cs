@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterUnLockObserver : MonoBehaviour, IObserver
+public class CharacterUnLockObserver : MonoBehaviour
 {
 
     public void Renewal(int eventTag) {

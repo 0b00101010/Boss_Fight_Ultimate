@@ -78,7 +78,6 @@ public class StageManager : MonoBehaviour
         else if (beat == lastBeat)
         {
             StartCoroutine(GameEnd());
-            GameManager.instance.Notify((int)GameManager.ObserveTag.GAME_CLEAR);
         }
 
         if (phases.Length > phaseUpCount)
@@ -139,7 +138,6 @@ public class StageManager : MonoBehaviour
         patterRead.CreatePattern(Beat);
         if (_char.Hp < 0)
         {
-            GameManager.instance.Notify((int)GameManager.ObserveTag.CHARACTER_DEATH);
             //StopCoroutine(BeatUp());
             _char.Death();
             StartCoroutine(GameEnd());

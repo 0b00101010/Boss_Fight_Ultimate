@@ -14,7 +14,6 @@ public class CharacterSelectManager : MonoBehaviour
     [SerializeField]
     private SpriteRenderer blackBackGround;
     private CharacterUICtrl uiCtrl;
-    private IObserver observer;
 
     public static CharacterSelectManager instance;
 

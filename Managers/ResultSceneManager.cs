@@ -45,7 +45,6 @@ public class ResultSceneManager : MonoBehaviour
 
     public void ReturnMainScene()
     {
-        GameManager.instance.Notify((int)GameManager.ObserveTag.GAME_END);
         GameManager.instance.soundManager.MusicStop();
         GameManager.instance.GetComponent<AudioSource>().spatialBlend = 0.0f;
         GameManager.instance.soundManager.MusicChange(GameManager.instance.GameMusics[0]);
