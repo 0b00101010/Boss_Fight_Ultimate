@@ -32,7 +32,7 @@ public class StageSelectManager : MonoBehaviour
         StartCoroutine(BlackOut());
         curStageNumber = 0;
         curStage = stages[curStageNumber];
-        curStage.gameObject.transform.localScale += new Vector3(.4f, .4f, .4f);
+        curStage.gameObject.transform.localScale += new Vector3(0.4f, 0.4f, 0.4f);
         musicVolumeSlider.value = GameManager.instance.soundManager.Volume;
     }
 
@@ -40,7 +40,7 @@ public class StageSelectManager : MonoBehaviour
     {
         GameObject target = Instantiate(GameManager.instance.nowGameCharacter,new Vector2(-100f, -100f),Quaternion.identity);
         characterSelectSceneButton.sprite = target.GetComponent<SpriteRenderer>().sprite;
-        yield return YieldInstructionCache.WaitingSecond(0.05f);
+        yield return YieldInstructionCache.WaitFrame;
         Destroy(target);
     }
 
@@ -69,16 +69,7 @@ public class StageSelectManager : MonoBehaviour
     private IEnumerator BlackIn()
     {
         SpriteRenderer blackspriteRenderer = blackBackground.GetComponent<SpriteRenderer>();
-
-        for (int i = 0; i < 10; i++)
-        {
-
-            blackspriteRenderer.color = new Color(blackspriteRenderer.color.r, blackspriteRenderer.color.g, blackspriteRenderer.color.b, blackspriteRenderer.color.a + 0.1f);
-            yield return YieldInstructionCache.WaitFrame;
-           
-
-        }
-
+        yield return StartCoroutine(GameManager.instance.FadeOut(blackspriteRenderer, 1.0f));
     }
 
     private void Update()
@@ -130,17 +121,19 @@ public class StageSelectManager : MonoBehaviour
 
     private IEnumerator ButtonSizeUpDown(int sign, StageButton stage)
     {
+        Vector3 changeScale = new Vector3(0.1f, 0.1f, 0.1f);
+
         for (int i = 0; i < 4; i++)
         {
-            if (sign == 0)
+            if (sign.Equals(0))
             {
-                stage.gameObject.transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f);
+                stage.gameObject.transform.localScale -= changeScale;
                 // Debug.Log("Minus!");
             }
 
-            else if (sign == 1)
+            else if (sign.Equals(1))
             {
-                stage.gameObject.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+                stage.gameObject.transform.localScale += changeScale;
                 // Debug.Log("Plus!");
             }
 
@@ -189,7 +182,7 @@ public class StageSelectManager : MonoBehaviour
             if (i.Equals(curStageNumber))
                 continue;
 
-            if (stages[i].gameObject.active.Equals(true))
+            if (stages[i].gameObject.activeInHierarchy.Equals(true))
             {
 
 
@@ -212,11 +205,11 @@ public class StageSelectManager : MonoBehaviour
                         yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
                 }
-                stages[i].gameObject.SetActive(!stages[i].gameObject.active);
+                stages[i].gameObject.SetActive(!stages[i].gameObject.activeInHierarchy);
             }
-            else if (stages[i].gameObject.active.Equals(false))
+            else if (stages[i].gameObject.activeInHierarchy.Equals(false))
             {
-                stages[i].gameObject.SetActive(!stages[i].gameObject.active);
+                stages[i].gameObject.SetActive(!stages[i].gameObject.activeInHierarchy);
                 if (stages[i].gameObject.GetComponent<RectTransform>().position.x > stages[curStageNumber].transform.position.x)
                 {
                     for (int j = 0; j < 20; j++)

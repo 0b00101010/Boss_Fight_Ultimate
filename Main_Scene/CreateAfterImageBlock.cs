@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class CreateAfterImageBlock : MonoBehaviour
 {
     [SerializeField]
@@ -10,12 +10,14 @@ public class CreateAfterImageBlock : MonoBehaviour
     [SerializeField]
     private List<AfterImageBlock> afterImageBlocks = new List<AfterImageBlock>();
 
-    private int skipNumber = 0;
-    private void Start()
-    {
-        StartCoroutine(CreateRandomBlock());
+    private int skipNumber = 0; 
+    private void Start() {
+        CraeteRandomBlockCallBack();
     }
 
+    private void CraeteRandomBlockCallBack(){
+        StartCoroutine(CreateRandomBlock());
+    }
 
     private IEnumerator CreateRandomBlock()
     { 

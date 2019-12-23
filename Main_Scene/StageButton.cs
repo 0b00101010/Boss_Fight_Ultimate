@@ -65,8 +65,6 @@ public class StageButton : MonoBehaviour
                 button.SetActive(false);
 
             }
-            Debug.Log(isShow);
-
         }
 
     }

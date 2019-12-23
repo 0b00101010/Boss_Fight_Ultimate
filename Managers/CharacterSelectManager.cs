@@ -109,7 +109,6 @@ public class CharacterSelectManager : MonoBehaviour
 
             if(hit.collider.gameObject.CompareTag("Slot") && hit.collider.gameObject.GetComponent<CharacterSlot>().UnLock)
             {
-                // Debug.Log(hit.collider.name);
                 SelectSlot.GetComponent<Image>().sprite = slotSprites[SelectSlot.SpriteNumber -= 1];
                 SelectSlot = hit.collider.gameObject.GetComponent<CharacterSlot>();
                 SelectSlot.GetComponent<Image>().sprite = slotSprites[SelectSlot.SpriteNumber += 1];
