@@ -2,22 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AfterimageBlock : MonoBehaviour
+public class AfterImageBlock : MonoBehaviour
 {
-    
+    private SpriteRenderer spriteRenderer;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCoroutine(BlockDestroy());
-        gameObject.transform.SetParent(GameObject.Find("Blocks").transform);
+    private void Awake(){
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
-
-    private IEnumerator BlockDestroy()
-    {
-        SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        yield return GameManager.instance.FadeOut(spriteRenderer,0.6f,12);
-        Destroy(gameObject);
+    public IEnumerator FadeOut(){
+        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer, 1.5f));
+        gameObject.SetActive(false);
     }
-
 }

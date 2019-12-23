@@ -5,8 +5,12 @@ using UnityEngine;
 public class CreateAfterImageBlock : MonoBehaviour
 {
     [SerializeField]
-    private GameObject afterimage_Block;
+    private List<SpriteRenderer> afterImageBlockSpriteRenderers = new List<SpriteRenderer>();
 
+    [SerializeField]
+    private List<AfterImageBlock> afterImageBlocks = new List<AfterImageBlock>();
+
+    private int skipNumber = 0;
     private void Start()
     {
         StartCoroutine(CreateRandomBlock());
@@ -18,21 +22,35 @@ public class CreateAfterImageBlock : MonoBehaviour
         while(true){
             for (int i = 0; i < 10; i++)
             {
-                float xPos = Random.Range(0.0f, 16.0f) - 8.0f;
-                float yPos = Random.Range(0.0f, 9.0f) - 4.0f;
+                if(afterImageBlockSpriteRenderers[i].gameObject.activeInHierarchy){
+                    continue;
+                }
+                
+                afterImageBlockSpriteRenderers[i].gameObject.SetActive(true);
 
-                GameObject block = Instantiate(afterimage_Block, new Vector2(xPos, yPos), Quaternion.identity);
-                SpriteRenderer spriteRenderer = block.gameObject.GetComponent<SpriteRenderer>();
-
-                float afters = Random.Range(0.0f, 1.1f);
-                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, afters);
-                block.transform.localScale = new Vector2(afters % 0.4f + 0.2f, afters % 0.4f + 0.2f);
-
-                yield return YieldInstructionCache.WaitingSecond(0.01f);
+                Color afterColor = Color.white;
+                
+                afterColor.a = Random.Range(0.0f, 1.0f);
+                
+                Vector2 newScale;
+                newScale.x = Random.Range(0.5f, 1.0f);
+                newScale.y = newScale.x;
+                
+                Vector2 newPosition;
+                newPosition.x = Random.Range(-8.0f, 8.0f);
+                newPosition.y = Random.Range(-4.0f, 4.0f);
+                
+                afterImageBlockSpriteRenderers[i].color = afterColor;
+                afterImageBlockSpriteRenderers[i].gameObject.transform.localScale = newScale;
+                afterImageBlockSpriteRenderers[i].gameObject.transform.position = newPosition;
+                
+                StartCoroutine(afterImageBlocks[i].FadeOut());
+                
+                yield return YieldInstructionCache.WaitFrame;
+                
             }
             yield return YieldInstructionCache.WaitingSecond(0.9f);
-            StartCoroutine(CreateRandomBlock());
-            }
+        }
     }
 
 }
