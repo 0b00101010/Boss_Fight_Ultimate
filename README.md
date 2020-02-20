@@ -2,10 +2,10 @@
 
 리듬 액션게임 포트폴리오 프로젝트 입니다.
 
-* Unity Version : 2019.3.0a4
+* Unity Version : 2020.1.0a9
 * Developer : [전세훈](https://github.com/Komorio)(@Komorio)
-* Artist : 정용우
-* Designer : 정용우
+* Artist : 정용우, [전세훈](https://github.com/Komorio)(@Komorio)
+* Designer : 정용우, [전세훈](https://github.com/Komorio)(@Komorio)
 
 ### Cording Style
 
