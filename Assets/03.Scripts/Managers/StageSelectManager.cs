@@ -74,7 +74,7 @@ public class StageSelectManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.touchManager.IsSwiped)
+        if (GameManager.instance.touchManager.IsSwipe)
             MoveStageButton();
 
     }

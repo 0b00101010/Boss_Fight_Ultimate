@@ -99,12 +99,12 @@ public class CharacterSelectManager : MonoBehaviour
 
     private void Update() { 
    
-        if (GameManager.instance.touchManager.IsSwiped)
+        if (GameManager.instance.touchManager.IsSwipe)
             MoveCharacterSlots();
 
         if (GameManager.instance.touchManager.IsTouch)
         {
-            Vector2 pos = Camera.main.ScreenToWorldPoint(GameManager.instance.touchManager.GetPosition());
+            Vector2 pos = Camera.main.ScreenToWorldPoint(GameManager.instance.touchManager.TouchDownPosition);
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0.0f);
 
             if(hit.collider.gameObject.CompareTag("Slot") && hit.collider.gameObject.GetComponent<CharacterSlot>().UnLock)

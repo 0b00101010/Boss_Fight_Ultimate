@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        touchManager.ProcessMobileInput();
+        touchManager.ProcessTouch();
     }
 
     public float GetScore() {
