@@ -15,6 +15,7 @@ public class StageButton : MonoBehaviour
     private string fileText;
     private string[] fileTexts;
     private ShameCtrl BestScoreValue;
+    private bool isButtonClick = false;
 
     private void Awake()
     {
@@ -23,11 +24,6 @@ public class StageButton : MonoBehaviour
         scoreFile = Resources.Load("MapData/" + stageName) as TextAsset;
         fileText = scoreFile.text;
         fileTexts = fileText.Split(';');
-    }
-
-    private void Start()
-    {
-        //BestScoreValue.UpdateShame(fileTexts[1]);
     }
 
     public void SetDifficult(string difficulty) {
@@ -39,6 +35,10 @@ public class StageButton : MonoBehaviour
     }
 
     private IEnumerator FadeInOut(){
+        if(isButtonClick){
+            yield break;
+        }
+        isButtonClick = true;
         foreach (GameObject button in difficultyButton){
             bool isShow = button.activeSelf;
             Image image = button.GetComponent<Image>();
@@ -57,5 +57,6 @@ public class StageButton : MonoBehaviour
                 button.SetActive(false);
             }
         }
+        isButtonClick = false;
     }
 }

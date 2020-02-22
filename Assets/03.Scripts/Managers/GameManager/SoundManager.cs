@@ -18,8 +18,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
+    private void Awake(){
         audioSource = gameObject.GetComponent<AudioSource>();
 
         if (PlayerPrefs.HasKey("Volume"))
@@ -29,18 +28,16 @@ public class SoundManager : MonoBehaviour
    
     }
 
-    public void MusicChange(AudioClip clip)
-    {
+    public void MusicChange(AudioClip clip){
         this.audioClip = clip;
         audioSource.clip = audioClip;
     }
 
-    public void MusicQueue()
-    {
+    public void MusicQueue(){
         audioSource.Play();
     }
 
-    public void MusicStop() {
+    public void MusicStop(){
         audioSource.Stop();
     }
 }

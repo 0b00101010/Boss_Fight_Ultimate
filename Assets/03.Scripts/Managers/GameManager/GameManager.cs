@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     public Sprite[] LoadImages;
     public Sprite[] ResultImages;
     public GameObject nowGameCharacter;
-    public StageButton nowPlayStage;
 
     public string[] FilePaths;
     public string[] StageNames;

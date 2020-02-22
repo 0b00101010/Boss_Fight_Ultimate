@@ -7,13 +7,15 @@ public class StageSelectManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject blackBackground;
+    
     [SerializeField]
     private List<StageButton> stages;
     private StageButton curStage;
     private int curStageNumber;
+
     [SerializeField]
     private Image characterSelectSceneButton;
-    // Start is called before the first frame update
+    
     [SerializeField]
     private Canvas settingCanvas;
 
@@ -26,9 +28,14 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField]
     private Slider musicVolumeSlider;
 
+    private SpriteRenderer blackBackgroundSpriteRenderer;
+
+    private bool isButtonClick = false;
+
     private void Start(){
         StartCoroutine(ImageUpdate());
-        StartCoroutine(BlackOut());
+        blackBackgroundSpriteRenderer = blackBackground.GetComponent<SpriteRenderer>();
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(blackBackgroundSpriteRenderer,1.0f));
         curStageNumber = 0;
         curStage = stages[curStageNumber];
         curStage.gameObject.transform.localScale += new Vector3(0.4f, 0.4f, 0.4f);
@@ -42,27 +49,8 @@ public class StageSelectManager : MonoBehaviour
         Destroy(target);
     }
 
-    private IEnumerator BlackOut(){
-        SpriteRenderer blackspriteRenderer = blackBackground.GetComponent<SpriteRenderer>();
-
-        for (int i = 0; i < 6; i++){
-            blackspriteRenderer.color = new Color(blackspriteRenderer.color.r, blackspriteRenderer.color.g, blackspriteRenderer.color.b, blackspriteRenderer.color.a - 0.1f);
-            yield return YieldInstructionCache.WaitingSecond(0.02f);
-            if (i == 5)
-            {
-                blackspriteRenderer.color = new Color(blackspriteRenderer.color.r, blackspriteRenderer.color.g, blackspriteRenderer.color.b, 0.0f);
-                break;
-            }
-        }
-    }
-
     public void VolumeChange(){
         GameManager.instance.soundManager.Volume = musicVolumeSlider.value;    
-    }
-
-    private IEnumerator BlackIn(){
-        SpriteRenderer blackspriteRenderer = blackBackground.GetComponent<SpriteRenderer>();
-        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackspriteRenderer, 1.0f));
     }
 
     private void Update(){
@@ -72,50 +60,38 @@ public class StageSelectManager : MonoBehaviour
     }
 
     private void MoveStageButton(){
+        Vector2 moveVector = Vector2.zero;
+        moveVector.x = 4.0f;
+        
         if (GameManager.instance.touchManager.SwipeDirection.x < 0 && stages[stages.Count-1].gameObject.transform.position.x > 1.0f){
             foreach (StageButton stage in stages){
-                //stage.gameObject.transform.position = new Vector2(stage.gameObject.transform.position.x - 4.0f, stage.gameObject.transform.position.y);
-                stage.gameObject.transform.Translate(new Vector2(-4.0f, 0.0f));
+                stage.gameObject.transform.Translate(-moveVector);
             }
-
-
-            //curStage.gameObject.transform.localScale -= new Vector3(0.5f, 0.5f, 0.5f);
             StartCoroutine(ButtonSizeUpDown(0, curStage));
             curStageNumber++;
             curStage = stages[curStageNumber];
-            GameManager.instance.nowPlayStage = curStage;
             StartCoroutine(ButtonSizeUpDown(1, curStage));
-            //curStage.gameObject.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f);
         }
         else if (GameManager.instance.touchManager.SwipeDirection.x > 0 && stages[0].gameObject.transform.position.x < -1.0f){
             foreach (StageButton stage in stages){
-                //stage.gameObject.transform.position = new Vector2(stage.gameObject.transform.position.x + 4.0f, stage.gameObject.transform.position.y);
-                stage.gameObject.transform.Translate(new Vector2(4.0f, 0.0f));
+                stage.gameObject.transform.Translate(moveVector);
             }
-
-            //curStage.gameObject.transform.localScale -= new Vector3(0.5f, 0.5f, 0.5f);
             StartCoroutine(ButtonSizeUpDown(0, curStage));
             curStageNumber--;
             curStage = stages[curStageNumber];
-            GameManager.instance.nowPlayStage = curStage;
             StartCoroutine(ButtonSizeUpDown(1, curStage));
-            //curStage.gameObject.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f);
-
         }
     }
 
     private IEnumerator ButtonSizeUpDown(int sign, StageButton stage){
-        Vector3 changeScale = new Vector3(0.1f, 0.1f, 0.1f);
-
+        Vector3 changeScale = Vector3.one;
+        changeScale /= 10;
         for (int i = 0; i < 4; i++){
             if (sign.Equals(0)){
                 stage.gameObject.transform.localScale -= changeScale;
-                // Debug.Log("Minus!");
             }
-
             else if (sign.Equals(1)){
                 stage.gameObject.transform.localScale += changeScale;
-                // Debug.Log("Plus!");
             }
             yield return YieldInstructionCache.WaitFrame;
         }
@@ -126,7 +102,7 @@ public class StageSelectManager : MonoBehaviour
     }
 
     private IEnumerator BlackWait(int sceneNumber){
-        yield return StartCoroutine(BlackIn());
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackBackground.GetComponent<SpriteRenderer>(),0.5f));
         PlayerPrefs.SetInt("NextStage",sceneNumber);
         SceneManager.LoadScene("02_LoadScene");
     }
@@ -145,25 +121,33 @@ public class StageSelectManager : MonoBehaviour
     }
 
     public void OnOffOtherStage(){
-        StartCoroutine(OnOff());
+        StartCoroutine(MoveOtherButtons());
     }
 
-    private IEnumerator OnOff(){
-        for (int i = 0; i < stages.Count; i++){
-            if (i.Equals(curStageNumber))
-                continue;
+    private IEnumerator MoveOtherButtons(){
+        if(isButtonClick){
+            yield break;
+        }
 
+        Vector2 moveVector = Vector2.zero;
+        moveVector.x = 0.3f;
+
+        isButtonClick = true;
+
+        for (int i = 0; i < stages.Count; i++){
+            if (i.Equals(curStageNumber)){
+                continue;
+            }
             if (stages[i].gameObject.activeInHierarchy.Equals(true)){
                 if (stages[i].gameObject.GetComponent<RectTransform>().position.x < stages[curStageNumber].transform.position.x){
                     for (int j = 0; j < 20; j++){
-                        stages[i].gameObject.transform.Translate(new Vector3(-0.3f, 0, 0));
+                        stages[i].gameObject.transform.Translate(-moveVector);
                         yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
-
                 }
                 else if (stages[i].gameObject.GetComponent<RectTransform>().position.x > stages[curStageNumber].transform.position.x){
                     for (int j = 0; j < 20; j++){
-                        stages[i].gameObject.transform.Translate(new Vector3(+0.3f, 0, 0));
+                        stages[i].gameObject.transform.Translate(moveVector);
                         yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
                 }
@@ -174,14 +158,14 @@ public class StageSelectManager : MonoBehaviour
                 
                 if (stages[i].gameObject.GetComponent<RectTransform>().position.x > stages[curStageNumber].transform.position.x){
                     for (int j = 0; j < 20; j++){
-                        stages[i].gameObject.transform.Translate(new Vector3(-0.3f, 0, 0));
+                        stages[i].gameObject.transform.Translate(-moveVector);
                         yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
 
                 }
                 else if (stages[i].gameObject.GetComponent<RectTransform>().position.x < stages[curStageNumber].transform.position.x){
                     for (int j = 0; j < 20; j++){
-                        stages[i].gameObject.transform.Translate(new Vector3(+0.3f, 0, 0));
+                        stages[i].gameObject.transform.Translate(moveVector);
                         yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
                 }
@@ -189,7 +173,7 @@ public class StageSelectManager : MonoBehaviour
             
         }
 
-
+        isButtonClick = false;
     }
 
     public void MoveToCharacterSelect(){
@@ -197,7 +181,7 @@ public class StageSelectManager : MonoBehaviour
     }
 
     private IEnumerator BlackWaitToCharacterScene(){
-        yield return StartCoroutine(BlackIn());
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackBackground.GetComponent<SpriteRenderer>(),0.5f));
         SceneManager.LoadScene("04_CharacterSelect");
     }
 }
