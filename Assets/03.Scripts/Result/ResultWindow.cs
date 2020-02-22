@@ -47,7 +47,7 @@ public class ResultWindow : MonoBehaviour
     private IEnumerator ResultWindowCtrl()
     {
         yield return StartCoroutine(SquareGlow());
-        if (GameManager.instance.LastGameScore > 0)
+        if (PlayerPrefs.GetFloat("LastGameScore") > 0)
             survivedResult.sprite = sceneManager.survivedResult[0];
         else
             survivedResult.sprite = sceneManager.survivedResult[1];
@@ -57,8 +57,8 @@ public class ResultWindow : MonoBehaviour
         StartCoroutine(GameManager.instance.fadeManager.ImageFadeInCoroutine(survivedResult, 0.3f));
         StartCoroutine(GameManager.instance.fadeManager.ImageFadeInCoroutine(remainedHp, 0.3f));
 
-        remainedValue.UpdateShame((int)GameManager.instance.LastGameHp);
-        hitValue.UpdateShame(GameManager.instance.LastGameHitCount);
+        remainedValue.UpdateShame((int)PlayerPrefs.GetInt("LastGameHp"));
+        hitValue.UpdateShame(PlayerPrefs.GetInt("LastGameHitCount"));
         rank.sprite = sceneManager.ranks[CompareRank()];
 
         for(int i =0; i < 10; i++)
@@ -77,7 +77,7 @@ public class ResultWindow : MonoBehaviour
     }
 
     private int CompareRank() {
-        int score = (int)GameManager.instance.LastGameScore;
+        int score = (int)PlayerPrefs.GetFloat("LastGameScore");
         if (score == 100)
             return 0;
         else if (score > 80)

@@ -13,7 +13,7 @@ public class LoadScene : MonoBehaviour
 
     private void Start()
     {
-        loadImage.sprite = GameManager.instance.LoadImages[GameManager.instance.NextStageNumber - 5];
+        loadImage.sprite = GameManager.instance.LoadImages[PlayerPrefs.GetInt("NextStage") - 5];
         StartCoroutine(LoadNextScene());
     }
 
@@ -23,7 +23,7 @@ public class LoadScene : MonoBehaviour
         yield return YieldInstructionCache.WaitingSecond(3.0f);
 
         yield return StartCoroutine(BlackIn());
-        SceneManager.LoadScene(GameManager.instance.NextStageNumber);
+        SceneManager.LoadScene(PlayerPrefs.GetInt("NextStage"));
     }
 
     private IEnumerator BlackOut()

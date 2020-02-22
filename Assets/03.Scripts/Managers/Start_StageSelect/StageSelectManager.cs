@@ -127,7 +127,7 @@ public class StageSelectManager : MonoBehaviour
 
     private IEnumerator BlackWait(int sceneNumber){
         yield return StartCoroutine(BlackIn());
-        GameManager.instance.NextStageNumber = sceneNumber;
+        PlayerPrefs.SetInt("NextStage",sceneNumber);
         SceneManager.LoadScene("02_LoadScene");
     }
 

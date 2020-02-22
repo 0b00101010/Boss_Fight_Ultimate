@@ -46,15 +46,13 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private int filePathNumber = 0;
 
-    private void Awake()
-    {
+    private void Awake(){
         CreateCharacter();
         audioSource = GameManager.instance.GetComponent<AudioSource>();
-        filePath = GameManager.instance.FilePaths[filePathNumber] + "_" + GameManager.instance.Difficulty;
+        filePath = GameManager.instance.FilePaths[filePathNumber] + "_" + PlayerPrefs.GetString("Difficulty");
     }
 
-    private void Start()
-    {
+    private void Start(){
         GameManager.instance.soundManager.MusicChange(GameManager.instance.GameMusics[musicNumber]);
         GameManager.instance.soundManager.MusicQueue();
         StartCoroutine(BeatUp());
@@ -66,50 +64,41 @@ public class StageManager : MonoBehaviour
 
 
 
-    private IEnumerator BeatUp()
-    {
+    private IEnumerator BeatUp(){
         Beat++;
         BeatShame.UpdateShame(Beat);
+
         yield return new WaitForSeconds(beatUpSpeed);
-        if (beat < lastBeat)
-        {
+        
+        if (beat < lastBeat){
             StartCoroutine(BeatUp());
         }
-        else if (beat == lastBeat)
-        {
+        else if (beat == lastBeat){
             StartCoroutine(GameEnd());
         }
 
-        if (phases.Length > phaseUpCount)
-        {
+        if (phases.Length > phaseUpCount){
             if(beat.Equals(phaseUpBeat[phaseUpCount]))
                 PhaseUp();
         }
 
     }
 
-    private void CreateCharacter()
-    {
+    private void CreateCharacter(){
         _char = Instantiate(GameManager.instance.nowGameCharacter,new Vector2(0f,0f),Quaternion.identity).GetComponent<Character>();
         _char.tag = "Character";
         gameChar = _char.GetComponent<ICharacter>();
     }
 
-
-    private void PhaseUp()
-    {
-       
+    private void PhaseUp(){
         phases[phaseUpCount].Excute();
         phaseUpCount++;
     }
 
-    private IEnumerator BlackIn()
-    {
-
+    private IEnumerator BlackIn(){
         SpriteRenderer blackspriteRenderer = blackBackground.GetComponent<SpriteRenderer>();
         StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackspriteRenderer, 1.0f));
-        for (int i = 0; i < 20; i++)
-        {
+        for (int i = 0; i < 20; i++){
             audioSource.spatialBlend += 0.05f;
             yield return new WaitForSeconds(0.05f);
         }
@@ -119,13 +108,13 @@ public class StageManager : MonoBehaviour
 
     private IEnumerator GameEnd()
     {
-        GameManager.instance.LastGameScore = (_char.Hp / _char.MaxHp) * 100;
-        if (GameManager.instance.LastGameScore < 0)
-            GameManager.instance.LastGameScore = 0;
+        PlayerPrefs.SetFloat("LastGameScore", (_char.Hp / _char.MaxHp) * 100);
+        if (PlayerPrefs.GetFloat("LastGameScore") <  0)
+            PlayerPrefs.SetFloat("LastGameScore", 0);
        
-         GameManager.instance.LastGameHp = _char.Hp;
-        if (GameManager.instance.LastGameHp < 0)
-            GameManager.instance.LastGameHp = 0;
+         PlayerPrefs.SetFloat("LastGameHp", _char.Hp);
+        if (PlayerPrefs.GetFloat("LastGameScore") < 0)
+            PlayerPrefs.SetFloat("LastGameScore", 0);
 
         yield return StartCoroutine(BlackIn());
         SceneManager.LoadScene("03_GameResult");
@@ -144,14 +133,12 @@ public class StageManager : MonoBehaviour
         }
         else
         {
-            yield return new WaitForEndOfFrame();
+            yield return YieldInstructionCache.WaitFrame;
             StartCoroutine(StageUpdate());
         }
     }
 
-#if UNITY_EDITOR_OSX
-    public void Update()
-    {
+    public void Update(){
         if (Input.GetKeyDown(KeyCode.LeftArrow))
             gameChar.SetLeft();
         if (Input.GetKeyUp(KeyCode.LeftArrow))
@@ -166,33 +153,25 @@ public class StageManager : MonoBehaviour
             gameChar.SpecialAbility();
         if (Input.GetKeyUp(KeyCode.X))
             gameChar.UnSpecialAbility();
-
-
     }
-#endif
 
-    public void MoveLeft()
-    {
+    public void MoveLeft(){
         gameChar.SetLeft();
     }
 
-    public void MoveRight()
-    {
+    public void MoveRight(){
         gameChar.SetRight();
     }
 
-    public void Jump()
-    {
+    public void Jump(){
         gameChar.Jump();
     }
 
-    public void SpecialAbility()
-    {
+    public void SpecialAbility(){
         gameChar.SpecialAbility();
     }
 
-    public void UnAbility()
-    {
+    public void UnAbility(){
         gameChar.UnSpecialAbility();
     }
 

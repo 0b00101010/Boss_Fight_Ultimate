@@ -75,31 +75,27 @@ public class Character : MonoBehaviour, ICharacter
     public int Skill_ID { get => skill_ID; set => skill_ID = value; }
     #endregion Property
 
-    private void Awake()
-    {
+    private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rBody = gameObject.GetComponent<Rigidbody2D>();
         hitBackGround = GameObject.FindWithTag("HitBackGround");
+        PlayerPrefs.SetInt("LastGameHitCount", 0);
         StartCoroutine(HealthEnergy());
-
     }
 
-    protected void IDInit(int char_id, int ability_id, int skill_id)
-    {
+    protected void IDInit(int char_id, int ability_id, int skill_id){
         Char_ID = char_id;
         Ability_ID = ability_id;
         Skill_ID = skill_id;
     }
 
-    protected void RankInit(int rank, int level_tank, int level_dodge)
-    {
+    protected void RankInit(int rank, int level_tank, int level_dodge){
         Rank = rank;
         Level_Tank = level_tank;
         Level_Dodge = level_dodge;
     }
 
-    protected void StatInit(float char_Speed, int char_Hp, int char_energy,int char_abilityPrice, int jumpForce, ISkill abilitySkill, int maxEnergy = 100)
-    {
+    protected void StatInit(float char_Speed, int char_Hp, int char_energy,int char_abilityPrice, int jumpForce, ISkill abilitySkill, int maxEnergy = 100){
         Speed = char_Speed;
         Hp = char_Hp;
         MaxHp = char_Hp;
@@ -111,36 +107,34 @@ public class Character : MonoBehaviour, ICharacter
         this.maxEnergy = maxEnergy;
     }
 
-    public void SetLeft()
-    {
-        if (IsLeft)
+    public void SetLeft(){
+        if (IsLeft){
             IsLeft = false;
-
-        else if (!IsLeft)
-            IsLeft = true;
-    }
-
-    public void SetRight()
-    {
-        if (IsRight)
-            IsRight = false;
-
-        else if (!IsRight)
-            IsRight = true;
-    }
-
-
-    public void Move()
-    {
-        if (IsLeft)
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-            if(gameObject.transform.position.x - 0.2f > -8.5)
-                gameObject.transform.position += Vector3.left * speed * Time.deltaTime;
         }
-        else if (IsRight)
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        else if (!IsLeft){
+            IsLeft = true;
+        }
+    }
+
+    public void SetRight(){
+        if (IsRight){
+            IsRight = false;
+        }
+        else if (!IsRight){
+            IsRight = true;
+        }
+    }
+
+
+    public void Move(){
+        if (IsLeft){
+            spriteRenderer.flipX = true;
+            if(gameObject.transform.position.x - 0.2f > -8.5){
+                gameObject.transform.position += Vector3.left * speed * Time.deltaTime;
+            }
+        }
+        else if (IsRight){
+            spriteRenderer.flipX = false;
             if (gameObject.transform.position.x + 0.2f < 8.5)
                 gameObject.transform.position += Vector3.right * speed * Time.deltaTime;
         }
@@ -149,119 +143,107 @@ public class Character : MonoBehaviour, ICharacter
 
     public virtual void Jump()
     {
-        if (isJump && doubleJump)
+        if (isJump && doubleJump){
             return;
-
+        }
 
         Vector2 force = new Vector2(0, JumpForce);
         rBody.velocity = force;
-        if (isJump)
+
+        if (isJump){
             doubleJump = true;
-        else
+        }
+        else{
             isJump = true;
+        }
     }
 
     private IEnumerator HealthEnergy() {
         if(Energy < maxEnergy) {
-            if (Energy + 5 > maxEnergy)
+            if (Energy + 5 > maxEnergy){
                 Energy = maxEnergy;
-            else
+            }
+            else{
                 Energy += 5;
+            }
         }
         yield return YieldInstructionCache.WaitingSecond(1.0f);
         StartCoroutine(HealthEnergy());
     }
 
     public virtual void SpecialAbility(){
-        if (Energy >= abilityPrice)
-        {
+        if (Energy >= abilityPrice){
             Energy -= abilityPrice;
             spriteRenderer.sprite = charSprites[1];
             abilitySkill.Enter();
             IsUseAbility = true;
-            if(abilitySkill.Repeat())
+            if(abilitySkill.Repeat()){
                 StartCoroutine(UseAbility());
+            }
         }
     }
 
-    private IEnumerator UseAbility()
-    {
-
+    private IEnumerator UseAbility(){
         abilitySkill.Excute();
 
         yield return YieldInstructionCache.WaitingSecond(1.0f);
 
         if (Energy - AbilityPrice >= 0)
             Energy -= AbilityPrice;
-        else if (Energy - AbilityPrice < 0)
-        {
+        else if (Energy - AbilityPrice < 0){
             Energy = 0;
             IsUseAbility = false;
         }
 
-        if (IsUseAbility)
+        if (IsUseAbility){
             StartCoroutine(UseAbility());
+        }
     }
 
-    public virtual void UnSpecialAbility() {
+    public virtual void UnSpecialAbility(){
         IsUseAbility = false;
         spriteRenderer.sprite = charSprites[0];
         abilitySkill.Exit();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy") && gameObject.transform.CompareTag("Character"))
-        {
+    private void OnTriggerEnter2D(Collider2D other){
+        if (other.CompareTag("Enemy") && gameObject.transform.CompareTag("Character")){
             Debug.Log("Hit enemy");
             Hit(other.gameObject);
-
-        }
-
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy") && gameObject.transform.CompareTag("Character"))
-        {
-            Debug.Log("Hit enemy");
-            Hit(other.gameObject);
-
         }
     }
 
-    private void OnCollisionStay2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Enemy") && gameObject.transform.CompareTag("Character"))
-        {
+    private void OnTriggerStay2D(Collider2D other){
+        if (other.CompareTag("Enemy") && gameObject.transform.CompareTag("Character")){
             Debug.Log("Hit enemy");
             Hit(other.gameObject);
-
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
+    private void OnCollisionStay2D(Collision2D other){
+        if (other.gameObject.CompareTag("Enemy") && gameObject.transform.CompareTag("Character")){
+            Debug.Log("Hit enemy");
+            Hit(other.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other){
+        if (other.gameObject.CompareTag("Ground")){
             isJump = false;
             doubleJump = false;
         }
 
-        if (other.gameObject.CompareTag("Enemy") && gameObject.transform.CompareTag("Character"))
-        {
+        if (other.gameObject.CompareTag("Enemy") && gameObject.transform.CompareTag("Character")){
             Debug.Log("Hit enemy");
             Hit(other.gameObject);
-
         }
     }
 
-    private void Hit(GameObject other)
-    {
+    private void Hit(GameObject other){
         float damage = GameObject.FindWithTag("StageManager").GetComponent<EnemyDamage>().GetDamage(other.gameObject.GetComponent<Enemy>());
         hp -= damage;
         other.transform.tag = "Untagged";
-        GameManager.instance.LastGameHitCount++;
+        PlayerPrefs.SetInt("LastGameHitCount", PlayerPrefs.GetInt("LastGameHitCount") + 1);
         StartCoroutine(FadeInOut());
     }
 
@@ -277,8 +259,7 @@ public class Character : MonoBehaviour, ICharacter
     }
 
 
-    public Sprite GetSprite()
-    {
+    public Sprite GetSprite(){
         return spriteRenderer.sprite;
     }
 
@@ -287,8 +268,7 @@ public class Character : MonoBehaviour, ICharacter
     //    StartCoroutine(ShowEffect(skilEffect[0],effectFixed));
     //}
 
-    public IEnumerator ShowEffect(Sprite effectSprite, bool effectFixed = true)
-    {
+    public IEnumerator ShowEffect(Sprite effectSprite, bool effectFixed = true){
         Debug.Log("ShowEffect");
         GameObject target = Instantiate(new GameObject(), gameObject.transform.position, Quaternion.identity);
         target.AddComponent<SpriteRenderer>().sprite = effectSprite;
@@ -299,8 +279,7 @@ public class Character : MonoBehaviour, ICharacter
         }
         target.transform.localScale = Vector3.one;
 
-        for (int i = 0; i < 10; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             yield return YieldInstructionCache.WaitingSecond(0.03f);
 
             target.transform.localScale += new Vector3(0.05f,0.05f,0.05f);
@@ -309,8 +288,7 @@ public class Character : MonoBehaviour, ICharacter
         Destroy(target);
     }
 
-    public void Death()
-    {
+    public void Death(){
         StartCoroutine(ShowEffect(deathEffect));
     }
 }
