@@ -27,7 +27,7 @@ public class Barrier : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             GameObject.FindWithTag("StageManager").GetComponent<EnemyDamage>().DeclineDamage(barrierValue);
-            StartCoroutine(GameManager.instance.FadeOut(gameObject.GetComponent<SpriteRenderer>(),0.3f));
+            StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(gameObject.GetComponent<SpriteRenderer>(),0.3f));
         }
     }
 

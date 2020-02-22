@@ -42,8 +42,8 @@ public class EyeBall : Enemy
     {
         GameObject explode = Instantiate(Explode, gameObject.transform.position, Quaternion.identity);
         gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
-        StartCoroutine(GameManager.instance.FadeOut(gameObject.GetComponent<SpriteRenderer>(),0.1f));
-        StartCoroutine(GameManager.instance.FadeOut(explode.GetComponent<SpriteRenderer>(), 0.1f));
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(gameObject.GetComponent<SpriteRenderer>(),0.1f));
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(explode.GetComponent<SpriteRenderer>(), 0.1f));
         Destroy(explode,0.5f);
         Destroy(gameObject,0.5f);
     }

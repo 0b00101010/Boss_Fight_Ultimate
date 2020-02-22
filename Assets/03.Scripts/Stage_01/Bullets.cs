@@ -22,7 +22,7 @@ public class Bullets : Enemy
 
     private IEnumerator Excute()
     {
-        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer,1.0f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer,1.0f));
         
     }
 }

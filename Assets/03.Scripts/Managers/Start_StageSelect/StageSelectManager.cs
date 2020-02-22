@@ -69,7 +69,7 @@ public class StageSelectManager : MonoBehaviour
     private IEnumerator BlackIn()
     {
         SpriteRenderer blackspriteRenderer = blackBackground.GetComponent<SpriteRenderer>();
-        yield return StartCoroutine(GameManager.instance.FadeOut(blackspriteRenderer, 1.0f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(blackspriteRenderer, 1.0f));
     }
 
     private void Update()

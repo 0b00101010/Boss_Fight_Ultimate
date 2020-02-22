@@ -17,7 +17,7 @@ public class Bullet_Explode : Enemy
     private IEnumerator Excute()
     {
         yield return YieldInstructionCache.WaitingSecond(0.25f);
-        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer,0.5f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer,0.5f));
         Destroy(gameObject);
     }
 

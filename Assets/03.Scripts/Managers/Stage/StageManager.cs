@@ -107,7 +107,7 @@ public class StageManager : MonoBehaviour
     {
 
         SpriteRenderer blackspriteRenderer = blackBackground.GetComponent<SpriteRenderer>();
-        StartCoroutine(GameManager.instance.FadeIn(blackspriteRenderer, 1.0f));
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackspriteRenderer, 1.0f));
         for (int i = 0; i < 20; i++)
         {
             audioSource.spatialBlend += 0.05f;

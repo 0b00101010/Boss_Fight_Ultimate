@@ -28,7 +28,7 @@ public class EyeCrossAttack : Enemy
 
     private IEnumerator Init()
     {
-        yield return StartCoroutine(GameManager.instance.FadeIn(EyeCross.GetComponent<SpriteRenderer>(), 0.35f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(EyeCross.GetComponent<SpriteRenderer>(), 0.35f));
     }
 
     public void CrossAttack()

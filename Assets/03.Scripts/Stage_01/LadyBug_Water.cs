@@ -20,7 +20,7 @@ public class LadyBug_Water : MonoBehaviour
     private IEnumerator Excute()
     {
         yield return YieldInstructionCache.WaitingSecond(3.5f);
-        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer,0.5f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer,0.5f));
 
         spriteRenderer.enabled = false;
         gameObject.transform.tag = "Untagged";

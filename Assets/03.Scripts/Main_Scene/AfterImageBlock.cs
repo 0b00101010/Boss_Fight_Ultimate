@@ -10,7 +10,7 @@ public class AfterImageBlock : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
     public IEnumerator FadeOut(){
-        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer, 1.5f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 1.5f));
         gameObject.SetActive(false);
     }
 }

@@ -26,6 +26,6 @@ public class ChaosFantasy_Phase_4 : Phase
         backGround.sprite = newBackGround;
         stageBoss.GetComponentInChildren<EyeCrossAttack>().EndCrossAttack();
         stageBoss.Vibrate();
-        StartCoroutine(GameManager.instance.FadeIn(eyeSpriteRenderer,0.3f));
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(eyeSpriteRenderer,0.3f));
     }
 }

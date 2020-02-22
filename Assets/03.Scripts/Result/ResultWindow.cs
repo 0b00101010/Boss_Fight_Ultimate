@@ -37,7 +37,7 @@ public class ResultWindow : MonoBehaviour
     private IEnumerator SquareGlow()
     {
         resultSquare.rectTransform.localScale = new Vector2(resultSquare.rectTransform.localScale.x + 5, resultSquare.rectTransform.localScale.y);
-        yield return new WaitForSeconds(0.005f);
+        yield return YieldInstructionCache.WaitFrame;
         if (resultSquare.rectTransform.localScale.x < 95)
             StartCoroutine(SquareGlow());
         else
@@ -52,10 +52,10 @@ public class ResultWindow : MonoBehaviour
         else
             survivedResult.sprite = sceneManager.survivedResult[1];
 
-        StartCoroutine(GameManager.instance.IFadeIn(emphasis, 0.3f));
-        StartCoroutine(GameManager.instance.IFadeIn(hit, 0.3f));
-        StartCoroutine(GameManager.instance.IFadeIn(survivedResult, 0.3f));
-        StartCoroutine(GameManager.instance.IFadeIn(remainedHp, 0.3f));
+        StartCoroutine(GameManager.instance.fadeManager.ImageFadeInCoroutine(emphasis, 0.3f));
+        StartCoroutine(GameManager.instance.fadeManager.ImageFadeInCoroutine(hit, 0.3f));
+        StartCoroutine(GameManager.instance.fadeManager.ImageFadeInCoroutine(survivedResult, 0.3f));
+        StartCoroutine(GameManager.instance.fadeManager.ImageFadeInCoroutine(remainedHp, 0.3f));
 
         remainedValue.UpdateShame((int)GameManager.instance.LastGameHp);
         hitValue.UpdateShame(GameManager.instance.LastGameHitCount);
@@ -65,14 +65,14 @@ public class ResultWindow : MonoBehaviour
         {
             rank.color = new Color(rank.color.r, rank.color.g, rank.color.b, rank.color.a + 0.05f);
             rank.rectTransform.localScale = new Vector2(rank.rectTransform.localScale.x - 20, rank.rectTransform.localScale.y - 20);
-            yield return new WaitForSeconds(0.005f);
+            yield return YieldInstructionCache.WaitFrame;
         }
 
         for (int i = 0; i < 10; i++)
         {
             returnToMain.color = new Color(returnToMain.color.r, returnToMain.color.g, returnToMain.color.b, returnToMain.color.a + (1.0f / 10));
             reTry.color = new Color(reTry.color.r, returnToMain.color.g, reTry.color.b, reTry.color.a + (1.0f / 10));
-            yield return new WaitForSeconds(0.02f);
+            yield return YieldInstructionCache.WaitFrame;
         }
     }
 

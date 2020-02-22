@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LoadScene : MonoBehaviour
 {
     [SerializeField]
-    private Image loadImage ;
+    private Image loadImage;
 
     [SerializeField]
     private GameObject blackBackground ;
@@ -20,7 +20,7 @@ public class LoadScene : MonoBehaviour
     private IEnumerator LoadNextScene()
     {
         StartCoroutine(BlackOut());
-        yield return new WaitForSeconds(3.0f);
+        yield return YieldInstructionCache.WaitingSecond(3.0f);
 
         yield return StartCoroutine(BlackIn());
         SceneManager.LoadScene(GameManager.instance.NextStageNumber);
@@ -33,7 +33,7 @@ public class LoadScene : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
             blackspriteRenderer.color = new Color(blackspriteRenderer.color.r, blackspriteRenderer.color.g, blackspriteRenderer.color.b, blackspriteRenderer.color.a - 0.1f);
-            yield return new WaitForSeconds(0.02f);
+            yield return YieldInstructionCache.WaitFrame;
             if (i == 5)
             {
                 blackspriteRenderer.color = new Color(blackspriteRenderer.color.r, blackspriteRenderer.color.g, blackspriteRenderer.color.b, 0.0f);
@@ -50,9 +50,7 @@ public class LoadScene : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             blackspriteRenderer.color = new Color(blackspriteRenderer.color.r, blackspriteRenderer.color.g, blackspriteRenderer.color.b, blackspriteRenderer.color.a + 0.1f);
-            yield return new WaitForSeconds(0.03f);
-
-
+            yield return YieldInstructionCache.WaitFrame;
         }
 
     }

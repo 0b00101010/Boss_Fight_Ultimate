@@ -269,11 +269,11 @@ public class Character : MonoBehaviour, ICharacter
         gameObject.transform.tag = "Untagged";
         SpriteRenderer backgroundRenderer = hitBackGround.GetComponent<SpriteRenderer>();
         backgroundRenderer.color = new Color(255,0,0,0.5f);
-        StartCoroutine(GameManager.instance.FadeOut(backgroundRenderer, 0.5f,5));
-        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer, 0.15f,1));
-        yield return StartCoroutine(GameManager.instance.FadeIn(spriteRenderer,0.15f,1));
-        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer, 0.15f, 1));
-        yield return StartCoroutine(GameManager.instance.FadeIn(spriteRenderer, 0.15f, 1));
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(backgroundRenderer, 0.5f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 0.15f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(spriteRenderer,0.15f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 0.15f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(spriteRenderer, 0.15f));
         gameObject.transform.tag = "Character";
     }
 

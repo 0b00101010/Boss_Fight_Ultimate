@@ -23,7 +23,7 @@ public class ChaosFantasy_Phase_5 : Phase
 
     private IEnumerator PhaseUP()
     {
-        yield return StartCoroutine(GameManager.instance.FadeOut(backGround, 1.5f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(backGround, 1.5f));
         backGround.color = new Color(255, 255, 255, 1);
 
         buildings[0].GetComponent<SpriteRenderer>().enabled = true;

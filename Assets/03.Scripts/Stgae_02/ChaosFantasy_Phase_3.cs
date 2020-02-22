@@ -35,8 +35,8 @@ public class ChaosFantasy_Phase_3 : Phase
     private IEnumerator PhaseUp()
     {
         stageBoss.StopBlink();
-        StartCoroutine(GameManager.instance.FadeOut(Eye, 0.35f));
-        yield return StartCoroutine(GameManager.instance.FadeIn(blackBackground, 0.35f));
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(Eye, 0.35f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackBackground, 0.35f));
         for(int i = 0; i < buildings.Length; i++)
         {
             buildings[i].GetComponent<SpriteRenderer>().sprite = newBuilding;
@@ -45,7 +45,7 @@ public class ChaosFantasy_Phase_3 : Phase
         yield return YieldInstructionCache.WaitingSecond(0.5f);
 
         background.sprite = newBackGround;
-        yield return StartCoroutine(GameManager.instance.FadeOut(blackBackground, 0.35f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(blackBackground, 0.35f));
         stageBoss.GetComponentInChildren<EyeCrossAttack>().CrossAttackInit();
 
     }

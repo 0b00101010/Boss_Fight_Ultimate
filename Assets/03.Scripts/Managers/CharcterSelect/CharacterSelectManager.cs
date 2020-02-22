@@ -58,7 +58,7 @@ public class CharacterSelectManager : MonoBehaviour
             instance = this;
 
 
-        StartCoroutine(GameManager.instance.FadeOut(blackBackGround,0.5f));
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(blackBackGround,0.5f));
 
         foreach (CharacterSlot slot in charactersSlot)
         {
@@ -142,7 +142,7 @@ public class CharacterSelectManager : MonoBehaviour
     
     private IEnumerator ReturnMainScene()
     {
-        yield return StartCoroutine(GameManager.instance.FadeIn(blackBackGround,0.5f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackBackGround,0.5f));
         SceneManager.LoadScene("01_Stage_Select");
     }
 

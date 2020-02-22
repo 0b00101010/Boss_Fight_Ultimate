@@ -12,7 +12,7 @@ public class LadyBug_Phase_2 : Phase
 
     public override void Excute()
     {
-        StartCoroutine(GameManager.instance.FadeIn(phaseBackground.GetComponent<SpriteRenderer>(),0.5f));
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(phaseBackground.GetComponent<SpriteRenderer>(),0.5f));
         StartCoroutine(RainDrop());
     }
 

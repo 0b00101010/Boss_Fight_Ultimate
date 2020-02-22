@@ -24,6 +24,6 @@ public class Sprout : Enemy
         }
         gameObject.transform.tag = "Ground";
         yield return YieldInstructionCache.WaitingSecond(1.85f);
-        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer,0.25f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer,0.25f));
     }
 }

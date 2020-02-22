@@ -18,9 +18,9 @@ public class LightPillar : MonoBehaviour
 
     private IEnumerator Excute()
     {
-        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer, 0.25f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 0.25f));
         GameObject target = Instantiate(lightPillar, gameObject.transform.position, Quaternion.identity);
-        yield return StartCoroutine(GameManager.instance.FadeOut(target.GetComponent<SpriteRenderer>(),0.1f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(target.GetComponent<SpriteRenderer>(),0.1f));
         Destroy(target);
         Destroy(gameObject);
     }

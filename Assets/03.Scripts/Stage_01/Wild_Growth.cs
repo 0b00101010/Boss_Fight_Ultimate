@@ -18,7 +18,7 @@ public class Wild_Growth : MonoBehaviour
     private IEnumerator Excute()
     {
         yield return YieldInstructionCache.WaitingSecond(0.25f);
-        yield return StartCoroutine(GameManager.instance.FadeOut(spriteRenderer, 0.5f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 0.5f));
 
         spriteRenderer.enabled = false;
         Instantiate(sprouts[Random.Range(0,sprouts.Length)],new Vector2(gameObject.transform.position.x, -6.0f),Quaternion.identity);
