@@ -3363,6 +3363,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2019762763 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4225798778266106390, guid: 69471d4ccb82c4b9e88402d44a47c9fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 4225798777006561125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2019762764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019762763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236fc3b5beef64730a6a011aab3b7823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repeatFrame: 30
 --- !u!1 &2032364031
 GameObject:
   m_ObjectHideFlags: 0
@@ -3841,7 +3860,7 @@ PrefabInstance:
         type: 3}
       propertyPath: GameMusics.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: fba03fca4ad5b436ab1af7f667471021, type: 3}
+      objectReference: {fileID: 8300000, guid: c1bc00826b86f46f588ef1096e1defae, type: 3}
     - target: {fileID: 4225798778266106384, guid: 69471d4ccb82c4b9e88402d44a47c9fd,
         type: 3}
       propertyPath: nowGameCharacter
@@ -3931,7 +3950,8 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 27acf4e6d8e9d4bce90bb8f7019447c3, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4714241444834584650, guid: 69471d4ccb82c4b9e88402d44a47c9fd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 69471d4ccb82c4b9e88402d44a47c9fd, type: 3}
 --- !u!1001 &8548246863898131485
 PrefabInstance:

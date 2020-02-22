@@ -68,6 +68,4 @@ public class GameManager : MonoBehaviour
     public float GetScore() {
         return LastGameScore;
     }
-
- 
 }

@@ -26,8 +26,7 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField]
     private Slider musicVolumeSlider;
 
-    private void Start()
-    {
+    private void Start(){
         StartCoroutine(ImageUpdate());
         StartCoroutine(BlackOut());
         curStageNumber = 0;
@@ -36,20 +35,17 @@ public class StageSelectManager : MonoBehaviour
         musicVolumeSlider.value = GameManager.instance.soundManager.Volume;
     }
 
-    private IEnumerator ImageUpdate()
-    {
+    private IEnumerator ImageUpdate(){
         GameObject target = Instantiate(GameManager.instance.nowGameCharacter,new Vector2(-100f, -100f),Quaternion.identity);
         characterSelectSceneButton.sprite = target.GetComponent<SpriteRenderer>().sprite;
         yield return YieldInstructionCache.WaitFrame;
         Destroy(target);
     }
 
-    private IEnumerator BlackOut()
-    {
+    private IEnumerator BlackOut(){
         SpriteRenderer blackspriteRenderer = blackBackground.GetComponent<SpriteRenderer>();
 
-        for (int i = 0; i < 6; i++)
-        {
+        for (int i = 0; i < 6; i++){
             blackspriteRenderer.color = new Color(blackspriteRenderer.color.r, blackspriteRenderer.color.g, blackspriteRenderer.color.b, blackspriteRenderer.color.a - 0.1f);
             yield return YieldInstructionCache.WaitingSecond(0.02f);
             if (i == 5)
@@ -58,33 +54,26 @@ public class StageSelectManager : MonoBehaviour
                 break;
             }
         }
-
     }
 
-    public void VolumeChange()
-    {
+    public void VolumeChange(){
         GameManager.instance.soundManager.Volume = musicVolumeSlider.value;    
     }
 
-    private IEnumerator BlackIn()
-    {
+    private IEnumerator BlackIn(){
         SpriteRenderer blackspriteRenderer = blackBackground.GetComponent<SpriteRenderer>();
-        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(blackspriteRenderer, 1.0f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackspriteRenderer, 1.0f));
     }
 
-    private void Update()
-    {
-        if (GameManager.instance.touchManager.IsSwipe)
+    private void Update(){
+        if (GameManager.instance.touchManager.IsSwipe){
             MoveStageButton();
-
+        }
     }
 
-    private void MoveStageButton()
-    {
-        if (GameManager.instance.touchManager.SwipeDirection.x < 0 && stages[stages.Count-1].gameObject.transform.position.x > 1.0f)
-        {
-            foreach (StageButton stage in stages)
-            {
+    private void MoveStageButton(){
+        if (GameManager.instance.touchManager.SwipeDirection.x < 0 && stages[stages.Count-1].gameObject.transform.position.x > 1.0f){
+            foreach (StageButton stage in stages){
                 //stage.gameObject.transform.position = new Vector2(stage.gameObject.transform.position.x - 4.0f, stage.gameObject.transform.position.y);
                 stage.gameObject.transform.Translate(new Vector2(-4.0f, 0.0f));
             }
@@ -98,10 +87,8 @@ public class StageSelectManager : MonoBehaviour
             StartCoroutine(ButtonSizeUpDown(1, curStage));
             //curStage.gameObject.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f);
         }
-        else if (GameManager.instance.touchManager.SwipeDirection.x > 0 && stages[0].gameObject.transform.position.x < -1.0f)
-        {
-            foreach (StageButton stage in stages)
-            {
+        else if (GameManager.instance.touchManager.SwipeDirection.x > 0 && stages[0].gameObject.transform.position.x < -1.0f){
+            foreach (StageButton stage in stages){
                 //stage.gameObject.transform.position = new Vector2(stage.gameObject.transform.position.x + 4.0f, stage.gameObject.transform.position.y);
                 stage.gameObject.transform.Translate(new Vector2(4.0f, 0.0f));
             }
@@ -115,116 +102,85 @@ public class StageSelectManager : MonoBehaviour
             //curStage.gameObject.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f);
 
         }
-
-
     }
 
-    private IEnumerator ButtonSizeUpDown(int sign, StageButton stage)
-    {
+    private IEnumerator ButtonSizeUpDown(int sign, StageButton stage){
         Vector3 changeScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-        for (int i = 0; i < 4; i++)
-        {
-            if (sign.Equals(0))
-            {
+        for (int i = 0; i < 4; i++){
+            if (sign.Equals(0)){
                 stage.gameObject.transform.localScale -= changeScale;
                 // Debug.Log("Minus!");
             }
 
-            else if (sign.Equals(1))
-            {
+            else if (sign.Equals(1)){
                 stage.gameObject.transform.localScale += changeScale;
                 // Debug.Log("Plus!");
             }
-
             yield return YieldInstructionCache.WaitFrame;
         }
-
-        
     }
 
-    public void MoveToInGame(int sceneNumber)
-    {
+    public void MoveToInGame(int sceneNumber){
         StartCoroutine(BlackWait(sceneNumber));
     }
 
-    private IEnumerator BlackWait(int sceneNumber)
-    {
+    private IEnumerator BlackWait(int sceneNumber){
         yield return StartCoroutine(BlackIn());
         GameManager.instance.NextStageNumber = sceneNumber;
         SceneManager.LoadScene("02_LoadScene");
     }
 
-    public void SettingView()
-    {
+    public void SettingView(){
         settingCanvas.gameObject.SetActive(false);
         stagesCanvas.gameObject.SetActive(false);
         optionScreenCavans.gameObject.SetActive(true);
     }
 
-    public void SettingCancle()
-    {
+    public void SettingCancle(){
         settingCanvas.gameObject.SetActive(true);
         stagesCanvas.gameObject.SetActive(true);
         optionScreenCavans.gameObject.SetActive(false);
             
     }
 
-    public void OnOffOtherStage()
-    {
+    public void OnOffOtherStage(){
         StartCoroutine(OnOff());
     }
 
-    private IEnumerator OnOff()
-    {
-        for (int i = 0; i < stages.Count; i++)
-        {
+    private IEnumerator OnOff(){
+        for (int i = 0; i < stages.Count; i++){
             if (i.Equals(curStageNumber))
                 continue;
 
-            if (stages[i].gameObject.activeInHierarchy.Equals(true))
-            {
-
-
-                if (stages[i].gameObject.GetComponent<RectTransform>().position.x < stages[curStageNumber].transform.position.x)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
+            if (stages[i].gameObject.activeInHierarchy.Equals(true)){
+                if (stages[i].gameObject.GetComponent<RectTransform>().position.x < stages[curStageNumber].transform.position.x){
+                    for (int j = 0; j < 20; j++){
                         stages[i].gameObject.transform.Translate(new Vector3(-0.3f, 0, 0));
                         yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
 
                 }
-
-
-                else if (stages[i].gameObject.GetComponent<RectTransform>().position.x > stages[curStageNumber].transform.position.x)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
+                else if (stages[i].gameObject.GetComponent<RectTransform>().position.x > stages[curStageNumber].transform.position.x){
+                    for (int j = 0; j < 20; j++){
                         stages[i].gameObject.transform.Translate(new Vector3(+0.3f, 0, 0));
                         yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
                 }
                 stages[i].gameObject.SetActive(!stages[i].gameObject.activeInHierarchy);
             }
-            else if (stages[i].gameObject.activeInHierarchy.Equals(false))
-            {
+            else if (stages[i].gameObject.activeInHierarchy.Equals(false)){
                 stages[i].gameObject.SetActive(!stages[i].gameObject.activeInHierarchy);
-                if (stages[i].gameObject.GetComponent<RectTransform>().position.x > stages[curStageNumber].transform.position.x)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
+                
+                if (stages[i].gameObject.GetComponent<RectTransform>().position.x > stages[curStageNumber].transform.position.x){
+                    for (int j = 0; j < 20; j++){
                         stages[i].gameObject.transform.Translate(new Vector3(-0.3f, 0, 0));
                         yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
 
                 }
-
-
-                else if (stages[i].gameObject.GetComponent<RectTransform>().position.x < stages[curStageNumber].transform.position.x)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
+                else if (stages[i].gameObject.GetComponent<RectTransform>().position.x < stages[curStageNumber].transform.position.x){
+                    for (int j = 0; j < 20; j++){
                         stages[i].gameObject.transform.Translate(new Vector3(+0.3f, 0, 0));
                         yield return YieldInstructionCache.WaitingSecond(0.02f);
                     }
@@ -236,12 +192,11 @@ public class StageSelectManager : MonoBehaviour
 
     }
 
-    public void MoveToCharacterSelect()
-    {
+    public void MoveToCharacterSelect(){
         StartCoroutine(BlackWaitToCharacterScene());
     }
-    private IEnumerator BlackWaitToCharacterScene()
-    {
+
+    private IEnumerator BlackWaitToCharacterScene(){
         yield return StartCoroutine(BlackIn());
         SceneManager.LoadScene("04_CharacterSelect");
     }

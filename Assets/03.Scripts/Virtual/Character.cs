@@ -268,8 +268,7 @@ public class Character : MonoBehaviour, ICharacter
     private IEnumerator FadeInOut() {
         gameObject.transform.tag = "Untagged";
         SpriteRenderer backgroundRenderer = hitBackGround.GetComponent<SpriteRenderer>();
-        backgroundRenderer.color = new Color(255,0,0,0.5f);
-        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(backgroundRenderer, 0.5f));
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(backgroundRenderer, 0.5f));
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 0.15f));
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(spriteRenderer,0.15f));
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 0.15f));
@@ -280,8 +279,7 @@ public class Character : MonoBehaviour, ICharacter
 
     public Sprite GetSprite()
     {
-        Sprite sprite = spriteRenderer.sprite;
-        return sprite;
+        return spriteRenderer.sprite;
     }
 
     //public void SkilEffect(bool effectFixed = true)
@@ -296,15 +294,15 @@ public class Character : MonoBehaviour, ICharacter
         target.AddComponent<SpriteRenderer>().sprite = effectSprite;
         SpriteRenderer tagetSpriteRenderer = target.GetComponent<SpriteRenderer>();
         tagetSpriteRenderer.sortingOrder = 1;
-        if(effectFixed)
+        if(effectFixed){
             target.transform.SetParent(gameObject.transform);
-        target.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-        var waitingTime = YieldInstructionCache.WaitingSecond(0.03f);
+        }
+        target.transform.localScale = Vector3.one;
 
         for (int i = 0; i < 10; i++)
         {
-            yield return waitingTime;
+            yield return YieldInstructionCache.WaitingSecond(0.03f);
+
             target.transform.localScale += new Vector3(0.05f,0.05f,0.05f);
             tagetSpriteRenderer.color = new Color(tagetSpriteRenderer.color.r, tagetSpriteRenderer.color.g, tagetSpriteRenderer.color.b, tagetSpriteRenderer.color.a - 0.1f);
         }
