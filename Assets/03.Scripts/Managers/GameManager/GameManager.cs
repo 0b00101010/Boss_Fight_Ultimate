@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
         soundManager = gameObject.GetComponent<SoundManager>();
         touchManager = gameObject.GetComponent<TouchManager>();
-
+        fadeManager = gameObject.GetComponent<FadeManager>();
         DontDestroyOnLoad(gameObject);
     }
 

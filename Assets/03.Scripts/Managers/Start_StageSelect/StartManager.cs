@@ -65,7 +65,7 @@ public class StartManager : MonoBehaviour
     private IEnumerator StartGame()
     {
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackBackground.GetComponent<SpriteRenderer>(),0.2f));
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("01_Stage_Select");
         
     }
 
