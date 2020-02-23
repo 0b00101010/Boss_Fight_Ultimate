@@ -208,21 +208,18 @@ public class Character : MonoBehaviour, ICharacter
 
     private void OnTriggerEnter2D(Collider2D other){
         if (other.CompareTag("Enemy") && gameObject.transform.CompareTag("Character")){
-            Debug.Log("Hit enemy");
             Hit(other.gameObject);
         }
     }
 
     private void OnTriggerStay2D(Collider2D other){
         if (other.CompareTag("Enemy") && gameObject.transform.CompareTag("Character")){
-            Debug.Log("Hit enemy");
             Hit(other.gameObject);
         }
     }
 
     private void OnCollisionStay2D(Collision2D other){
         if (other.gameObject.CompareTag("Enemy") && gameObject.transform.CompareTag("Character")){
-            Debug.Log("Hit enemy");
             Hit(other.gameObject);
         }
     }
@@ -234,7 +231,6 @@ public class Character : MonoBehaviour, ICharacter
         }
 
         if (other.gameObject.CompareTag("Enemy") && gameObject.transform.CompareTag("Character")){
-            Debug.Log("Hit enemy");
             Hit(other.gameObject);
         }
     }
@@ -263,13 +259,7 @@ public class Character : MonoBehaviour, ICharacter
         return spriteRenderer.sprite;
     }
 
-    //public void SkilEffect(bool effectFixed = true)
-    //{
-    //    StartCoroutine(ShowEffect(skilEffect[0],effectFixed));
-    //}
-
     public IEnumerator ShowEffect(Sprite effectSprite, bool effectFixed = true){
-        Debug.Log("ShowEffect");
         GameObject target = Instantiate(new GameObject(), gameObject.transform.position, Quaternion.identity);
         target.AddComponent<SpriteRenderer>().sprite = effectSprite;
         SpriteRenderer tagetSpriteRenderer = target.GetComponent<SpriteRenderer>();

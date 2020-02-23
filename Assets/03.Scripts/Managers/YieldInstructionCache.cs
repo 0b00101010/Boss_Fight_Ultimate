@@ -5,6 +5,7 @@ using UnityEngine;
 public static class YieldInstructionCache 
 {
     private static Dictionary<float, WaitForSeconds> waitingSeconds = new Dictionary<float, WaitForSeconds>();
+    private static Dictionary<float, WaitForSecondsRealtime> waitingRealTime = new Dictionary<float, WaitForSecondsRealtime>();
     private static object waitFrame = null;
 
     public static object WaitFrame => waitFrame;
@@ -15,5 +16,13 @@ public static class YieldInstructionCache
         }
         
         return waitingSeconds[waitTime];
+    }
+
+    public static WaitForSecondsRealtime WaitingRealTime(float waitTime){
+        if(!waitingRealTime.ContainsKey(waitTime)){
+            waitingRealTime.Add(waitTime, new WaitForSecondsRealtime(waitTime));
+        }
+        
+        return waitingRealTime[waitTime];
     }
 }

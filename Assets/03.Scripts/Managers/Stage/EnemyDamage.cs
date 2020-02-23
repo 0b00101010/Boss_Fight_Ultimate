@@ -15,7 +15,6 @@ public class EnemyDamage : MonoBehaviour
     
     public float GetDamage(Enemy enemy) {
         coefficient = enemy.Coefficient;
-        Debug.Log("Damage : " + bossDamage * coefficient);
         hitDamage += bossDamage * coefficient;
 
         if (hitDamage - declineValue > 0)

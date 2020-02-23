@@ -81,8 +81,6 @@ public class CharacterUICtrl : MonoBehaviour
         characterAbilityText.text = abilityList[index];
 
         yield return new WaitForSeconds(0.01f);
-        Debug.Log(target.GetComponent<Character>().Level_Tank);
-
 
         for (int i = 0; i < tankLevels.Length; i++)
             tankLevels[i].sprite = levelImage[0];

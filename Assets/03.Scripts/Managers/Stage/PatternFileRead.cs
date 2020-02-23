@@ -28,7 +28,6 @@ public class PatternFileRead : MonoBehaviour
 
                 if (int.Parse(spString[1]).Equals(nowBeat))
                 {
-                    Debug.Log("Beat : " + nowBeat + ", PatternNumber : " + spString[2]);
                     stagePattern.Excute(int.Parse(spString[2]));
                     fileStrs.Remove(fileStrs[0]);
                     break;
