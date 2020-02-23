@@ -7,12 +7,15 @@ public class TouchManager : MonoBehaviour
     private Vector2 touchDownPosition;
     private Vector2 touchUpPosition;
 
+    private Vector2 touchDownPositionNotScreenPoint;
+
     private Vector2 swipeDirection;
 
     private float minSwipeDistance;
 
     private bool isTouch;
     private bool isSwipe;
+
 
     public Vector2 TouchDownPosition => touchDownPosition;
     public Vector2 TouchUpPosition => touchUpPosition;
@@ -23,7 +26,7 @@ public class TouchManager : MonoBehaviour
 
 
     private void Start(){
-        minSwipeDistance = Screen.width / 5;
+        minSwipeDistance = Screen.width / 5; 
     }
 
     public void ProcessTouch(){
@@ -33,18 +36,19 @@ public class TouchManager : MonoBehaviour
             if(tempTouch.phase.Equals(TouchPhase.Began)){
                 isTouch = true;
                 touchDownPosition = Camera.main.ScreenToWorldPoint(tempTouch.position);
+                touchDownPositionNotScreenPoint = tempTouch.position;
             }
             else if(tempTouch.phase.Equals(TouchPhase.Moved)){
-                Vector2 currentPosition = Camera.main.ScreenToWorldPoint(tempTouch.position);
+                Vector2 currentPosition = tempTouch.position;
                 
-                if((currentPosition -  touchDownPosition).magnitude > minSwipeDistance){
-                    swipeDirection = (currentPosition - touchDownPosition).normalized;
+                if((currentPosition - touchDownPositionNotScreenPoint).magnitude > minSwipeDistance){
+                    swipeDirection = (currentPosition - touchDownPositionNotScreenPoint).normalized;
                     isSwipe = true;
                 }
             }
             else if(tempTouch.phase.Equals(TouchPhase.Ended)){
                 isTouch = false;
-                isSwipe = true;
+                isSwipe = false;
                 touchUpPosition = Camera.main.ScreenToWorldPoint(tempTouch.position);
             }
         }

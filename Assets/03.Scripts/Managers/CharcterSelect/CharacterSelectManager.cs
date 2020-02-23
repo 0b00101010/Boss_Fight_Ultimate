@@ -99,6 +99,10 @@ public class CharacterSelectManager : MonoBehaviour
             Vector2 pos = GameManager.instance.touchManager.TouchDownPosition;
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0.0f);
 
+            if(hit.collider == null){
+                return;
+            }
+
             if(hit.collider.gameObject.CompareTag("Slot") && hit.collider.gameObject.GetComponent<CharacterSlot>().UnLock){
                 SelectSlot.GetComponent<Image>().sprite = slotSprites[SelectSlot.SpriteNumber -= 1];
                 SelectSlot = hit.collider.gameObject.GetComponent<CharacterSlot>();
@@ -106,20 +110,22 @@ public class CharacterSelectManager : MonoBehaviour
 
                 SelectCharacter();
             }
-
         }
         
     }
 
     private void MoveCharacterSlots() {
+        Vector2 moveVector = Vector2.zero;
+        moveVector.x = 80;
+
         if (GameManager.instance.touchManager.SwipeDirection.x < 0 && charactersSlot[charactersSlot.Count].GetComponent<RectTransform>().position.x < 120.0f){
             foreach (CharacterSlot characterSlot in charactersSlot){
-                characterSlot.gameObject.GetComponent<RectTransform>().Translate(new Vector2(-80.0f,0.0f));
+                characterSlot.gameObject.GetComponent<RectTransform>().Translate(-moveVector);
             }
         }
         else if (GameManager.instance.touchManager.SwipeDirection.x > 0 && charactersSlot[0].transform.position.x > 680.0f){
             foreach (CharacterSlot characterSlot in charactersSlot) {
-                characterSlot.gameObject.GetComponent<RectTransform>().Translate(new Vector2(+80.0f, 0.0f));
+                characterSlot.gameObject.GetComponent<RectTransform>().Translate(moveVector);
             }
         }
     }
