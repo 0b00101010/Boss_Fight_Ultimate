@@ -43,7 +43,8 @@ public class StageSelectManager : MonoBehaviour
     }
 
     private IEnumerator ImageUpdate(){
-        GameObject target = Instantiate(GameManager.instance.nowGameCharacter,new Vector2(-100f, -100f),Quaternion.identity);
+        GameObject gameCharcter = Resources.Load<GameObject>("Characters/" + PlayerPrefs.GetString("SelectCharacter"));
+        GameObject target = Instantiate(gameCharcter,new Vector2(-100f, -100f),Quaternion.identity);
         characterSelectSceneButton.sprite = target.GetComponent<SpriteRenderer>().sprite;
         yield return YieldInstructionCache.WaitFrame;
         Destroy(target);

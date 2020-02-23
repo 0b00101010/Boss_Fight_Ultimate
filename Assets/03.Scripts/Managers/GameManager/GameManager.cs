@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
 
     public Sprite[] LoadImages;
     public Sprite[] ResultImages;
-    public GameObject nowGameCharacter;
 
     public string[] FilePaths;
     public string[] StageNames;
@@ -40,6 +39,10 @@ public class GameManager : MonoBehaviour
     private void Start(){
         GameManager.instance.soundManager.MusicChange(GameManager.instance.GameMusics[0]);
         GameManager.instance.soundManager.MusicQueue();
+
+        if(!PlayerPrefs.HasKey("SelectCharacter")){
+            PlayerPrefs.SetString("SelectCharacter", "Character_ddiyong");
+        }
     }
 
     private void Update(){

@@ -14,7 +14,7 @@ public class CharacterSlot : MonoBehaviour
    
     [SerializeField]
     private GameObject character;
-
+    
     private void CharacterUnLock()
     {
         UnLock = true;

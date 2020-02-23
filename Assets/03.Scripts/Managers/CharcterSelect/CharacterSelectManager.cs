@@ -83,7 +83,7 @@ public class CharacterSelectManager : MonoBehaviour
         }
         
         foreach (CharacterSlot slot in charactersSlot){
-            if (slot.GetCharacter().Equals(GameManager.instance.nowGameCharacter)){
+            if (slot.GetCharacter().Equals(Resources.Load<GameObject>("Characters/" + PlayerPrefs.GetString("SelectCharacter")))){
                 slot.GetComponent<Image>().sprite = slotSprites[slot.SpriteNumber += 1];
                 SelectSlot = slot;
             }
@@ -140,7 +140,7 @@ public class CharacterSelectManager : MonoBehaviour
     }
 
     private void SelectCharacter() {
-        GameManager.instance.nowGameCharacter = SelectSlot.GetCharacter();
+        PlayerPrefs.SetString("SelectCharacter",SelectSlot.GetCharacter().name);
     }
 
     public CharacterSlot GetSelectSlot(){

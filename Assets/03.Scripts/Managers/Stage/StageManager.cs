@@ -85,8 +85,9 @@ public class StageManager : MonoBehaviour
     }
 
     private void CreateCharacter(){
-        _char = Instantiate(GameManager.instance.nowGameCharacter,new Vector2(0f,0f),Quaternion.identity).GetComponent<Character>();
-        _char.tag = "Character";
+        GameObject gameCharacter = Resources.Load<GameObject>("Characters/" + PlayerPrefs.GetString("SelectCharacter"));
+        _char = Instantiate(gameCharacter, Vector2.zero,Quaternion.identity).GetComponent<Character>();
+        _char.gameObject.transform.tag = "Character";
         gameChar = _char.GetComponent<ICharacter>();
     }
 
@@ -109,13 +110,16 @@ public class StageManager : MonoBehaviour
     private IEnumerator GameEnd()
     {
         PlayerPrefs.SetFloat("LastGameScore", (_char.Hp / _char.MaxHp) * 100);
-        if (PlayerPrefs.GetFloat("LastGameScore") <  0)
+        if (PlayerPrefs.GetFloat("LastGameScore") <  0){
             PlayerPrefs.SetFloat("LastGameScore", 0);
-       
-         PlayerPrefs.SetFloat("LastGameHp", _char.Hp);
-        if (PlayerPrefs.GetFloat("LastGameScore") < 0)
-            PlayerPrefs.SetFloat("LastGameScore", 0);
+        }
 
+        PlayerPrefs.SetFloat("LastGameHp", _char.Hp);
+        
+        if (PlayerPrefs.GetFloat("LastGameScore") < 0){
+            PlayerPrefs.SetFloat("LastGameScore", 0);
+        }
+        
         yield return StartCoroutine(BlackIn());
         SceneManager.LoadScene("03_GameResult");
     }
