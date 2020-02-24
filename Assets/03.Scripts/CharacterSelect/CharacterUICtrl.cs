@@ -32,12 +32,12 @@ public class CharacterUICtrl : MonoBehaviour
 
     private CharacterSlot selectSlot;
 
- 
-
+    // TODO : Change to use scriptableobject file
     private List<string> nameList = new List<string>();
     private List<string> descriptList = new List<string>();
     private List<string> skilList = new List<string>();
     private List<string> abilityList = new List<string>();
+    
     public void Awake()
     {   TextAsset names = Resources.Load("Character/CharactersName") as TextAsset;
         TextAsset descript = Resources.Load("Character/CharactersDescripts") as TextAsset;
@@ -71,7 +71,7 @@ public class CharacterUICtrl : MonoBehaviour
     public IEnumerator InformationUpdate()
     {
         selectSlot = CharacterSelectManager.instance.GetSelectSlot();
-        GameObject target = Instantiate(selectSlot.GetCharacter(), new Vector3(-100f, -100f), Quaternion.identity);
+        GameObject target = Instantiate(selectSlot.GetCharacter(), Vector2.one * -100, Quaternion.identity);
         characterImage.sprite = target.GetComponent<SpriteRenderer>().sprite;
 
         int index = CharacterSelectManager.instance.GetSelectSlotNumber();
@@ -80,7 +80,7 @@ public class CharacterUICtrl : MonoBehaviour
         characterSkillText.text = skilList[index];
         characterAbilityText.text = abilityList[index];
 
-        yield return new WaitForSeconds(0.01f);
+        yield return YieldInstructionCache.WaitingSecond(0.01f);
 
         for (int i = 0; i < tankLevels.Length; i++)
             tankLevels[i].sprite = levelImage[0];

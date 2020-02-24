@@ -9,11 +9,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-
-    public enum AchievementsTag { LADYBUG_SCORE_3000, LIFE_IS_BEAUTIFULE };
-    public enum ObserveTag { GAME_CLEAR, GAME_END , CHARACTER_DEATH};
-    public enum StageTag { LADYBUG = 3};
-
     public AudioClip[] GameMusics;
 
     public TouchManager touchManager;
