@@ -91,13 +91,30 @@ public class CharacterSelectManager : MonoBehaviour
     }
 
     private void Update() { 
+        RaycastHit2D hit;
+        
         if (GameManager.instance.touchManager.IsSwipe){
             MoveCharacterSlots();
         }
 
         if (GameManager.instance.touchManager.IsTouch){
-            Vector2 pos = GameManager.instance.touchManager.TouchDownPosition;
-            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0.0f);
+            hit = Physics2D.Raycast(GameManager.instance.touchManager.TouchDownPosition, Vector2.zero, Mathf.Infinity);
+        
+            if(hit.collider == null){
+                return;
+            }
+
+            if(hit.collider.gameObject.CompareTag("Slot") && hit.collider.gameObject.GetComponent<CharacterSlot>().UnLock){
+                SelectSlot.GetComponent<Image>().sprite = slotSprites[SelectSlot.SpriteNumber -= 1];
+                SelectSlot = hit.collider.gameObject.GetComponent<CharacterSlot>();
+                SelectSlot.GetComponent<Image>().sprite = slotSprites[SelectSlot.SpriteNumber += 1];
+
+                SelectCharacter();
+            }
+        }
+        else if(Input.GetMouseButtonDown(0)){
+            hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity);
+
 
             if(hit.collider == null){
                 return;
@@ -111,7 +128,7 @@ public class CharacterSelectManager : MonoBehaviour
                 SelectCharacter();
             }
         }
-        
+
     }
 
     private void MoveCharacterSlots() {
