@@ -13,55 +13,45 @@ public class GreatMigration : Enemy
 
     private GameObject curNode;
     private GameObject notCurNode;
-    private Boss thisBoss;
+    private Boss_LadyBug thisBoss;
 
     private bool isMove;
 
     private Vector3 markPos;
 
-    private void Start()
-    {
-        thisBoss = gameObject.GetComponent<Boss>();
+    private void Start(){
+        thisBoss = gameObject.GetComponent<Boss_LadyBug>();
         SelectNode();
         Coefficient = 0.3f;
     }
 
-    private IEnumerator MoveTo()
-    {
+    private IEnumerator MoveTo(){
         Instantiate(Water, thisBoss.transform.position, Quaternion.identity);
-        if (isMove)
-        {
-            if (curNode.Equals(Node1))
-            {
-                if (Node1.transform.position.y < thisBoss.transform.position.y)
-                {
+        if (isMove){
+            if (curNode.Equals(Node1)){
+                if (Node1.transform.position.y < thisBoss.transform.position.y){
                     StopMigration();
 
                 }
             }
 
-            if (curNode.Equals(Node2))
-            {
-                if (Node2.transform.position.y > thisBoss.transform.position.y)
-                {
+            if (curNode.Equals(Node2)){
+                if (Node2.transform.position.y > thisBoss.transform.position.y){
                     StopMigration();
 
                 }
             }
-            
         }
         yield return YieldInstructionCache.WaitingSecond(0.05f);
 
         StartCoroutine(MoveTo());
     }
 
-    public void Migration()
-    {
+    public void Migration(){
         StartCoroutine(Excute());
     }
 
-    private IEnumerator Excute()
-    {
+    private IEnumerator Excute(){
         thisBoss.Darkened();
         yield return YieldInstructionCache.WaitingSecond(0.75f);
         Node1.transform.position = new Vector2(Random.Range(-8.0f, 8.0f), Node1.transform.position.y);
@@ -87,33 +77,27 @@ public class GreatMigration : Enemy
 
         digree -= 90;
 
-        // Debug.Log("Digree : " + digree);
         thisBoss.transform.Rotate(0,0,digree);
         StartCoroutine(MoveTo());
 
     }
 
-    private void SelectNode()
-    {
-        if (curNode == null)
-        {
+    private void SelectNode(){
+        if (curNode == null){
             curNode = Node1;
             notCurNode = Node2;
         }
-        else if (curNode == Node1)
-        {
+        else if (curNode == Node1){
             curNode = Node2;
             notCurNode = Node1;
         }
-        else if (curNode == Node2)
-        {
+        else if (curNode == Node2){
             curNode = Node1;
             notCurNode = Node2;
         }
     }
 
-    private void OnDrawGizmos()
-    {
+    private void OnDrawGizmos(){
         Gizmos.DrawSphere(Node1.transform.position, 0.5f);
         Gizmos.DrawSphere(Node2.transform.position, 0.5f);
         Gizmos.DrawLine(Node1.transform.position, Node2.transform.position);
@@ -123,8 +107,8 @@ public class GreatMigration : Enemy
         isMove = false;
         StopAllCoroutines();
         thisBoss.transform.position = new Vector2(0.0f, 3.0f);
-        thisBoss.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        thisBoss.transform.rotation = Quaternion.identity;
         thisBoss.DarkenDown();
-        thisBoss.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+        thisBoss.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 }

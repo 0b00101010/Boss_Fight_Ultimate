@@ -9,18 +9,15 @@ public class Big_Ball : Enemy
     private Vector3 pos;
     private Rigidbody2D rBody;
 
-    private void Awake()
-    {
+    private void Awake(){
         rBody = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
-    {
+    private void Start(){
         StartCoroutine(OffTriger());
     }
 
-    public void SetPos(Vector3 bossPosition, Vector3 cautionPosition)
-    {
+    public void SetPos(Vector3 bossPosition, Vector3 cautionPosition){
         pos = (cautionPosition - bossPosition).normalized;
     }
 
@@ -29,14 +26,12 @@ public class Big_Ball : Enemy
         gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
     }
 
-    private void FixedUpdate()
-    {
-        rBody.velocity = new Vector2(pos.x * 15,pos.y * 15);
+    private void FixedUpdate(){
+        rBody.velocity = pos * 15;
 
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
+    private void OnCollisionEnter2D(Collision2D other){
         Instantiate(Explode,gameObject.transform.position,Quaternion.identity);
         Destroy(gameObject);
     }

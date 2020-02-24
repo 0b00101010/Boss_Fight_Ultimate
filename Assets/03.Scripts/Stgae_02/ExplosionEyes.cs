@@ -11,7 +11,7 @@ public class ExplosionEyes : Enemy
     private void Start()
     {
         Coefficient = 1.0f;
-        boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
+        boss = GameObject.FindWithTag("Boss").GetComponent<Boss_LadyBug>();
         bossTransform = GameObject.FindWithTag("Boss").GetComponent<Transform>();
         StartCoroutine(Excute());
     }

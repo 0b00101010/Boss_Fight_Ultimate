@@ -25,7 +25,7 @@ public class LadyBug_Water : MonoBehaviour
         spriteRenderer.enabled = false;
         gameObject.transform.tag = "Untagged";
         DestroyImmediate(gameObject.GetComponent<Collider2D>());
-        Destroy(this,3.0f);
+        Destroy(this,3.0f); // TODO : Change to  bject pulling
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -7,9 +7,9 @@ public class EnemyDamage : MonoBehaviour
     private float bossDamage; // 보스 공격력
     private float coefficient; // 계수
     private float declineValue = 0; // 감소될 데미지
+    // TODO : Change to decline in character
     private float hitDamage; // 실제로 가해지는 데미지
-    private void Start()
-    {
+    private void Start(){
         bossDamage = GameObject.FindWithTag("Boss").GetComponent<StageBoss>().Damage;
     }
     
@@ -26,5 +26,4 @@ public class EnemyDamage : MonoBehaviour
     public void DeclineDamage(float declineValue) {
         this.declineValue = declineValue;
     }
-
 }

@@ -7,12 +7,12 @@ public class Big_Bullet : Enemy
     [SerializeField]
     private GameObject bigBullet;
     private SpriteRenderer spriteRenderer;
-    private Boss boss;
+    private Boss_LadyBug boss;
     private Transform bossTransform;
     private void Start()
     {
         Coefficient = 1.0f;
-        boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
+        boss = GameObject.FindWithTag("Boss").GetComponent<Boss_LadyBug>();
         bossTransform = GameObject.FindWithTag("Boss").GetComponent<Transform>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         boss.Charged();

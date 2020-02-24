@@ -6,6 +6,7 @@ public class StageManager : MonoBehaviour
 {
     private int beat;
     private int score;
+
     [SerializeField]
     private int lastBeat = 0;
 
@@ -14,37 +15,40 @@ public class StageManager : MonoBehaviour
 
     [SerializeField]
     private List<int> phaseUpBeat = new List<int>();
+    
     private AudioSource audioSource;
 
-    public int Beat { get => beat; set => beat = value; }
-
-
     [SerializeField]
-    private GameObject blackBackground = null;
+    private GameObject blackBackground;
      
     [SerializeField]
     private Phase[] phases;
 
     [SerializeField]
-    private ValueCtrl BeatShame = null;
+    private ValueCtrl BeatValue;
+
     [SerializeField]
-    private ValueCtrl HpShame = null;
+    private ValueCtrl HpValue;
+    
     [SerializeField]
-    private ValueCtrl EnergyShame = null;
+    private ValueCtrl EnergyValue;
 
     private Character _char;
 
     private int phaseUpCount = 0;
     private string filePath;
-    private ICharacter gameChar;
+
 
     [SerializeField]
     private PatternFileRead patterRead;
 
     [SerializeField]
     private int musicNumber = 0;
+    
     [SerializeField]
     private int filePathNumber = 0;
+
+    public int Beat { get => beat; set => beat = value; }
 
     private void Awake(){
         CreateCharacter();
@@ -57,18 +61,16 @@ public class StageManager : MonoBehaviour
         GameManager.instance.soundManager.MusicQueue();
         StartCoroutine(BeatUp());
         StartCoroutine(StageUpdate());
-        HpShame.UpdateValue((int)_char.Hp);
-        EnergyShame.UpdateValue(_char.Energy);
+        HpValue.UpdateValue((int)_char.Hp);
+        EnergyValue.UpdateValue(_char.Energy);
         patterRead.ReadFile(filePath);
     }
 
-
-
     private IEnumerator BeatUp(){
         Beat++;
-        BeatShame.UpdateValue(Beat);
+        BeatValue.UpdateValue(Beat);
 
-        yield return new WaitForSeconds(beatUpSpeed);
+        yield return YieldInstructionCache.WaitingRealTime(beatUpSpeed);
         
         if (beat < lastBeat){
             StartCoroutine(BeatUp());
@@ -81,14 +83,12 @@ public class StageManager : MonoBehaviour
             if(beat.Equals(phaseUpBeat[phaseUpCount]))
                 PhaseUp();
         }
-
     }
 
     private void CreateCharacter(){
         GameObject gameCharacter = Resources.Load<GameObject>("Characters/" + PlayerPrefs.GetString("SelectCharacter"));
         _char = Instantiate(gameCharacter, Vector2.zero,Quaternion.identity).GetComponent<Character>();
         _char.gameObject.transform.tag = "Character";
-        gameChar = _char.GetComponent<ICharacter>();
     }
 
     private void PhaseUp(){
@@ -101,7 +101,7 @@ public class StageManager : MonoBehaviour
         StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackspriteRenderer, 1.0f));
         for (int i = 0; i < 20; i++){
             audioSource.spatialBlend += 0.05f;
-            yield return new WaitForSeconds(0.05f);
+            yield return YieldInstructionCache.WaitingSecond(0.05f);
         }
         audioSource.Stop();
         audioSource.spatialBlend = 0.5f;
@@ -124,59 +124,55 @@ public class StageManager : MonoBehaviour
         SceneManager.LoadScene("03_GameResult");
     }
 
-    private IEnumerator StageUpdate()
-    {
-        HpShame.UpdateValue((int)_char.Hp);
-        EnergyShame.UpdateValue(_char.Energy);
+    private IEnumerator StageUpdate(){
+        HpValue.UpdateValue((int)_char.Hp);
+        EnergyValue.UpdateValue(_char.Energy);
         patterRead.CreatePattern(Beat);
-        if (_char.Hp < 0)
-        {
+        if (_char.Hp < 0){
             //StopCoroutine(BeatUp());
             _char.Death();
             StartCoroutine(GameEnd());
         }
-        else
-        {
+        else{
             yield return YieldInstructionCache.WaitFrame;
             StartCoroutine(StageUpdate());
         }
     }
 
-    public void Update(){
+    private void Update(){
         if (Input.GetKeyDown(KeyCode.LeftArrow))
-            gameChar.SetLeft();
+            _char.SetLeft();
         if (Input.GetKeyUp(KeyCode.LeftArrow))
-            gameChar.SetLeft();
+            _char.SetLeft();
         if (Input.GetKeyDown(KeyCode.RightArrow))
-            gameChar.SetRight();
+            _char.SetRight();
         if (Input.GetKeyUp(KeyCode.RightArrow))
-            gameChar.SetRight();
+            _char.SetRight();
         if (Input.GetKeyDown(KeyCode.Z))
-            gameChar.Jump();
+            _char.Jump();
         if (Input.GetKeyDown(KeyCode.X))
-            gameChar.SpecialAbility();
+            _char.SpecialAbility();
         if (Input.GetKeyUp(KeyCode.X))
-            gameChar.UnSpecialAbility();
+            _char.UnSpecialAbility();
     }
 
     public void MoveLeft(){
-        gameChar.SetLeft();
+        _char.SetLeft();
     }
 
     public void MoveRight(){
-        gameChar.SetRight();
+        _char.SetRight();
     }
 
     public void Jump(){
-        gameChar.Jump();
+        _char.Jump();
     }
 
     public void SpecialAbility(){
-        gameChar.SpecialAbility();
+        _char.SpecialAbility();
     }
 
     public void UnAbility(){
-        gameChar.UnSpecialAbility();
+        _char.UnSpecialAbility();
     }
-
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : StageBoss
+public class Boss_LadyBug : StageBoss
 {
     [SerializeField]
     private SpriteRenderer chargeSprite;

@@ -1542,6 +1542,21 @@ PrefabInstance:
       propertyPath: phaseUpBeat.Array.data[0]
       value: 75
       objectReference: {fileID: 0}
+    - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
+        type: 3}
+      propertyPath: BeatValue
+      value: 
+      objectReference: {fileID: 4188236194745973359}
+    - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
+        type: 3}
+      propertyPath: EnergyValue
+      value: 
+      objectReference: {fileID: 3955233766383513351}
+    - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
+        type: 3}
+      propertyPath: HpValue
+      value: 
+      objectReference: {fileID: 913938068817976135}
     - target: {fileID: 4060510087398980192, guid: bd4addf3913f541aa895ba8bc13ea252,
         type: 3}
       propertyPath: stagePattern
@@ -1718,7 +1733,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7141849457219467362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bf74dbe8054d45238f651baa274a014, type: 3}
+  m_Script: {fileID: 11500000, guid: 88d76e0512f0c489ca19d97fe8b93b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   chargeSprite: {fileID: 7141849457911347734}

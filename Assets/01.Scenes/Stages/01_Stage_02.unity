@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -418,6 +419,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -531,6 +533,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -721,6 +724,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -801,6 +805,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -934,6 +939,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1014,6 +1020,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1275,42 +1282,47 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1227999165156024139, guid: 891dd78225b124a3e81f880bcc003d27,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2073833914}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 891dd78225b124a3e81f880bcc003d27, type: 3}
 --- !u!114 &846995912 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7896730048654870811, guid: 891dd78225b124a3e81f880bcc003d27,
+  m_CorrespondingSourceObject: {fileID: 2875947055189463517, guid: 891dd78225b124a3e81f880bcc003d27,
     type: 3}
   m_PrefabInstance: {fileID: 846995911}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f9dce54437c462480f65cd2cbcc021, type: 3}
+  m_Script: {fileID: 11500000, guid: fad2ead9a3b044dfba618bed1da6bebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &846995913 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6330926176328711515, guid: 891dd78225b124a3e81f880bcc003d27,
+  m_CorrespondingSourceObject: {fileID: 2135919433709217181, guid: 891dd78225b124a3e81f880bcc003d27,
     type: 3}
   m_PrefabInstance: {fileID: 846995911}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f9dce54437c462480f65cd2cbcc021, type: 3}
+  m_Script: {fileID: 11500000, guid: fad2ead9a3b044dfba618bed1da6bebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &846995914 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7019590802080078963, guid: 891dd78225b124a3e81f880bcc003d27,
+  m_CorrespondingSourceObject: {fileID: 3104422825571189941, guid: 891dd78225b124a3e81f880bcc003d27,
     type: 3}
   m_PrefabInstance: {fileID: 846995911}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f9dce54437c462480f65cd2cbcc021, type: 3}
+  m_Script: {fileID: 11500000, guid: fad2ead9a3b044dfba618bed1da6bebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &889692582
@@ -1384,6 +1396,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1529,17 +1542,17 @@ PrefabInstance:
         type: 3}
       propertyPath: BeatShame
       value: 
-      objectReference: {fileID: 846995914}
+      objectReference: {fileID: 0}
     - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
         type: 3}
       propertyPath: EnergyShame
       value: 
-      objectReference: {fileID: 846995912}
+      objectReference: {fileID: 0}
     - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
         type: 3}
       propertyPath: HpShame
       value: 
-      objectReference: {fileID: 846995913}
+      objectReference: {fileID: 0}
     - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
         type: 3}
       propertyPath: musicNumber
@@ -1585,6 +1598,21 @@ PrefabInstance:
       propertyPath: phaseUpBeat.Array.data[2]
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
+        type: 3}
+      propertyPath: BeatValue
+      value: 
+      objectReference: {fileID: 846995914}
+    - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
+        type: 3}
+      propertyPath: HpValue
+      value: 
+      objectReference: {fileID: 846995913}
+    - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
+        type: 3}
+      propertyPath: EnergyValue
+      value: 
+      objectReference: {fileID: 846995912}
     - target: {fileID: 4060510087398980192, guid: bd4addf3913f541aa895ba8bc13ea252,
         type: 3}
       propertyPath: stagePattern
@@ -1821,6 +1849,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1950,6 +1979,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2080,5 +2110,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
