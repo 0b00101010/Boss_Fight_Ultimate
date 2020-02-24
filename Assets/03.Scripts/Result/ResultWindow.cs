@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ResultWindow : MonoBehaviour
 {
-
-    #region UIS
     [SerializeField]
     private Image resultSquare;
     [SerializeField]
@@ -23,13 +21,13 @@ public class ResultWindow : MonoBehaviour
     [SerializeField]
     private Image reTry;
     [SerializeField]
-    private ShameCtrl remainedValue;
+    private ValueCtrl remainedValue;
     [SerializeField]
-    private ShameCtrl hitValue;
-    #endregion UIS
+    private ValueCtrl hitValue;
 
     [SerializeField]
     private ResultSceneManager sceneManager;
+    
     private void Start()
     {
         StartCoroutine(ResultWindowCtrl());
@@ -57,8 +55,8 @@ public class ResultWindow : MonoBehaviour
         StartCoroutine(GameManager.instance.fadeManager.ImageFadeInCoroutine(survivedResult, 0.3f));
         StartCoroutine(GameManager.instance.fadeManager.ImageFadeInCoroutine(remainedHp, 0.3f));
 
-        remainedValue.UpdateShame((int)PlayerPrefs.GetInt("LastGameHp"));
-        hitValue.UpdateShame(PlayerPrefs.GetInt("LastGameHitCount"));
+        remainedValue.UpdateValue((int)PlayerPrefs.GetInt("LastGameHp"));
+        hitValue.UpdateValue(PlayerPrefs.GetInt("LastGameHitCount"));
         rank.sprite = sceneManager.ranks[CompareRank()];
 
         for(int i =0; i < 10; i++)

@@ -26,11 +26,11 @@ public class StageManager : MonoBehaviour
     private Phase[] phases;
 
     [SerializeField]
-    private ShameCtrl BeatShame = null;
+    private ValueCtrl BeatShame = null;
     [SerializeField]
-    private ShameCtrl HpShame = null;
+    private ValueCtrl HpShame = null;
     [SerializeField]
-    private ShameCtrl EnergyShame = null;
+    private ValueCtrl EnergyShame = null;
 
     private Character _char;
 
@@ -57,8 +57,8 @@ public class StageManager : MonoBehaviour
         GameManager.instance.soundManager.MusicQueue();
         StartCoroutine(BeatUp());
         StartCoroutine(StageUpdate());
-        HpShame.UpdateShame((int)_char.Hp);
-        EnergyShame.UpdateShame(_char.Energy);
+        HpShame.UpdateValue((int)_char.Hp);
+        EnergyShame.UpdateValue(_char.Energy);
         patterRead.ReadFile(filePath);
     }
 
@@ -66,7 +66,7 @@ public class StageManager : MonoBehaviour
 
     private IEnumerator BeatUp(){
         Beat++;
-        BeatShame.UpdateShame(Beat);
+        BeatShame.UpdateValue(Beat);
 
         yield return new WaitForSeconds(beatUpSpeed);
         
@@ -126,8 +126,8 @@ public class StageManager : MonoBehaviour
 
     private IEnumerator StageUpdate()
     {
-        HpShame.UpdateShame((int)_char.Hp);
-        EnergyShame.UpdateShame(_char.Energy);
+        HpShame.UpdateValue((int)_char.Hp);
+        EnergyShame.UpdateValue(_char.Energy);
         patterRead.CreatePattern(Beat);
         if (_char.Hp < 0)
         {

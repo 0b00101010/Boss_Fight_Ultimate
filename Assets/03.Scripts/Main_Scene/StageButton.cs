@@ -14,7 +14,7 @@ public class StageButton : MonoBehaviour
     private GameObject[] difficultyButton;
     private string fileText;
     private string[] fileTexts;
-    private ShameCtrl BestScoreValue;
+    private ValueCtrl BestScoreValue;
     private bool isButtonClick = false;
 
     private void Awake()
