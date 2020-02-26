@@ -72,7 +72,6 @@ public class StageManager : MonoBehaviour
         else if (beat == lastBeat){
             StartCoroutine(GameEnd());
         }
-
     }
 
     private void CreateCharacter(){
