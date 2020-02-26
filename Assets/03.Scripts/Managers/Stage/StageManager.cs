@@ -13,16 +13,11 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private float beatUpSpeed = 0;
 
-    [SerializeField]
-    private List<int> phaseUpBeat = new List<int>();
     
     private AudioSource audioSource;
 
     [SerializeField]
     private GameObject blackBackground;
-     
-    [SerializeField]
-    private Phase[] phases;
 
     [SerializeField]
     private ValueCtrl BeatValue;
@@ -35,7 +30,6 @@ public class StageManager : MonoBehaviour
 
     private Character _char;
 
-    private int phaseUpCount = 0;
     private string filePath;
 
 
@@ -78,22 +72,12 @@ public class StageManager : MonoBehaviour
         else if (beat == lastBeat){
             StartCoroutine(GameEnd());
         }
-
-        if (phases.Length > phaseUpCount){
-            if(beat.Equals(phaseUpBeat[phaseUpCount]))
-                PhaseUp();
-        }
     }
 
     private void CreateCharacter(){
         GameObject gameCharacter = Resources.Load<GameObject>("Characters/" + PlayerPrefs.GetString("SelectCharacter"));
         _char = Instantiate(gameCharacter, Vector2.zero,Quaternion.identity).GetComponent<Character>();
         _char.gameObject.transform.tag = "Character";
-    }
-
-    private void PhaseUp(){
-        phases[phaseUpCount].Excute();
-        phaseUpCount++;
     }
 
     private IEnumerator BlackIn(){

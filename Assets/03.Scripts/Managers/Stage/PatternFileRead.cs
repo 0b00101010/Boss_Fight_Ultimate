@@ -8,8 +8,16 @@ public class PatternFileRead : MonoBehaviour
     private List<string> fileStrs = new List<string>();
     private readonly char line = '/';
     private TextAsset file;
+    
     [SerializeField]
+    private GameObject stagePatternObject;
+
     private StagePattern stagePattern;
+    
+
+    private void Start(){
+        stagePattern = stagePatternObject.GetComponent<StagePattern>();
+    }
 
     public void ReadFile(string filePath) {
         file = Resources.Load(filePath) as TextAsset;
@@ -28,7 +36,18 @@ public class PatternFileRead : MonoBehaviour
 
                 if (int.Parse(spString[1]).Equals(nowBeat))
                 {
-                    stagePattern.Excute(int.Parse(spString[2]));
+                    stagePattern.Execute(int.Parse(spString[2]));
+                    fileStrs.Remove(fileStrs[0]);
+                    break;
+                }
+            }
+            else if (str.Contains("#"))
+            {
+                string[] spString = str.Split(line);
+
+                if (int.Parse(spString[1]).Equals(nowBeat))
+                {
+                    stagePattern.PhaseUp();
                     fileStrs.Remove(fileStrs[0]);
                     break;
                 }
