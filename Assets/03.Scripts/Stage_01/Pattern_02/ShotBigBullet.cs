@@ -11,8 +11,6 @@ public class ShotBigBullet : BossPattern
 
     private StageBoss stageBoss;
 
-    private Vector2 newPosition;
-
     private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         stageBoss = GameObject.FindWithTag("Boss").GetComponent<StageBoss>();
@@ -32,8 +30,6 @@ public class ShotBigBullet : BossPattern
         bigBullet.SetDirection(gameObject.transform.position);
 
         bigBullet.Execute();
-        yield return YieldInstructionCache.WaitingSecond(0.2f);
-        bigBullet.GetComponent<CircleCollider2D>().enabled = true;
     }
 
     public void Reset(){

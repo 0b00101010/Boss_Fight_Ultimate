@@ -30,11 +30,16 @@ public class BigBullet : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(){
+    private void OnTriggerEnter2D(Collider2D ohter){
+        if(ohter.CompareTag("Boss") || ohter.CompareTag("Enemy")){
+            return;
+        }
+
         explosion.gameObject.transform.position = gameObject.transform.position;
         explosion.Execute();
         Reset();
     }
+
     // TODO : Character speed down
 
 }
