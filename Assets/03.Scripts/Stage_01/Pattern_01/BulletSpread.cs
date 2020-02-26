@@ -19,6 +19,7 @@ public class BulletSpread : BossPattern
 
     }
     public override void Execute(){
+        NewPositionX();
         gameObject.SetActive(true);
         StartCoroutine(ExecuteCoroutine());
     }

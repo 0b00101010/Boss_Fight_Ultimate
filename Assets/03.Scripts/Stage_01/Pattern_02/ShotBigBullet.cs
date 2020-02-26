@@ -11,12 +11,15 @@ public class ShotBigBullet : BossPattern
 
     private StageBoss stageBoss;
 
+    private Vector2 newPosition;
+
     private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         stageBoss = GameObject.FindWithTag("Boss").GetComponent<StageBoss>();
     }
 
     public override void Execute(){
+        NewPositionX();
         gameObject.SetActive(true);
         StartCoroutine(ExecuteCoroutine());
     }

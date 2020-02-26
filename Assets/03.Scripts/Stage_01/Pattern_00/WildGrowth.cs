@@ -14,6 +14,7 @@ public class WildGrowth : BossPattern
     }
 
     public override void Execute(){
+        NewPositionX();
         gameObject.SetActive(true);
         StartCoroutine(ExecuteCoroutine());
     }
