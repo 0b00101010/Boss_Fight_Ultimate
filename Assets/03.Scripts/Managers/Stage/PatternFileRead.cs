@@ -10,8 +10,15 @@ public class PatternFileRead : MonoBehaviour
     private TextAsset file;
     
     [SerializeField]
+    private GameObject stagePatternObject;
+
     private StagePattern stagePattern;
     
+
+    private void Start(){
+        stagePattern = stagePatternObject.GetComponent<StagePattern>();
+    }
+
     public void ReadFile(string filePath) {
         file = Resources.Load(filePath) as TextAsset;
         string text = file.text;
