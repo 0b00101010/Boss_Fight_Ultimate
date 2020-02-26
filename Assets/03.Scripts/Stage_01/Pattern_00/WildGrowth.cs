@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WildGrowth : MonoBehaviour, IBossPattern
+public class WildGrowth : BossPattern
 {
     private SpriteRenderer spriteRenderer;
 
@@ -13,7 +13,7 @@ public class WildGrowth : MonoBehaviour, IBossPattern
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
-    public void Execute(){
+    public override void Execute(){
         gameObject.SetActive(true);
         StartCoroutine(ExecuteCoroutine());
     }

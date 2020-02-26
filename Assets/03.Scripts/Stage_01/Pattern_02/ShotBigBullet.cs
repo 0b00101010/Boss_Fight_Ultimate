@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotBigBullet : MonoBehaviour, IBossPattern
+public class ShotBigBullet : BossPattern
 {
     private SpriteRenderer spriteRenderer;
 
@@ -16,7 +16,7 @@ public class ShotBigBullet : MonoBehaviour, IBossPattern
         stageBoss = GameObject.FindWithTag("Boss").GetComponent<StageBoss>();
     }
 
-    public void Execute(){
+    public override void Execute(){
         gameObject.SetActive(true);
         StartCoroutine(ExecuteCoroutine());
     }

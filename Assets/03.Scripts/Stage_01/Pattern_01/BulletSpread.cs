@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletSpread : MonoBehaviour, IBossPattern
+public class BulletSpread : BossPattern
 {
     private SpriteRenderer spriteRenderer;
 
@@ -18,7 +18,7 @@ public class BulletSpread : MonoBehaviour, IBossPattern
         crosshairSmallerSize = new Vector3(0.1f,0.1f,0.1f);
 
     }
-    public void Execute(){
+    public override void Execute(){
         gameObject.SetActive(true);
         StartCoroutine(ExecuteCoroutine());
     }
