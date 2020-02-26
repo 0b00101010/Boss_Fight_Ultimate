@@ -8,9 +8,10 @@ public class PatternFileRead : MonoBehaviour
     private List<string> fileStrs = new List<string>();
     private readonly char line = '/';
     private TextAsset file;
+    
     [SerializeField]
     private StagePattern stagePattern;
-
+    
     public void ReadFile(string filePath) {
         file = Resources.Load(filePath) as TextAsset;
         string text = file.text;
@@ -28,7 +29,7 @@ public class PatternFileRead : MonoBehaviour
 
                 if (int.Parse(spString[1]).Equals(nowBeat))
                 {
-                    stagePattern.Excute(int.Parse(spString[2]));
+                    stagePattern.Execute(int.Parse(spString[2]));
                     fileStrs.Remove(fileStrs[0]);
                     break;
                 }
