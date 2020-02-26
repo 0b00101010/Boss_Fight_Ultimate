@@ -34,6 +34,17 @@ public class PatternFileRead : MonoBehaviour
                     break;
                 }
             }
+            else if (str.Contains("#"))
+            {
+                string[] spString = str.Split(line);
+
+                if (int.Parse(spString[1]).Equals(nowBeat))
+                {
+                    stagePattern.PhaseUp();
+                    fileStrs.Remove(fileStrs[0]);
+                    break;
+                }
+            }
         }
     }
 

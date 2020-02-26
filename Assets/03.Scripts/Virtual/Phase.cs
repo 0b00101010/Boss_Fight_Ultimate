@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class Phase : MonoBehaviour
 {
-    public abstract void Excute();
+    public abstract void Execute();
 }
