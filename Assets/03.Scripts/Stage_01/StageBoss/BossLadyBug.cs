@@ -37,12 +37,8 @@ public class BossLadyBug : StageBoss, StagePattern
         foreach(BossPattern tempPattern in tempPatterns){
             shotBigBullet.Add(tempPattern);
         }
-
+        Damage = 50.0f;
         greatMigration = gameObject.GetComponent<GreatMigration>();
-    }
-
-    private void Start(){
-        Damage = 50;
     }
 
     public void Execute(int patternNumber){

@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class BigBullet : MonoBehaviour
+public class BigBullet : Enemy
 {
     private Rigidbody2D rigidBody;
     private Vector2 direction;
@@ -14,6 +14,7 @@ public class BigBullet : MonoBehaviour
     
     private void Awake(){
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
+        Coefficient = 0;
     }
 
     public void SetDirection(Vector2 cautionPosition){
