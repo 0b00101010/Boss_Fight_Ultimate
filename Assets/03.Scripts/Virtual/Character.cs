@@ -74,7 +74,7 @@ public class Character : MonoBehaviour, ICharacter
     public int Ability_ID { get => ability_ID; set => ability_ID = value; }
     public int Skill_ID { get => skill_ID; set => skill_ID = value; }
     #endregion Property
-
+    // TODO : Division class 
     private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rBody = gameObject.GetComponent<Rigidbody2D>();
@@ -84,56 +84,56 @@ public class Character : MonoBehaviour, ICharacter
     }
 
     protected void IDInit(int char_id, int ability_id, int skill_id){
-        Char_ID = char_id;
-        Ability_ID = ability_id;
-        Skill_ID = skill_id;
+        this.char_ID = char_id;
+        this.ability_ID = ability_id;
+        this.skill_ID = skill_id;
     }
 
     protected void RankInit(int rank, int level_tank, int level_dodge){
-        Rank = rank;
-        Level_Tank = level_tank;
-        Level_Dodge = level_dodge;
+        this.rank = rank;
+        this.level_Tank = level_tank;
+        this.level_Dodge = level_dodge;
     }
 
     protected void StatInit(float char_Speed, int char_Hp, int char_energy,int char_abilityPrice, int jumpForce, ISkill abilitySkill, int maxEnergy = 100){
-        Speed = char_Speed;
-        Hp = char_Hp;
-        MaxHp = char_Hp;
-        Energy = char_energy;
-        JumpForce = jumpForce;
-        MaxSpeed = char_Speed;
-        AbilityPrice = char_abilityPrice;
+        this.speed = char_Speed;
+        this.hp = char_Hp;
+        this.maxHp = char_Hp;
+        this.energy = char_energy;
+        this.jumpForce = jumpForce;
+        this.maxHp = char_Speed;
+        this.abilityPrice = char_abilityPrice;
         this.abilitySkill = abilitySkill;
         this.maxEnergy = maxEnergy;
     }
 
     public void SetLeft(){
-        if (IsLeft){
-            IsLeft = false;
+        if (isLeft){
+            isLeft = false;
         }
-        else if (!IsLeft){
-            IsLeft = true;
+        else if (!isLeft){
+            isLeft = true;
         }
     }
 
     public void SetRight(){
-        if (IsRight){
-            IsRight = false;
+        if (isRight){
+            isRight = false;
         }
-        else if (!IsRight){
-            IsRight = true;
+        else if (!isRight){
+            isRight = true;
         }
     }
 
 
     public void Move(){
-        if (IsLeft){
+        if (isLeft){
             spriteRenderer.flipX = true;
             if(gameObject.transform.position.x - 0.2f > -8.5){
                 gameObject.transform.position += Vector3.left * speed * Time.deltaTime;
             }
         }
-        else if (IsRight){
+        else if (isRight){
             spriteRenderer.flipX = false;
             if (gameObject.transform.position.x + 0.2f < 8.5)
                 gameObject.transform.position += Vector3.right * speed * Time.deltaTime;
@@ -147,7 +147,7 @@ public class Character : MonoBehaviour, ICharacter
             return;
         }
 
-        Vector2 force = new Vector2(0, JumpForce);
+        Vector2 force = new Vector2(0, jumpForce);
         rBody.velocity = force;
 
         if (isJump){
@@ -159,12 +159,12 @@ public class Character : MonoBehaviour, ICharacter
     }
 
     private IEnumerator HealthEnergy() {
-        if(Energy < maxEnergy) {
-            if (Energy + 5 > maxEnergy){
-                Energy = maxEnergy;
+        if(energy < maxEnergy) {
+            if (energy + 5 > maxEnergy){
+                energy = maxEnergy;
             }
             else{
-                Energy += 5;
+                energy += 5;
             }
         }
         yield return YieldInstructionCache.WaitingSecond(1.0f);
@@ -172,11 +172,11 @@ public class Character : MonoBehaviour, ICharacter
     }
 
     public virtual void SpecialAbility(){
-        if (Energy >= abilityPrice){
-            Energy -= abilityPrice;
+        if (energy >= abilityPrice){
+            energy -= abilityPrice;
             spriteRenderer.sprite = charSprites[1];
             abilitySkill.Enter();
-            IsUseAbility = true;
+            isUseAbility = true;
             if(abilitySkill.Repeat()){
                 StartCoroutine(UseAbility());
             }
@@ -188,20 +188,20 @@ public class Character : MonoBehaviour, ICharacter
 
         yield return YieldInstructionCache.WaitingSecond(1.0f);
 
-        if (Energy - AbilityPrice >= 0)
-            Energy -= AbilityPrice;
-        else if (Energy - AbilityPrice < 0){
-            Energy = 0;
-            IsUseAbility = false;
+        if (energy - abilityPrice >= 0)
+            energy -= abilityPrice;
+        else if (energy - abilityPrice < 0){
+            energy = 0;
+            isUseAbility = false;
         }
 
-        if (IsUseAbility){
+        if (isUseAbility){
             StartCoroutine(UseAbility());
         }
     }
 
     public virtual void UnSpecialAbility(){
-        IsUseAbility = false;
+        isUseAbility = false;
         spriteRenderer.sprite = charSprites[0];
         abilitySkill.Exit();
     }
