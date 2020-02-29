@@ -6,10 +6,11 @@ public class BigBulletExplosion : Enemy
 {   
 
     private SpriteRenderer spriteRenderer;
-
+    private ShotBigBullet parentObject;
     private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         Coefficient = 0;
+        parentObject = gameObject.GetComponentInParent<ShotBigBullet>();
     }
 
     public void Execute(){
@@ -19,7 +20,7 @@ public class BigBulletExplosion : Enemy
 
     private IEnumerator ExecuteCoroutine(){
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 0.5f));
-        gameObject.GetComponentInParent<ShotBigBullet>().Reset();
+        parentObject.Execute();
     }
 
     private void Reset(){
