@@ -11,6 +11,8 @@ public class LightPillar : BossPattern{
     
     private SpriteRenderer spriteRenderer;
 
+    public int Index => index;
+
     private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         chaosFantasyLight = gameObject.GetComponentInChildren<ChaosFantasyLight>(true);
