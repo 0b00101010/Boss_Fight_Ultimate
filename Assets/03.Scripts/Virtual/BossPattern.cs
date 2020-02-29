@@ -10,4 +10,10 @@ public abstract class BossPattern : MonoBehaviour{
         newPosition.x = Random.Range(-8.0f, 8.0f);
         gameObject.transform.position = newPosition;
     }
+
+    public void NewPositionY(){
+        newPosition = gameObject.transform.position;
+        newPosition.y = Random.Range(-2.0f, 3.0f);
+        gameObject.transform.position = newPosition;
+    }
 }
