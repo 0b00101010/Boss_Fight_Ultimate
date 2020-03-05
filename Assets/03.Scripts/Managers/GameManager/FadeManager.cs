@@ -11,7 +11,7 @@ public class FadeManager : MonoBehaviour
         Color colorVariable = image.color;
         colorVariable.a = 0;
 
-        for(int i = 0; i < repeatFrame; i++){
+        for(int i = 0; i <= repeatFrame; i++){
             colorVariable.a = ((float)i/repeatFrame);
             image.color = colorVariable;
             yield return YieldInstructionCache.WaitingSecond(spendTime/repeatFrame);    
@@ -22,7 +22,7 @@ public class FadeManager : MonoBehaviour
         Color colorVariable = image.color;
         colorVariable.a = 1;
 
-        for(int i = 0; i < repeatFrame; i++){
+        for(int i = 0; i <= repeatFrame; i++){
             colorVariable.a = 1.0f - ((float)i/repeatFrame);
             image.color = colorVariable;
             yield return YieldInstructionCache.WaitingSecond(spendTime/repeatFrame);
@@ -33,7 +33,7 @@ public class FadeManager : MonoBehaviour
         Color colorVariable = spriteRenderer.color;
         colorVariable.a = 0;
 
-        for(int i = 0; i < repeatFrame; i++){
+        for(int i = 0; i <= repeatFrame; i++){
             colorVariable.a = ((float)i/repeatFrame);
             spriteRenderer.color = colorVariable;
             yield return YieldInstructionCache.WaitingSecond(spendTime/repeatFrame);
@@ -44,7 +44,7 @@ public class FadeManager : MonoBehaviour
         Color colorVariable = spriteRenderer.color;
         colorVariable.a = 1;
 
-        for(int i = 0; i < repeatFrame; i++){
+        for(int i = 0; i <= repeatFrame; i++){
             colorVariable.a = 1.0f - ((float)i/repeatFrame);
             spriteRenderer.color = colorVariable;
             yield return YieldInstructionCache.WaitingSecond(spendTime/repeatFrame);
