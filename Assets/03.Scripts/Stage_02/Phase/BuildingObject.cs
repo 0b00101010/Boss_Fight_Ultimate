@@ -17,6 +17,9 @@ public class BuildingObject : MonoBehaviour
 
     [SerializeField]
     private Sprite blackBulidings;
+    
+    [SerializeField]
+    private Sprite grayBulidings;
 
     private void Awake(){
         moveVector = Vector2.left * 0.7f;
@@ -57,6 +60,12 @@ public class BuildingObject : MonoBehaviour
         }
     }
 
+    public void ChangeBulidingColorGray(){
+        for(int i = 0; i < buildingSpriteRenderers.Count; i++){
+            buildingSpriteRenderers[i].sprite = grayBulidings;
+        }
+    }
+
     public void ChangeBulidingColorBlack(){
         for(int i = 0; i < buildingSpriteRenderers.Count; i++){
             buildingSpriteRenderers[i].sprite = blackBulidings;
@@ -74,5 +83,19 @@ public class BuildingObject : MonoBehaviour
             buildingSpriteRenderers[i].gameObject.SetActive(false);
         }
     }
-    
+
+    public IEnumerator ScaleDownCoroutine(){
+        for(int i = 0; i < 60; i++){
+            for(int j = 0; j < buildings.Length; j++){
+                buildings[j].gameObject.transform.localScale -= (Vector3.one / 200);
+            }
+            yield return YieldInstructionCache.WaitingSecond(0.05f);
+        }
+    }
+
+    public void ScaleReset(){
+        for(int i = 0; i < buildings.Length; i++){
+            buildings[i].gameObject.transform.localScale = Vector3.one;
+        }
+    }
 }

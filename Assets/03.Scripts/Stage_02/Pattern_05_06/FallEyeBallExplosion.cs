@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EyeBallExplosion : MonoBehaviour
+public class FallEyeBallExplosion : MonoBehaviour
 {
-    private ShotFallEyeBall parentObject;
+   private ShotFallEyeBall parentObject;
     private SpriteRenderer spriteRenderer;
 
     private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         parentObject = gameObject.GetComponentInParent<ShotFallEyeBall>(true);
+    }
+
+    private void Start(){
+        Execute();
     }
 
     public void Execute(){
@@ -26,5 +30,4 @@ public class EyeBallExplosion : MonoBehaviour
     private void Reset(){
         spriteRenderer.color = Color.white;
     }
-    
 }
