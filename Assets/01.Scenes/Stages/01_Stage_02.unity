@@ -9151,7 +9151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingObject: {fileID: 939499641}
-  blackBackground: {fileID: 0}
+  blackBackground: {fileID: 1446577627}
 --- !u!4 &1855792123
 Transform:
   m_ObjectHideFlags: 0
