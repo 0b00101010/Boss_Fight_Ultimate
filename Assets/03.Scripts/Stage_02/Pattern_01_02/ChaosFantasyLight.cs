@@ -8,6 +8,7 @@ public class ChaosFantasyLight : Enemy
 
     private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        Coefficient = 0.3f;
     }
 
     public IEnumerator Execute(){

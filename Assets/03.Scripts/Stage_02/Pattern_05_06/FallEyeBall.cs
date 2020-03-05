@@ -14,6 +14,7 @@ public class FallEyeBall : Enemy
     private void Awake(){
         rigidBody = gameObject.GetComponent<Rigidbody2D>();    
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        Coefficient = 0.5f;
     }
 
     public void Execute(){

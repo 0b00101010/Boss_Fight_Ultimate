@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class LongRazor : BossPattern
 {
-
-    private void Start(){
-        Execute();
-    }
-
     public override void Execute(){
         gameObject.SetActive(true);
         StartCoroutine(ExecuteCoroutine());
