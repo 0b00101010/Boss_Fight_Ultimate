@@ -34,10 +34,10 @@ public class SecondPhase : Phase
         buildingObjects.MoveBuilding();
         groundController.PanelGroundOn();
 
-        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(whiteBackground,0.2f));
-        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(blackBackground,0.2f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(whiteBackground,0.3f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(blackBackground,0.3f));
         whiteBackground.color = Color.white;
-        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(whiteBackground,0.2f));
+        yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(whiteBackground,0.7f));
 
     
     }

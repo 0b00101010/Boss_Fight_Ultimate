@@ -8,7 +8,7 @@ public class EyeBall : Enemy
 
     private SpriteRenderer spriteRenderer;
 
-    private Vector3 smallerSize = Vector3.one / 30f;
+    private Vector3 smallerSize = Vector3.one / 60f;
     private Rigidbody2D rigidBody;
     private Vector2 direction;
 

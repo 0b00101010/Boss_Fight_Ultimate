@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EyeBallExplosion : MonoBehaviour
 {
-    private ShotFallEyeBall parentObject;
+    private ShotEyeBall parentObject;
     private SpriteRenderer spriteRenderer;
 
     private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        parentObject = gameObject.GetComponentInParent<ShotFallEyeBall>(true);
+        parentObject = gameObject.GetComponentInParent<ShotEyeBall>(true);
     }
 
     public void Execute(){
@@ -24,6 +24,7 @@ public class EyeBallExplosion : MonoBehaviour
     }
 
     private void Reset(){
+        gameObject.SetActive(false);
         spriteRenderer.color = Color.white;
     }
     

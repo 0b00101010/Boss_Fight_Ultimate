@@ -28,6 +28,7 @@ public class FallEyeBallExplosion : MonoBehaviour
     }
 
     private void Reset(){
+        gameObject.SetActive(false);
         spriteRenderer.color = Color.white;
     }
 }

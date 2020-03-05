@@ -11,11 +11,7 @@ public class ShotEyeBall : BossPattern
         stageBoss = GameObject.FindWithTag("Boss").GetComponent<StageBoss>();
         eyeBall = gameObject.GetComponentInChildren<EyeBall>(true);
     }
-
-    private void Start(){
-        Execute();
-    }
-
+    
     public override void Execute(){
         gameObject.SetActive(true);
         NewPositionX();
