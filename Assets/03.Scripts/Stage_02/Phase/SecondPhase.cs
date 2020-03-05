@@ -22,11 +22,6 @@ public class SecondPhase : Phase
     [SerializeField]
     private GroundController groundController;
 
-    private void Update(){
-        if(Input.GetMouseButtonDown(0)){
-            Execute();
-        }
-    }
     public override void Execute(){
         backgroundSpriteRenderer.sprite = secondPhaseBackground;
         StartCoroutine(ExecuteCoroutine());
