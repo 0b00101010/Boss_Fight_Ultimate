@@ -63,5 +63,16 @@ public class BuildingObject : MonoBehaviour
         }
     }
 
+    public void BulidingOn(){
+        for(int i = 0; i < buildingSpriteRenderers.Count; i++){
+            buildingSpriteRenderers[i].gameObject.SetActive(true);
+        }
+    }
+
+    public void BulidingOff(){
+        for(int i = 0; i < buildingSpriteRenderers.Count; i++){
+            buildingSpriteRenderers[i].gameObject.SetActive(false);
+        }
+    }
     
 }

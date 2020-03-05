@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 409682149847202084}
   - component: {fileID: 409682149847202087}
   - component: {fileID: 409682149847202086}
-  - component: {fileID: 5503092113750608825}
+  - component: {fileID: 3669021522863289804}
   m_Layer: 0
-  m_Name: longrazor
+  m_Name: LongRazor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &409682149847202084
 Transform:
   m_ObjectHideFlags: 0
@@ -47,6 +47,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -96,7 +97,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 0}
---- !u!114 &5503092113750608825
+--- !u!114 &3669021522863289804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,6 +106,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 409682149847202081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd97f48793234412a532a6893c1624e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3587a9450aa1c4963ac84271cdc1d1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
