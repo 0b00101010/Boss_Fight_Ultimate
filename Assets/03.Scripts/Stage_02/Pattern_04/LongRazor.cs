@@ -25,5 +25,5 @@ public class LongRazor : BossPattern
     private void Reset(){
         gameObject.SetActive(false);
     }
-
+    // TODO : 데미지 입히기
 }
