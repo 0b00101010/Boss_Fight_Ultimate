@@ -4230,7 +4230,7 @@ PrefabInstance:
     - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
         type: 3}
       propertyPath: lastBeat
-      value: 226
+      value: 224
       objectReference: {fileID: 0}
     - target: {fileID: 4060510087398980195, guid: bd4addf3913f541aa895ba8bc13ea252,
         type: 3}
