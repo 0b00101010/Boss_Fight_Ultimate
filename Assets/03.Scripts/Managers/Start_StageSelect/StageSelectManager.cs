@@ -30,12 +30,18 @@ public class StageSelectManager : MonoBehaviour
 
     private SpriteRenderer blackBackgroundSpriteRenderer;
 
+    private CreateAfterImageBlock createAfterImageBlock;
+
     private bool isButtonClick = false;
 
     private void Start(){
         StartCoroutine(ImageUpdate());
+        
         blackBackgroundSpriteRenderer = blackBackground.GetComponent<SpriteRenderer>();
         StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(blackBackgroundSpriteRenderer,1.0f));
+        
+        createAfterImageBlock = gameObject.GetComponent<CreateAfterImageBlock>();
+        
         curStageNumber = 0;
         curStage = stages[curStageNumber];
         curStage.gameObject.transform.localScale += new Vector3(0.4f, 0.4f, 0.4f);
@@ -183,6 +189,7 @@ public class StageSelectManager : MonoBehaviour
 
     private IEnumerator BlackWaitToCharacterScene(){
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(blackBackground.GetComponent<SpriteRenderer>(),0.5f));
+        createAfterImageBlock.StopCreateAfterImage();
         SceneManager.LoadScene("04_CharacterSelect");
     }
 }

@@ -10,13 +10,17 @@ public class CreateAfterImageBlock : MonoBehaviour
     [SerializeField]
     private List<AfterImageBlock> afterImageBlocks = new List<AfterImageBlock>();
 
+    private IEnumerator createRandomBlockCoroutine;
+
     private int skipNumber = 0; 
     private void Start() {
-        CraeteRandomBlockCallBack();
+        createRandomBlockCoroutine = CreateRandomBlock();
+        StartCoroutine(createRandomBlockCoroutine);
     }
 
-    private void CraeteRandomBlockCallBack(){
-        StartCoroutine(CreateRandomBlock());
+
+    public void StopCreateAfterImage(){
+        StopCoroutine(createRandomBlockCoroutine);
     }
 
     private IEnumerator CreateRandomBlock()
