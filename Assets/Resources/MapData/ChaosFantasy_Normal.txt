@@ -1,1 +1,1 @@
-BestScore;32
+BestScore;14285.71
