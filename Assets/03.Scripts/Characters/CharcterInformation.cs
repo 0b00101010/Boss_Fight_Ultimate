@@ -10,4 +10,8 @@ public class CharcterInformation : ScriptableObject
     
     [SerializeField]
     private string description;
+    
+    public string CharacterName => CharacterName;
+    public string Description => description;
+
 }
