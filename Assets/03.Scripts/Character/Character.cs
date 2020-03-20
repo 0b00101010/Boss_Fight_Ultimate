@@ -51,10 +51,12 @@ public class Character : MonoBehaviour, ICharacter
     protected Rigidbody2D rBody;
 
     [SerializeField]
-    private GameObject hitBackGround;
+    private SpriteRenderer hitBackGround;
 
     [SerializeField]
     private Sprite deathEffect;
+    private Vector2 jumpForceVector;        
+    private EnemyDamage enemyDamage;
 
     #region Property
     public float Speed { get => speed; set => speed = value; }
@@ -78,8 +80,15 @@ public class Character : MonoBehaviour, ICharacter
     private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rBody = gameObject.GetComponent<Rigidbody2D>();
-        hitBackGround = GameObject.FindWithTag("HitBackGround");
+
+        enemyDamage = GameObject.FindWithTag("StageManager").GetComponent<EnemyDamage>();
+        hitBackGround = GameObject.FindWithTag("HitBackGround").GetComponent<SpriteRenderer>();
+
+        jumpForceVector.x = 0;
+        jumpForceVector.y = jumpForce;
+        
         PlayerPrefs.SetInt("LastGameHitCount", 0);
+
         StartCoroutine(HealthEnergy());
     }
 
@@ -147,8 +156,7 @@ public class Character : MonoBehaviour, ICharacter
             return;
         }
 
-        Vector2 force = new Vector2(0, jumpForce);
-        rBody.velocity = force;
+        rBody.velocity = jumpForceVector;
 
         if (isJump){
             doubleJump = true;
@@ -156,6 +164,7 @@ public class Character : MonoBehaviour, ICharacter
         else{
             isJump = true;
         }
+        
     }
 
     private IEnumerator HealthEnergy() {
@@ -236,7 +245,7 @@ public class Character : MonoBehaviour, ICharacter
     }
 
     private void Hit(GameObject other){
-        float damage = GameObject.FindWithTag("StageManager").GetComponent<EnemyDamage>().GetDamage(other.gameObject.GetComponent<Enemy>());
+        float damage = enemyDamage.GetDamage(other.gameObject.GetComponent<Enemy>());
         hp -= damage;
         other.transform.tag = "Untagged";
         PlayerPrefs.SetInt("LastGameHitCount", PlayerPrefs.GetInt("LastGameHitCount") + 1);
@@ -245,12 +254,13 @@ public class Character : MonoBehaviour, ICharacter
 
     private IEnumerator FadeInOut() {
         gameObject.transform.tag = "Untagged";
-        SpriteRenderer backgroundRenderer = hitBackGround.GetComponent<SpriteRenderer>();
-        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(backgroundRenderer, 0.5f));
+        
+        StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(hitBackGround, 0.5f));
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 0.15f));
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(spriteRenderer,0.15f));
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 0.15f));
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeInCoroutine(spriteRenderer, 0.15f));
+        
         gameObject.transform.tag = "Character";
     }
 
@@ -268,12 +278,11 @@ public class Character : MonoBehaviour, ICharacter
             target.transform.SetParent(gameObject.transform);
         }
         target.transform.localScale = Vector3.one;
+        GameManager.instance.fadeManager.SpriteFadeOutCoroutine(tagetSpriteRenderer,0.3f);
 
         for (int i = 0; i < 10; i++) {
             yield return YieldInstructionCache.WaitingSecond(0.03f);
-
-            target.transform.localScale += new Vector3(0.05f,0.05f,0.05f);
-            tagetSpriteRenderer.color = new Color(tagetSpriteRenderer.color.r, tagetSpriteRenderer.color.g, tagetSpriteRenderer.color.b, tagetSpriteRenderer.color.a - 0.1f);
+            target.transform.localScale += Vector3.one / 20;
         }
         Destroy(target);
     }
