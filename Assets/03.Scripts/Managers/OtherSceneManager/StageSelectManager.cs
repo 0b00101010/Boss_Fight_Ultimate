@@ -46,6 +46,8 @@ public class StageSelectManager : MonoBehaviour
         curStage = stages[curStageNumber];
         curStage.gameObject.transform.localScale += new Vector3(0.4f, 0.4f, 0.4f);
         musicVolumeSlider.value = GameManager.instance.soundManager.Volume;
+
+        createAfterImageBlock.StartCreateAfterImage();
     }
 
     private IEnumerator ImageUpdate(){
