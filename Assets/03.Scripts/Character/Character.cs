@@ -81,8 +81,8 @@ public class Character : MonoBehaviour, ICharacter
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rBody = gameObject.GetComponent<Rigidbody2D>();
 
-        enemyDamage = GameObject.FindWithTag("StageManager").GetComponent<EnemyDamage>();
-        hitBackGround = GameObject.FindWithTag("HitBackGround").GetComponent<SpriteRenderer>();
+        enemyDamage = GameObject.FindWithTag("StageManager")?.GetComponent<EnemyDamage>() ?? null;
+        hitBackGround = GameObject.FindWithTag("HitBackGround")?.GetComponent<SpriteRenderer>() ?? null;
 
         jumpForceVector.x = 0;
         jumpForceVector.y = jumpForce;
