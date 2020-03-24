@@ -19,13 +19,18 @@ public class StartManager : MonoBehaviour
     private float transparency = 1.0f;
     private int transparencySwitch = 1;
 
-
+    private CreateAfterImageBlock createAfterImage;
     private float titleTransparency = 1.0f;
     #endregion Var
+
+    private void Awake(){
+        createAfterImage = gameObject.GetComponent<CreateAfterImageBlock>();
+    }
 
     private void Start()
     {
         StartCoroutine(SetTransparency());
+        createAfterImage.StartCreateAfterImage();
     }
 
     private void Update()

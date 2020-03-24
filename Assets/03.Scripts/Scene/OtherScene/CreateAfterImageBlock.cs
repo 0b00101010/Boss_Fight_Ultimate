@@ -13,12 +13,13 @@ public class CreateAfterImageBlock : MonoBehaviour
     private IEnumerator createRandomBlockCoroutine;
 
     private int skipNumber = 0; 
-    private void Start() {
+    public void StartCreateAfterImage() {
         createRandomBlockCoroutine = CreateRandomBlock();
         StartCoroutine(createRandomBlockCoroutine);
     }
 
 
+    [ContextMenu("Bodka")]
     public void StopCreateAfterImage(){
         StopCoroutine(createRandomBlockCoroutine);
     }
@@ -31,17 +32,16 @@ public class CreateAfterImageBlock : MonoBehaviour
                 if(afterImageBlockSpriteRenderers[i].gameObject.activeInHierarchy){
                     continue;
                 }
-                
                 afterImageBlockSpriteRenderers[i].gameObject.SetActive(true);
 
                 Color afterColor = Color.white;
-                
+                    
                 afterColor.a = Random.Range(0.0f, 1.0f);
-                
+                    
                 Vector2 newScale;
                 newScale.x = Random.Range(0.5f, 1.0f);
                 newScale.y = newScale.x;
-                
+                    
                 Vector2 newPosition;
                 newPosition.x = Random.Range(-8.0f, 8.0f);
                 newPosition.y = Random.Range(-4.0f, 4.0f);
@@ -49,11 +49,10 @@ public class CreateAfterImageBlock : MonoBehaviour
                 afterImageBlockSpriteRenderers[i].color = afterColor;
                 afterImageBlockSpriteRenderers[i].gameObject.transform.localScale = newScale;
                 afterImageBlockSpriteRenderers[i].gameObject.transform.position = newPosition;
-                
-                StartCoroutine(afterImageBlocks[i].FadeOut());
-                
+                    
+                StartCoroutine(afterImageBlocks[i].FadeOut());   
+
                 yield return YieldInstructionCache.WaitFrame;
-                
             }
             yield return YieldInstructionCache.WaitingSecond(0.9f);
         }
