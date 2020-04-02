@@ -83,9 +83,6 @@ public class Character : MonoBehaviour, ICharacter
 
         enemyDamage = GameObject.FindWithTag("StageManager")?.GetComponent<EnemyDamage>() ?? null;
         hitBackGround = GameObject.FindWithTag("HitBackGround")?.GetComponent<SpriteRenderer>() ?? null;
-
-        jumpForceVector.x = 0;
-        jumpForceVector.y = jumpForce;
         
         PlayerPrefs.SetInt("LastGameHitCount", 0);
 
@@ -110,6 +107,7 @@ public class Character : MonoBehaviour, ICharacter
         this.maxHp = char_Hp;
         this.energy = char_energy;
         this.jumpForce = jumpForce;
+        this.jumpForceVector.y = this.jumpForce;
         this.maxHp = char_Speed;
         this.abilityPrice = char_abilityPrice;
         this.abilitySkill = abilitySkill;
