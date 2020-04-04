@@ -47,7 +47,7 @@ public class BuildingObject : MonoBehaviour
             for(int i = 0; i < buildings.Length; i++){
                 buildings[i].transform.Translate(moveVector);
                 if(buildings[i].gameObject.transform.position.x <= -19.0f){
-                    buildings[i].gameObject.transform.position = defaultPosition;
+                    buildings[i].gameObject.transform.localPosition = defaultPosition;
                 }
             }    
             yield return YieldInstructionCache.WaitingSecond(0.02f);
@@ -95,7 +95,7 @@ public class BuildingObject : MonoBehaviour
 
     public void ScaleReset(){
         for(int i = 0; i < buildings.Length; i++){
-            buildings[i].gameObject.transform.localScale = Vector3.one;
+            buildings[i].gameObject.transform.localScale = Vector2.one;
         }
     }
 }
