@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class BigBulletExplosion : Enemy
 {   
-
+    private Color defaultColor;
     private SpriteRenderer spriteRenderer;
     private ShotBigBullet parentObject;
+
     private void Awake(){
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        Coefficient = 0;
         parentObject = gameObject.GetComponentInParent<ShotBigBullet>();
+        
+        defaultColor = spriteRenderer.color;
+        Coefficient = 0;
     }
 
     public void Execute(){
@@ -20,11 +23,13 @@ public class BigBulletExplosion : Enemy
 
     private IEnumerator ExecuteCoroutine(){
         yield return StartCoroutine(GameManager.instance.fadeManager.SpriteFadeOutCoroutine(spriteRenderer, 0.5f));
-        parentObject.Execute();
+        parentObject.Reset();
+        Reset();
     }
 
     private void Reset(){
-        spriteRenderer.color = Color.white;
+        spriteRenderer.color = defaultColor;
         gameObject.transform.localPosition = Vector2.zero;
+        gameObject.SetActive(false);
     }
 }
