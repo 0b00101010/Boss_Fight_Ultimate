@@ -61,3 +61,16 @@ crashlytics-build.properties
 Assets/Resources/MapData
 key
 Assets/Resources/MapData
+Assets/GooglePlayGames
+Assets/ExternalDependencyManager
+
+Assets/Plugins/Android
+
+
+Assets/Plugins/Android.meta
+Assets/ExternalDependencyManager.meta
+Assets/GooglePlayGames.meta
+Assets/Plugins.meta
+ProjectSettings/GvhProjectSettings.xml
+ProjectSettings/GooglePlayGameSettings.txt
+ProjectSettings/AndroidResolverDependencies.xml
