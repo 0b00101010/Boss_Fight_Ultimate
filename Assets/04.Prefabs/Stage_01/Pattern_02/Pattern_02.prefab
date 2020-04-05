@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 8498860678892797479}
   - component: {fileID: 6747084040644381513}
   - component: {fileID: 4802455352783508260}
+  - component: {fileID: 4113370110287688696}
   m_Layer: 0
   m_Name: BigBulletExplosion
   m_TagString: Enemy
@@ -325,3 +326,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5955910369cc42b4b2ab2c8af41c871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &4113370110287688696
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2258203861091136742}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.855

@@ -22,7 +22,7 @@ public class LadyBugSecondPhase : Phase
 
         while(true){
             if((repeatTime - spendTime) < 0){
-                GetUsePossibleRain().Execute();
+                GetUsePossibleRain()?.Execute();
                 repeatTime = Random.Range(0.01f,0.1f);
                 spendTime = 0;
             }
